@@ -60,6 +60,7 @@
     .edge-row { display: flex; align-items: center; gap: 8px; padding: 3px 5px; font-size: 11px; }
     .edge-line { width: 28px; height: 2px; flex-shrink: 0; }
     .edge-dashed { background: repeating-linear-gradient(90deg,#F79F1A 0 5px,transparent 5px 9px); }
+    .edge-inferred { background: repeating-linear-gradient(90deg,#58a6ff 0 4px,transparent 4px 7px); }
     .edge-solid  { background: #30363d; }
 
     .sidebar-section { margin-top: 14px; }
@@ -159,7 +160,8 @@
 
     <div class="edge-legend">
       <h2 style="margin-top:12px;">Edge Types</h2>
-      <div class="edge-row"><div class="edge-line edge-solid"></div><span>Tool → Tool</span></div>
+      <div class="edge-row"><div class="edge-line edge-solid"></div><span>Tool → Tool (Manual)</span></div>
+      <div class="edge-row"><div class="edge-line edge-inferred"></div><span style="color:#58a6ff">Tool → Tool (Inferred)</span></div>
       <div class="edge-row"><div class="edge-line edge-dashed"></div><span style="color:#F79F1A">User / Agent → Tool</span></div>
     </div>
 
@@ -298,24 +300,28 @@ function init(data) {
   // Edges — separate tool vs user-input styling
   const visEdges = rawEdges.map(e => {
     const isUser = e.source === "user";
+    const isInferred = !!e.inferred;
     return {
       id: e.id,
       from: e.from,
       to: e.to,
       label: e.label,
-      title: e.title,
+      title: `${e.title}<br/><b>Confidence:</b> ${e.confidence ?? 1.0}`,
       source: e.source,
+      inferred: isInferred,
       color: isUser
         ? { color: "#F79F1A", opacity: 0.8, highlight: "#ffd57e", hover: "#ffd57e" }
-        : { color: "#30363d", highlight: "#58a6ff", hover: "#79c0ff" },
+        : (isInferred
+            ? { color: "#58a6ff", opacity: 0.7, highlight: "#79c0ff", hover: "#79c0ff" }
+            : { color: "#30363d", highlight: "#58a6ff", hover: "#79c0ff" }),
       font: {
-        color: isUser ? "#b07020" : "#6e7681",
+        color: isUser ? "#b07020" : (isInferred ? "#58a6ff" : "#6e7681"),
         size: 9, align: "middle", background: "#161b22",
       },
-      dashes: isUser ? [5, 5] : false,
+      dashes: isUser ? [5, 5] : (isInferred ? [4, 4] : false),
       arrows: { to: { enabled: true, scaleFactor: 0.6 } },
       smooth: { enabled: true, type: "dynamic" },
-      width: isUser ? 1 : 1,
+      width: isUser ? 1 : (isInferred ? 1.2 : 1.5),
       hidden: isUser ? !showUserEdges : false,
     };
   });
@@ -380,9 +386,9 @@ function init(data) {
 }
 
 function getDefaultEdgeColor(e) {
-  return e.source === "user"
-    ? { color: "#F79F1A", opacity: 0.8, highlight: "#ffd57e", hover: "#ffd57e" }
-    : { color: "#30363d", highlight: "#58a6ff", hover: "#79c0ff" };
+  if (e.source === "user") return { color: "#F79F1A", opacity: 0.8, highlight: "#ffd57e", hover: "#ffd57e" };
+  if (e.inferred) return { color: "#58a6ff", opacity: 0.7, highlight: "#79c0ff", hover: "#79c0ff" };
+  return { color: "#30363d", highlight: "#58a6ff", hover: "#79c0ff" };
 }
 
 function buildLegend(groups, rawNodes) {
@@ -465,7 +471,8 @@ function selectNode(nodeId, rawNodes, rawEdges) {
     depSec.style.display = "block";
     depList.innerHTML = incoming.map(e => {
       const src = rawNodes.find(n => n.id === e.from);
-      return `<li><span class="dep-name" onclick="focusNode('${e.from}')">${src?.label ?? e.from}</span><span class="dep-param">${e.parameter}</span></li>`;
+      const conf = e.confidence ? ` <small style="color:#6e7681">(${e.confidence})</small>` : "";
+      return `<li><span class="dep-name" onclick="focusNode('${e.from}')">${src?.label ?? e.from}</span>${conf}<span class="dep-param">${e.parameter}</span></li>`;
     }).join("");
   } else depSec.style.display = "none";
 
@@ -477,7 +484,8 @@ function selectNode(nodeId, rawNodes, rawEdges) {
     enSec.style.display = "block";
     enList.innerHTML = outgoing.map(e => {
       const tgt = rawNodes.find(n => n.id === e.to);
-      return `<li><span class="dep-arrow">→</span><span class="dep-name" onclick="focusNode('${e.to}')">${tgt?.label ?? e.to}</span><span class="dep-param">${e.parameter}</span></li>`;
+      const conf = e.confidence ? ` <small style="color:#6e7681">(${e.confidence})</small>` : "";
+      return `<li><span class="dep-arrow">→</span><span class="dep-name" onclick="focusNode('${e.to}')">${tgt?.label ?? e.to}</span>${conf}<span class="dep-param">${e.parameter}</span></li>`;
     }).join("");
   } else enSec.style.display = "none";
 
