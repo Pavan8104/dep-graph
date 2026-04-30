@@ -30,6 +30,8 @@ export interface DependencyEdge {
   to: string;
   parameter: string;
   source: "tool" | "user";
+  inferred?: boolean;
+  confidence?: number;
 }
 
 export interface GroupConfig {
@@ -66,6 +68,11 @@ export interface GraphData {
     title: string;
     parameter: string;
     source: "tool" | "user";
+    /** true = edge was auto-inferred from provides/requires schema */
+    inferred: boolean;
+    confidence: number;
     arrows: string;
   }[];
+  /** Total auto-inferred tool-to-tool edges (subset of total_dependencies) */
+  inferred_dependencies?: number;
 }

@@ -1,16 +1,17 @@
 {
   "metadata": {
-    "description": "Tool dependency graph for Google Super and GitHub (Composio toolkits). Edges show parameter flows between tools (source=tool) or from the user/agent (source=user). An agent uses this graph to decide: run a prerequisite tool OR prompt the user.",
+    "description": "Tool dependency graph for Google Super and GitHub (Composio toolkits). Edges show parameter flows between tools (source=tool) or from the user/agent (source=user). Inferred edges are auto-derived by matching requires[] against provides[] across all tools.",
     "toolkits": [
       "googlesuper",
       "github"
     ],
-    "generated_at": "2026-04-30T17:29:48.240Z",
+    "generated_at": "2026-04-30T17:41:46.660Z",
     "total_tools": 126,
-    "total_dependencies": 145,
+    "total_dependencies": 465,
     "total_user_input_edges": 51,
     "composio_enriched": true
   },
+  "inferred_dependencies": 320,
   "groups": {
     "gmail": {
       "color": "#EA4335",
@@ -2528,6 +2529,8 @@
       "title": "<b>List Threads</b> provides <code>thread_id</code> needed by <b>Get Thread</b>",
       "parameter": "thread_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2538,6 +2541,8 @@
       "title": "<b>List Threads</b> provides <code>thread_id</code> needed by <b>Reply to Thread</b>",
       "parameter": "thread_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2548,6 +2553,8 @@
       "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Get Message</b>",
       "parameter": "message_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2558,6 +2565,8 @@
       "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Delete Message</b>",
       "parameter": "message_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2568,6 +2577,8 @@
       "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Modify Email Labels</b>",
       "parameter": "message_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2578,6 +2589,8 @@
       "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Batch Delete Messages</b>",
       "parameter": "message_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2588,6 +2601,8 @@
       "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Batch Modify Messages</b>",
       "parameter": "message_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2598,6 +2613,8 @@
       "title": "<b>List Labels</b> provides <code>label_id</code> needed by <b>Modify Email Labels</b>",
       "parameter": "label_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2608,6 +2625,8 @@
       "title": "<b>List Labels</b> provides <code>label_id</code> needed by <b>Batch Modify Messages</b>",
       "parameter": "label_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2618,6 +2637,8 @@
       "title": "<b>Create Label</b> provides <code>label_id</code> needed by <b>Modify Email Labels</b>",
       "parameter": "label_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2628,6 +2649,8 @@
       "title": "<b>Create Label</b> provides <code>label_id</code> needed by <b>Batch Modify Messages</b>",
       "parameter": "label_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2638,6 +2661,8 @@
       "title": "<b>List Drafts</b> provides <code>draft_id</code> needed by <b>Get Draft</b>",
       "parameter": "draft_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2648,6 +2673,8 @@
       "title": "<b>List Drafts</b> provides <code>draft_id</code> needed by <b>Send Draft</b>",
       "parameter": "draft_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2658,6 +2685,8 @@
       "title": "<b>Create Draft</b> provides <code>draft_id</code> needed by <b>Get Draft</b>",
       "parameter": "draft_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2668,6 +2697,8 @@
       "title": "<b>Create Draft</b> provides <code>draft_id</code> needed by <b>Send Draft</b>",
       "parameter": "draft_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2678,6 +2709,8 @@
       "title": "<b>Search Contacts</b> provides <code>email</code> needed by <b>Send Email</b>",
       "parameter": "email",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2688,6 +2721,8 @@
       "title": "<b>List Contacts</b> provides <code>email</code> needed by <b>Send Email</b>",
       "parameter": "email",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2698,6 +2733,8 @@
       "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Get Calendar</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2708,6 +2745,8 @@
       "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Update Calendar</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2718,6 +2757,8 @@
       "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Delete Calendar</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2728,6 +2769,8 @@
       "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>List Events</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2738,6 +2781,8 @@
       "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Create Event</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2748,6 +2793,8 @@
       "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Clear Calendar</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2758,6 +2805,8 @@
       "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>List ACL Rules</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2768,6 +2817,8 @@
       "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Create ACL Rule</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2778,6 +2829,8 @@
       "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>List Events</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2788,6 +2841,8 @@
       "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Create Event</b>",
       "parameter": "calendar_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2798,6 +2853,8 @@
       "title": "<b>List Events</b> provides <code>event_id</code> needed by <b>Get Event</b>",
       "parameter": "event_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2808,6 +2865,8 @@
       "title": "<b>List Events</b> provides <code>event_id</code> needed by <b>Update Event</b>",
       "parameter": "event_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2818,6 +2877,8 @@
       "title": "<b>List Events</b> provides <code>event_id</code> needed by <b>Delete Event</b>",
       "parameter": "event_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2828,6 +2889,8 @@
       "title": "<b>List ACL Rules</b> provides <code>rule_id</code> needed by <b>Delete ACL Rule</b>",
       "parameter": "rule_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2838,6 +2901,8 @@
       "title": "<b>List ACL Rules</b> provides <code>rule_id</code> needed by <b>Update ACL Rule</b>",
       "parameter": "rule_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2848,6 +2913,8 @@
       "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Get File Metadata</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2858,6 +2925,8 @@
       "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Delete File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2868,6 +2937,8 @@
       "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Download File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2878,6 +2949,8 @@
       "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Copy File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2888,6 +2961,8 @@
       "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Comment on File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2898,6 +2973,8 @@
       "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Share File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2908,6 +2985,8 @@
       "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Move to Folder</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2918,6 +2997,8 @@
       "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Get File Metadata</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2928,6 +3009,8 @@
       "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Delete File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2938,6 +3021,8 @@
       "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Download File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2948,6 +3033,8 @@
       "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Share File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2958,6 +3045,8 @@
       "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Comment on File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2968,6 +3057,8 @@
       "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Get File Metadata</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2978,6 +3069,8 @@
       "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Share File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2988,6 +3081,8 @@
       "title": "<b>Copy File</b> provides <code>file_id</code> needed by <b>Share File</b>",
       "parameter": "file_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -2998,6 +3093,8 @@
       "title": "<b>List Folders</b> provides <code>folder_id</code> needed by <b>Move to Folder</b>",
       "parameter": "folder_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3008,6 +3105,8 @@
       "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Read Cell Ranges</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3018,6 +3117,8 @@
       "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Add Sheet Tab</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3028,6 +3129,8 @@
       "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Clear Cells</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3038,6 +3141,8 @@
       "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Write Cells</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3048,6 +3153,8 @@
       "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Aggregate Column</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3058,6 +3165,8 @@
       "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Auto-Resize Columns</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3068,6 +3177,8 @@
       "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Add Sheet Tab</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3078,6 +3189,8 @@
       "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Read Cell Ranges</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3088,6 +3201,8 @@
       "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Write Cells</b>",
       "parameter": "spreadsheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3098,6 +3213,8 @@
       "title": "<b>Add Sheet Tab</b> provides <code>sheet_id</code> needed by <b>Append Rows/Columns</b>",
       "parameter": "sheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3108,6 +3225,8 @@
       "title": "<b>Add Sheet Tab</b> provides <code>sheet_id</code> needed by <b>Create Chart</b>",
       "parameter": "sheet_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3118,6 +3237,8 @@
       "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>List Tasks</b>",
       "parameter": "tasklist_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3128,6 +3249,8 @@
       "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Create Task</b>",
       "parameter": "tasklist_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3138,6 +3261,8 @@
       "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Clear Completed Tasks</b>",
       "parameter": "tasklist_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3148,6 +3273,8 @@
       "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Bulk Create Tasks</b>",
       "parameter": "tasklist_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3158,6 +3285,8 @@
       "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>List Tasks</b>",
       "parameter": "tasklist_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3168,6 +3297,8 @@
       "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>Create Task</b>",
       "parameter": "tasklist_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3178,6 +3309,8 @@
       "title": "<b>List Tasks</b> provides <code>task_id</code> needed by <b>Get Task</b>",
       "parameter": "task_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3188,6 +3321,8 @@
       "title": "<b>List Tasks</b> provides <code>task_id</code> needed by <b>Update Task</b>",
       "parameter": "task_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3198,6 +3333,8 @@
       "title": "<b>List Tasks</b> provides <code>task_id</code> needed by <b>Delete Task</b>",
       "parameter": "task_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3208,6 +3345,8 @@
       "title": "<b>List Albums</b> provides <code>album_id</code> needed by <b>Add Media to Album</b>",
       "parameter": "album_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3218,6 +3357,8 @@
       "title": "<b>List Albums</b> provides <code>album_id</code> needed by <b>Add Album Enrichment</b>",
       "parameter": "album_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3228,6 +3369,8 @@
       "title": "<b>Create Album</b> provides <code>album_id</code> needed by <b>Add Media to Album</b>",
       "parameter": "album_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3238,6 +3381,8 @@
       "title": "<b>Create Album</b> provides <code>album_id</code> needed by <b>Add Album Enrichment</b>",
       "parameter": "album_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3248,6 +3393,8 @@
       "title": "<b>List Media Items</b> provides <code>media_item_id</code> needed by <b>Add Media to Album</b>",
       "parameter": "media_item_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3258,6 +3405,8 @@
       "title": "<b>List Media Items</b> provides <code>media_item_id</code> needed by <b>Get Media Details</b>",
       "parameter": "media_item_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3268,6 +3417,8 @@
       "title": "<b>Upload Media</b> provides <code>media_item_id</code> needed by <b>Add Media to Album</b>",
       "parameter": "media_item_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3278,6 +3429,8 @@
       "title": "<b>Upload Media</b> provides <code>media_item_id</code> needed by <b>Get Media Details</b>",
       "parameter": "media_item_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3288,6 +3441,8 @@
       "title": "<b>List GA4 Properties</b> provides <code>ga4_property</code> needed by <b>Run Analytics Reports</b>",
       "parameter": "ga4_property",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3298,6 +3453,8 @@
       "title": "<b>List GA4 Properties</b> provides <code>ga4_property</code> needed by <b>Run Pivot Reports</b>",
       "parameter": "ga4_property",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3308,6 +3465,8 @@
       "title": "<b>List GA4 Properties</b> provides <code>ga4_property</code> needed by <b>Create Custom Dimension</b>",
       "parameter": "ga4_property",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3318,6 +3477,8 @@
       "title": "<b>Create Custom Dimension</b> provides <code>dimension_name</code> needed by <b>Archive Custom Dimension</b>",
       "parameter": "dimension_name",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3328,6 +3489,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Get Repo</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3338,6 +3501,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Delete Repo</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3348,6 +3513,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Fork Repo</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3358,6 +3525,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Branches</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3368,6 +3537,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Commits</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3378,6 +3549,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Issues</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3388,6 +3561,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Create Issue</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3398,6 +3573,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Pull Requests</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3408,6 +3585,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Repo Labels</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3418,6 +3597,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Create Label</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3428,6 +3609,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Workflows</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3438,6 +3621,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Workflow Runs</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3448,6 +3633,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Deployments</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3458,6 +3645,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Releases</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3468,6 +3657,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Create Release</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3478,6 +3669,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Create Blob</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3488,6 +3681,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Collaborators</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3498,6 +3693,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Add Collaborator</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3508,6 +3705,8 @@
       "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Repo Invitations</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3518,6 +3717,8 @@
       "title": "<b>Create Repo</b> provides <code>owner/repo</code> needed by <b>List Branches</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3528,6 +3729,8 @@
       "title": "<b>Create Repo</b> provides <code>owner/repo</code> needed by <b>List Commits</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3538,6 +3741,8 @@
       "title": "<b>Create Repo</b> provides <code>owner/repo</code> needed by <b>Create Issue</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3548,6 +3753,8 @@
       "title": "<b>List Org Repos</b> provides <code>owner/repo</code> needed by <b>List Branches</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3558,6 +3765,8 @@
       "title": "<b>List Org Repos</b> provides <code>owner/repo</code> needed by <b>List Commits</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3568,6 +3777,8 @@
       "title": "<b>List Org Repos</b> provides <code>owner/repo</code> needed by <b>List Issues</b>",
       "parameter": "owner/repo",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3578,6 +3789,8 @@
       "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>List Org Repos</b>",
       "parameter": "org",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3588,6 +3801,8 @@
       "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>List Teams</b>",
       "parameter": "org",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3598,6 +3813,8 @@
       "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>Create Team</b>",
       "parameter": "org",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3608,6 +3825,8 @@
       "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>List Org Members</b>",
       "parameter": "org",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3618,6 +3837,8 @@
       "title": "<b>List Branches</b> provides <code>branch_name</code> needed by <b>Create Pull Request</b>",
       "parameter": "branch_name",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3628,6 +3849,8 @@
       "title": "<b>List Branches</b> provides <code>branch_name</code> needed by <b>Commit Multiple Files</b>",
       "parameter": "branch_name",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3638,6 +3861,8 @@
       "title": "<b>List Branches</b> provides <code>branch_name</code> needed by <b>Create Deployment</b>",
       "parameter": "branch_name",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3648,6 +3873,8 @@
       "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Get Commit</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3658,6 +3885,8 @@
       "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Compare Commits</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3668,6 +3897,8 @@
       "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Comment on Commit</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3678,6 +3909,8 @@
       "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Set Commit Status</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3688,6 +3921,8 @@
       "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Create Check Run</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3698,6 +3933,8 @@
       "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Create Commit</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3708,6 +3945,8 @@
       "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Create Branch</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3718,6 +3957,8 @@
       "title": "<b>Create Blob</b> provides <code>blob_sha</code> needed by <b>Create Tree</b>",
       "parameter": "blob_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3728,6 +3969,8 @@
       "title": "<b>Create Tree</b> provides <code>tree_sha</code> needed by <b>Create Commit</b>",
       "parameter": "tree_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3738,6 +3981,8 @@
       "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Create Branch</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3748,6 +3993,8 @@
       "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Create Deployment</b>",
       "parameter": "commit_sha",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3758,6 +4005,8 @@
       "title": "<b>List Issues</b> provides <code>issue_number</code> needed by <b>Get Issue</b>",
       "parameter": "issue_number",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3768,6 +4017,8 @@
       "title": "<b>List Issues</b> provides <code>issue_number</code> needed by <b>Update Issue</b>",
       "parameter": "issue_number",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3778,6 +4029,8 @@
       "title": "<b>List Issues</b> provides <code>issue_number</code> needed by <b>Assign Users to Issue</b>",
       "parameter": "issue_number",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3788,6 +4041,8 @@
       "title": "<b>List Issues</b> provides <code>issue_number</code> needed by <b>Add Labels to Issue</b>",
       "parameter": "issue_number",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3798,6 +4053,8 @@
       "title": "<b>List Repo Labels</b> provides <code>label_name</code> needed by <b>Add Labels to Issue</b>",
       "parameter": "label_name",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3808,6 +4065,8 @@
       "title": "<b>Create Label</b> provides <code>label_name</code> needed by <b>Add Labels to Issue</b>",
       "parameter": "label_name",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3818,6 +4077,8 @@
       "title": "<b>List Pull Requests</b> provides <code>pull_number</code> needed by <b>Get Pull Request</b>",
       "parameter": "pull_number",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3828,6 +4089,8 @@
       "title": "<b>List Pull Requests</b> provides <code>pull_number</code> needed by <b>Merge Pull Request</b>",
       "parameter": "pull_number",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3838,6 +4101,8 @@
       "title": "<b>List Pull Requests</b> provides <code>pull_number</code> needed by <b>Check PR Merged</b>",
       "parameter": "pull_number",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3848,6 +4113,8 @@
       "title": "<b>Create Pull Request</b> provides <code>pull_number</code> needed by <b>Merge Pull Request</b>",
       "parameter": "pull_number",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3858,6 +4125,8 @@
       "title": "<b>List Workflows</b> provides <code>workflow_id</code> needed by <b>Trigger Workflow</b>",
       "parameter": "workflow_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3868,6 +4137,8 @@
       "title": "<b>List Workflow Runs</b> provides <code>run_id</code> needed by <b>Cancel Workflow Run</b>",
       "parameter": "run_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3878,6 +4149,8 @@
       "title": "<b>List Workflow Runs</b> provides <code>run_id</code> needed by <b>Approve Fork Workflow</b>",
       "parameter": "run_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3888,6 +4161,8 @@
       "title": "<b>List Deployments</b> provides <code>deployment_id</code> needed by <b>Update Deployment Status</b>",
       "parameter": "deployment_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3898,6 +4173,8 @@
       "title": "<b>Create Deployment</b> provides <code>deployment_id</code> needed by <b>Update Deployment Status</b>",
       "parameter": "deployment_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3908,6 +4185,8 @@
       "title": "<b>List Releases</b> provides <code>release_id</code> needed by <b>Get Release</b>",
       "parameter": "release_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3918,6 +4197,8 @@
       "title": "<b>List Teams</b> provides <code>team_slug</code> needed by <b>Update Team Membership</b>",
       "parameter": "team_slug",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3928,6 +4209,8 @@
       "title": "<b>Create Team</b> provides <code>team_slug</code> needed by <b>Update Team Membership</b>",
       "parameter": "team_slug",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3938,6 +4221,8 @@
       "title": "<b>List Org Members</b> provides <code>username</code> needed by <b>Update Team Membership</b>",
       "parameter": "username",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3948,6 +4233,8 @@
       "title": "<b>List Org Members</b> provides <code>username</code> needed by <b>Add Collaborator</b>",
       "parameter": "username",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3958,6 +4245,8 @@
       "title": "<b>List Collaborators</b> provides <code>username</code> needed by <b>Add Collaborator</b>",
       "parameter": "username",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3968,6 +4257,3848 @@
       "title": "<b>List Repo Invitations</b> provides <code>invitation_id</code> needed by <b>Accept Invitation</b>",
       "parameter": "invitation_id",
       "source": "tool",
+      "inferred": false,
+      "confidence": 1,
+      "arrows": "to"
+    },
+    {
+      "id": "i000",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_CALENDAR_LIST_GET",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Get Calendar</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i001",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_CALENDARS_UPDATE",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Update Calendar</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i002",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_CALENDARS_DELETE",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Delete Calendar</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i003",
+      "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
+      "to": "GOOGLESUPER_EVENTS_GET",
+      "label": "calendar_id",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Get Event</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i004",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_EVENTS_GET",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Get Event</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i005",
+      "from": "GOOGLESUPER_EVENTS_INSERT",
+      "to": "GOOGLESUPER_EVENTS_GET",
+      "label": "event_id",
+      "title": "<b>Create Event</b> provides <code>event_id</code> needed by <b>Get Event</b> <i>(auto-inferred)</i>",
+      "parameter": "event_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i006",
+      "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
+      "to": "GOOGLESUPER_EVENTS_UPDATE",
+      "label": "calendar_id",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Update Event</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i007",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_EVENTS_UPDATE",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Update Event</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i008",
+      "from": "GOOGLESUPER_EVENTS_INSERT",
+      "to": "GOOGLESUPER_EVENTS_UPDATE",
+      "label": "event_id",
+      "title": "<b>Create Event</b> provides <code>event_id</code> needed by <b>Update Event</b> <i>(auto-inferred)</i>",
+      "parameter": "event_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i009",
+      "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
+      "to": "GOOGLESUPER_EVENTS_DELETE",
+      "label": "calendar_id",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Delete Event</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i010",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_EVENTS_DELETE",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Delete Event</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i011",
+      "from": "GOOGLESUPER_EVENTS_INSERT",
+      "to": "GOOGLESUPER_EVENTS_DELETE",
+      "label": "event_id",
+      "title": "<b>Create Event</b> provides <code>event_id</code> needed by <b>Delete Event</b> <i>(auto-inferred)</i>",
+      "parameter": "event_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i012",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_CLEAR_CALENDAR",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Clear Calendar</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i013",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_ACL_LIST",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>List ACL Rules</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i014",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_ACL_INSERT",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Create ACL Rule</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i015",
+      "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
+      "to": "GOOGLESUPER_ACL_DELETE",
+      "label": "calendar_id",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Delete ACL Rule</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i016",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_ACL_DELETE",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Delete ACL Rule</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i017",
+      "from": "GOOGLESUPER_ACL_INSERT",
+      "to": "GOOGLESUPER_ACL_DELETE",
+      "label": "rule_id",
+      "title": "<b>Create ACL Rule</b> provides <code>rule_id</code> needed by <b>Delete ACL Rule</b> <i>(auto-inferred)</i>",
+      "parameter": "rule_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i018",
+      "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
+      "to": "GOOGLESUPER_ACL_UPDATE",
+      "label": "calendar_id",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Update ACL Rule</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i019",
+      "from": "GOOGLESUPER_CALENDARS_INSERT",
+      "to": "GOOGLESUPER_ACL_UPDATE",
+      "label": "calendar_id",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Update ACL Rule</b> <i>(auto-inferred)</i>",
+      "parameter": "calendar_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i020",
+      "from": "GOOGLESUPER_ACL_INSERT",
+      "to": "GOOGLESUPER_ACL_UPDATE",
+      "label": "rule_id",
+      "title": "<b>Create ACL Rule</b> provides <code>rule_id</code> needed by <b>Update ACL Rule</b> <i>(auto-inferred)</i>",
+      "parameter": "rule_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i021",
+      "from": "GOOGLESUPER_COPY_FILE_ADVANCED",
+      "to": "GOOGLESUPER_DRIVE_GET_FILE",
+      "label": "file_id",
+      "title": "<b>Copy File</b> provides <code>file_id</code> needed by <b>Get File Metadata</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i022",
+      "from": "GOOGLESUPER_DRIVE_CREATE_FILE",
+      "to": "GOOGLESUPER_DRIVE_DELETE_FILE",
+      "label": "file_id",
+      "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Delete File</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i023",
+      "from": "GOOGLESUPER_COPY_FILE_ADVANCED",
+      "to": "GOOGLESUPER_DRIVE_DELETE_FILE",
+      "label": "file_id",
+      "title": "<b>Copy File</b> provides <code>file_id</code> needed by <b>Delete File</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i024",
+      "from": "GOOGLESUPER_DRIVE_CREATE_FILE",
+      "to": "GOOGLESUPER_DRIVE_DOWNLOAD_FILE",
+      "label": "file_id",
+      "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Download File</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i025",
+      "from": "GOOGLESUPER_COPY_FILE_ADVANCED",
+      "to": "GOOGLESUPER_DRIVE_DOWNLOAD_FILE",
+      "label": "file_id",
+      "title": "<b>Copy File</b> provides <code>file_id</code> needed by <b>Download File</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i026",
+      "from": "GOOGLESUPER_DRIVE_SEARCH_FILES",
+      "to": "GOOGLESUPER_COPY_FILE_ADVANCED",
+      "label": "file_id",
+      "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Copy File</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i027",
+      "from": "GOOGLESUPER_DRIVE_CREATE_FILE",
+      "to": "GOOGLESUPER_COPY_FILE_ADVANCED",
+      "label": "file_id",
+      "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Copy File</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i028",
+      "from": "GOOGLESUPER_DRIVE_CREATE_FILE",
+      "to": "GOOGLESUPER_CREATE_COMMENT",
+      "label": "file_id",
+      "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Comment on File</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i029",
+      "from": "GOOGLESUPER_COPY_FILE_ADVANCED",
+      "to": "GOOGLESUPER_CREATE_COMMENT",
+      "label": "file_id",
+      "title": "<b>Copy File</b> provides <code>file_id</code> needed by <b>Comment on File</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i030",
+      "from": "GOOGLESUPER_DRIVE_SEARCH_FILES",
+      "to": "GOOGLESUPER_ADD_PARENT",
+      "label": "file_id",
+      "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Move to Folder</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i031",
+      "from": "GOOGLESUPER_DRIVE_CREATE_FILE",
+      "to": "GOOGLESUPER_ADD_PARENT",
+      "label": "file_id",
+      "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Move to Folder</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i032",
+      "from": "GOOGLESUPER_COPY_FILE_ADVANCED",
+      "to": "GOOGLESUPER_ADD_PARENT",
+      "label": "file_id",
+      "title": "<b>Copy File</b> provides <code>file_id</code> needed by <b>Move to Folder</b> <i>(auto-inferred)</i>",
+      "parameter": "file_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i033",
+      "from": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
+      "to": "GOOGLESUPER_APPEND_DIMENSION",
+      "label": "spreadsheet_id",
+      "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Append Rows/Columns</b> <i>(auto-inferred)</i>",
+      "parameter": "spreadsheet_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i034",
+      "from": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
+      "to": "GOOGLESUPER_APPEND_DIMENSION",
+      "label": "spreadsheet_id",
+      "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Append Rows/Columns</b> <i>(auto-inferred)</i>",
+      "parameter": "spreadsheet_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i035",
+      "from": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
+      "to": "GOOGLESUPER_CREATE_CHART",
+      "label": "spreadsheet_id",
+      "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Create Chart</b> <i>(auto-inferred)</i>",
+      "parameter": "spreadsheet_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i036",
+      "from": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
+      "to": "GOOGLESUPER_CREATE_CHART",
+      "label": "spreadsheet_id",
+      "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Create Chart</b> <i>(auto-inferred)</i>",
+      "parameter": "spreadsheet_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i037",
+      "from": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
+      "to": "GOOGLESUPER_CLEAR_VALUES",
+      "label": "spreadsheet_id",
+      "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Clear Cells</b> <i>(auto-inferred)</i>",
+      "parameter": "spreadsheet_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i038",
+      "from": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
+      "to": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
+      "label": "spreadsheet_id",
+      "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Aggregate Column</b> <i>(auto-inferred)</i>",
+      "parameter": "spreadsheet_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i039",
+      "from": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
+      "to": "GOOGLESUPER_AUTO_RESIZE_DIMENSIONS",
+      "label": "spreadsheet_id",
+      "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Auto-Resize Columns</b> <i>(auto-inferred)</i>",
+      "parameter": "spreadsheet_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i040",
+      "from": "GOOGLESUPER_TASKS_LIST_TASKLISTS",
+      "to": "GOOGLESUPER_TASKS_GET_TASK",
+      "label": "tasklist_id",
+      "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Get Task</b> <i>(auto-inferred)</i>",
+      "parameter": "tasklist_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i041",
+      "from": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
+      "to": "GOOGLESUPER_TASKS_GET_TASK",
+      "label": "tasklist_id",
+      "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>Get Task</b> <i>(auto-inferred)</i>",
+      "parameter": "tasklist_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i042",
+      "from": "GOOGLESUPER_TASKS_INSERT_TASK",
+      "to": "GOOGLESUPER_TASKS_GET_TASK",
+      "label": "task_id",
+      "title": "<b>Create Task</b> provides <code>task_id</code> needed by <b>Get Task</b> <i>(auto-inferred)</i>",
+      "parameter": "task_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i043",
+      "from": "GOOGLESUPER_TASKS_LIST_TASKLISTS",
+      "to": "GOOGLESUPER_TASKS_UPDATE_TASK",
+      "label": "tasklist_id",
+      "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Update Task</b> <i>(auto-inferred)</i>",
+      "parameter": "tasklist_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i044",
+      "from": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
+      "to": "GOOGLESUPER_TASKS_UPDATE_TASK",
+      "label": "tasklist_id",
+      "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>Update Task</b> <i>(auto-inferred)</i>",
+      "parameter": "tasklist_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i045",
+      "from": "GOOGLESUPER_TASKS_INSERT_TASK",
+      "to": "GOOGLESUPER_TASKS_UPDATE_TASK",
+      "label": "task_id",
+      "title": "<b>Create Task</b> provides <code>task_id</code> needed by <b>Update Task</b> <i>(auto-inferred)</i>",
+      "parameter": "task_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i046",
+      "from": "GOOGLESUPER_TASKS_LIST_TASKLISTS",
+      "to": "GOOGLESUPER_TASKS_DELETE_TASK",
+      "label": "tasklist_id",
+      "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Delete Task</b> <i>(auto-inferred)</i>",
+      "parameter": "tasklist_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i047",
+      "from": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
+      "to": "GOOGLESUPER_TASKS_DELETE_TASK",
+      "label": "tasklist_id",
+      "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>Delete Task</b> <i>(auto-inferred)</i>",
+      "parameter": "tasklist_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i048",
+      "from": "GOOGLESUPER_TASKS_INSERT_TASK",
+      "to": "GOOGLESUPER_TASKS_DELETE_TASK",
+      "label": "task_id",
+      "title": "<b>Create Task</b> provides <code>task_id</code> needed by <b>Delete Task</b> <i>(auto-inferred)</i>",
+      "parameter": "task_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i049",
+      "from": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
+      "to": "GOOGLESUPER_CLEAR_TASKS",
+      "label": "tasklist_id",
+      "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>Clear Completed Tasks</b> <i>(auto-inferred)</i>",
+      "parameter": "tasklist_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i050",
+      "from": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
+      "to": "GOOGLESUPER_BULK_INSERT_TASKS",
+      "label": "tasklist_id",
+      "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>Bulk Create Tasks</b> <i>(auto-inferred)</i>",
+      "parameter": "tasklist_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i051",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_REPO",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Get Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i052",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_REPO",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Get Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i053",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_REPO",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Get Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i054",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_REPO",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Get Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i055",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_REPO",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Get Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i056",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_REPO",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Get Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i057",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_DELETE_REPO",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Delete Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i058",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_DELETE_REPO",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Delete Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i059",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_DELETE_REPO",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Delete Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i060",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_DELETE_REPO",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Delete Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i061",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_DELETE_REPO",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Delete Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i062",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_DELETE_REPO",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Delete Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i063",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_FORK",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Fork Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i064",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_FORK",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Fork Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i065",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_FORK",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Fork Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i066",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_FORK",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Fork Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i067",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_FORK",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Fork Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i068",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_FORK",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Fork Repo</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i069",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_BRANCHES",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Branches</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i070",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_BRANCHES",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Branches</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i071",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_BRANCHES",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Branches</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i072",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_BRANCHES",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Branches</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i073",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_BRANCHES",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Branches</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i074",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_BRANCHES",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Branches</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i075",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_BRANCH",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Branch</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i076",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_BRANCH",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Branch</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i077",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_BRANCH",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Branch</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i078",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_BRANCH",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Branch</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i079",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_BRANCH",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Branch</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i080",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_BRANCH",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Branch</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i081",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_COMMITS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i082",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_COMMITS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i083",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_COMMITS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i084",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_COMMITS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i085",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_COMMITS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i086",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_COMMITS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i087",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_COMMIT",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Get Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i088",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_COMMIT",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Get Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i089",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_COMMIT",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Get Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i090",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_COMMIT",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Get Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i091",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_COMMIT",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Get Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i092",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_COMMIT",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Get Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i093",
+      "from": "GITHUB_CREATE_A_COMMIT",
+      "to": "GITHUB_GET_COMMIT",
+      "label": "commit_sha",
+      "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Get Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "commit_sha",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i094",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_COMPARE_TWO_COMMITS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Compare Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i095",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_COMPARE_TWO_COMMITS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Compare Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i096",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_COMPARE_TWO_COMMITS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Compare Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i097",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_COMPARE_TWO_COMMITS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Compare Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i098",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_COMPARE_TWO_COMMITS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Compare Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i099",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_COMPARE_TWO_COMMITS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Compare Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i100",
+      "from": "GITHUB_CREATE_A_COMMIT",
+      "to": "GITHUB_COMPARE_TWO_COMMITS",
+      "label": "commit_sha",
+      "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Compare Commits</b> <i>(auto-inferred)</i>",
+      "parameter": "commit_sha",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i101",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_BLOB",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Blob</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i102",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_BLOB",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Blob</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i103",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_BLOB",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Blob</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i104",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_BLOB",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Blob</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i105",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_BLOB",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Blob</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i106",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_BLOB",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Blob</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i107",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_TREE",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Tree</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i108",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_TREE",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Tree</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i109",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_TREE",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Tree</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i110",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_TREE",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Tree</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i111",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_TREE",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Tree</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i112",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_TREE",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Tree</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i113",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_COMMIT",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i114",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_COMMIT",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i115",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_COMMIT",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i116",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_COMMIT",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i117",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_COMMIT",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i118",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_COMMIT",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i119",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_COMMIT_MULTIPLE_FILES",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Commit Multiple Files</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i120",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_COMMIT_MULTIPLE_FILES",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Commit Multiple Files</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i121",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_COMMIT_MULTIPLE_FILES",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Commit Multiple Files</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i122",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_COMMIT_MULTIPLE_FILES",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Commit Multiple Files</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i123",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_COMMIT_MULTIPLE_FILES",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Commit Multiple Files</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i124",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_COMMIT_MULTIPLE_FILES",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Commit Multiple Files</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i125",
+      "from": "GITHUB_CREATE_BRANCH",
+      "to": "GITHUB_COMMIT_MULTIPLE_FILES",
+      "label": "branch_name",
+      "title": "<b>Create Branch</b> provides <code>branch_name</code> needed by <b>Commit Multiple Files</b> <i>(auto-inferred)</i>",
+      "parameter": "branch_name",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i126",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Comment on Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i127",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Comment on Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i128",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Comment on Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i129",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Comment on Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i130",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Comment on Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i131",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Comment on Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i132",
+      "from": "GITHUB_CREATE_A_COMMIT",
+      "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
+      "label": "commit_sha",
+      "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Comment on Commit</b> <i>(auto-inferred)</i>",
+      "parameter": "commit_sha",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i133",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_COMMIT_STATUS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Set Commit Status</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i134",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_COMMIT_STATUS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Set Commit Status</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i135",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_COMMIT_STATUS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Set Commit Status</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i136",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_COMMIT_STATUS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Set Commit Status</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i137",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_COMMIT_STATUS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Set Commit Status</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i138",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_COMMIT_STATUS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Set Commit Status</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i139",
+      "from": "GITHUB_CREATE_A_COMMIT",
+      "to": "GITHUB_CREATE_A_COMMIT_STATUS",
+      "label": "commit_sha",
+      "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Set Commit Status</b> <i>(auto-inferred)</i>",
+      "parameter": "commit_sha",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i140",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_ISSUES",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Issues</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i141",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_ISSUES",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Issues</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i142",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_ISSUES",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Issues</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i143",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_ISSUES",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Issues</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i144",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_ISSUES",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Issues</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i145",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_ISSUES",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Issues</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i146",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_ISSUE",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Get Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i147",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_ISSUE",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Get Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i148",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_ISSUE",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Get Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i149",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_ISSUE",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Get Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i150",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_ISSUE",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Get Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i151",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_ISSUE",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Get Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i152",
+      "from": "GITHUB_CREATE_ISSUE",
+      "to": "GITHUB_GET_ISSUE",
+      "label": "issue_number",
+      "title": "<b>Create Issue</b> provides <code>issue_number</code> needed by <b>Get Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "issue_number",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i153",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_ISSUE",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i154",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_ISSUE",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i155",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_ISSUE",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i156",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_ISSUE",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i157",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_ISSUE",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i158",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_ISSUE",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i159",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_UPDATE_ISSUE",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Update Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i160",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_UPDATE_ISSUE",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Update Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i161",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_UPDATE_ISSUE",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Update Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i162",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_UPDATE_ISSUE",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Update Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i163",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_UPDATE_ISSUE",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Update Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i164",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_UPDATE_ISSUE",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Update Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i165",
+      "from": "GITHUB_CREATE_ISSUE",
+      "to": "GITHUB_UPDATE_ISSUE",
+      "label": "issue_number",
+      "title": "<b>Create Issue</b> provides <code>issue_number</code> needed by <b>Update Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "issue_number",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i166",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Assign Users to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i167",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Assign Users to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i168",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Assign Users to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i169",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Assign Users to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i170",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Assign Users to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i171",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Assign Users to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i172",
+      "from": "GITHUB_CREATE_ISSUE",
+      "to": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
+      "label": "issue_number",
+      "title": "<b>Create Issue</b> provides <code>issue_number</code> needed by <b>Assign Users to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "issue_number",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i173",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Add Labels to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i174",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Add Labels to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i175",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Add Labels to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i176",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Add Labels to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i177",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Add Labels to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i178",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Add Labels to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i179",
+      "from": "GITHUB_CREATE_ISSUE",
+      "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
+      "label": "issue_number",
+      "title": "<b>Create Issue</b> provides <code>issue_number</code> needed by <b>Add Labels to Issue</b> <i>(auto-inferred)</i>",
+      "parameter": "issue_number",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i180",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_LABELS_FOR_REPO",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Repo Labels</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i181",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_LABELS_FOR_REPO",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Repo Labels</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i182",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_LABELS_FOR_REPO",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Repo Labels</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i183",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_LABELS_FOR_REPO",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Repo Labels</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i184",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_LABELS_FOR_REPO",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Repo Labels</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i185",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_LABELS_FOR_REPO",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Repo Labels</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i186",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_LABEL",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Label</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i187",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_LABEL",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Label</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i188",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_LABEL",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Label</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i189",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_LABEL",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Label</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i190",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_LABEL",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Label</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i191",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_LABEL",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Label</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i192",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_PULL_REQUESTS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Pull Requests</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i193",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_PULL_REQUESTS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Pull Requests</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i194",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_PULL_REQUESTS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Pull Requests</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i195",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_PULL_REQUESTS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Pull Requests</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i196",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_PULL_REQUESTS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Pull Requests</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i197",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_PULL_REQUESTS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Pull Requests</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i198",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Get Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i199",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Get Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i200",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Get Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i201",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Get Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i202",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Get Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i203",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Get Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i204",
+      "from": "GITHUB_CREATE_PULL_REQUEST",
+      "to": "GITHUB_GET_PULL_REQUEST",
+      "label": "pull_number",
+      "title": "<b>Create Pull Request</b> provides <code>pull_number</code> needed by <b>Get Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "pull_number",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i205",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i206",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i207",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i208",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i209",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i210",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i211",
+      "from": "GITHUB_CREATE_BRANCH",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "branch_name",
+      "title": "<b>Create Branch</b> provides <code>branch_name</code> needed by <b>Create Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "branch_name",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i212",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_MERGE_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Merge Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i213",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_MERGE_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Merge Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i214",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_MERGE_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Merge Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i215",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_MERGE_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Merge Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i216",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_MERGE_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Merge Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i217",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_MERGE_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Merge Pull Request</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i218",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Check PR Merged</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i219",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Check PR Merged</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i220",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Check PR Merged</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i221",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Check PR Merged</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i222",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Check PR Merged</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i223",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Check PR Merged</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i224",
+      "from": "GITHUB_CREATE_PULL_REQUEST",
+      "to": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
+      "label": "pull_number",
+      "title": "<b>Create Pull Request</b> provides <code>pull_number</code> needed by <b>Check PR Merged</b> <i>(auto-inferred)</i>",
+      "parameter": "pull_number",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i225",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_WORKFLOWS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Workflows</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i226",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_WORKFLOWS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Workflows</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i227",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_WORKFLOWS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Workflows</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i228",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_WORKFLOWS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Workflows</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i229",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_WORKFLOWS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Workflows</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i230",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_WORKFLOWS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Workflows</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i231",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_WORKFLOW_RUNS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Workflow Runs</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i232",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_WORKFLOW_RUNS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Workflow Runs</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i233",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_WORKFLOW_RUNS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Workflow Runs</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i234",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_WORKFLOW_RUNS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Workflow Runs</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i235",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_WORKFLOW_RUNS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Workflow Runs</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i236",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_WORKFLOW_RUNS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Workflow Runs</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i237",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_TRIGGER_WORKFLOW",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Trigger Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i238",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_TRIGGER_WORKFLOW",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Trigger Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i239",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_TRIGGER_WORKFLOW",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Trigger Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i240",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_TRIGGER_WORKFLOW",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Trigger Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i241",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_TRIGGER_WORKFLOW",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Trigger Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i242",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_TRIGGER_WORKFLOW",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Trigger Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i243",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CANCEL_WORKFLOW_RUN",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Cancel Workflow Run</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i244",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CANCEL_WORKFLOW_RUN",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Cancel Workflow Run</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i245",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CANCEL_WORKFLOW_RUN",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Cancel Workflow Run</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i246",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CANCEL_WORKFLOW_RUN",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Cancel Workflow Run</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i247",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CANCEL_WORKFLOW_RUN",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Cancel Workflow Run</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i248",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CANCEL_WORKFLOW_RUN",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Cancel Workflow Run</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i249",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Approve Fork Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i250",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Approve Fork Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i251",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Approve Fork Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i252",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Approve Fork Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i253",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Approve Fork Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i254",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Approve Fork Workflow</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i255",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_DEPLOYMENTS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Deployments</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i256",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_DEPLOYMENTS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Deployments</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i257",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_DEPLOYMENTS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Deployments</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i258",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_DEPLOYMENTS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Deployments</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i259",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_DEPLOYMENTS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Deployments</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i260",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_DEPLOYMENTS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Deployments</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i261",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_DEPLOYMENT",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Deployment</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i262",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_DEPLOYMENT",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Deployment</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i263",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_DEPLOYMENT",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Deployment</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i264",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_DEPLOYMENT",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Deployment</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i265",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_DEPLOYMENT",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Deployment</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i266",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_DEPLOYMENT",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Deployment</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i267",
+      "from": "GITHUB_CREATE_BRANCH",
+      "to": "GITHUB_CREATE_DEPLOYMENT",
+      "label": "branch_name",
+      "title": "<b>Create Branch</b> provides <code>branch_name</code> needed by <b>Create Deployment</b> <i>(auto-inferred)</i>",
+      "parameter": "branch_name",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i268",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Update Deployment Status</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i269",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Update Deployment Status</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i270",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Update Deployment Status</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i271",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Update Deployment Status</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i272",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Update Deployment Status</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i273",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Update Deployment Status</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i274",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_RELEASES",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Releases</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i275",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_RELEASES",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Releases</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i276",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_RELEASES",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Releases</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i277",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_RELEASES",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Releases</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i278",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_RELEASES",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Releases</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i279",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_RELEASES",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Releases</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i280",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_RELEASE",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Get Release</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i281",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_RELEASE",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Get Release</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i282",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_RELEASE",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Get Release</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i283",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_GET_RELEASE",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Get Release</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i284",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_GET_RELEASE",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Get Release</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i285",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_GET_RELEASE",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Get Release</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i286",
+      "from": "GITHUB_CREATE_RELEASE",
+      "to": "GITHUB_GET_RELEASE",
+      "label": "release_id",
+      "title": "<b>Create Release</b> provides <code>release_id</code> needed by <b>Get Release</b> <i>(auto-inferred)</i>",
+      "parameter": "release_id",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i287",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_RELEASE",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Release</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i288",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_RELEASE",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Release</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i289",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_RELEASE",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Release</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i290",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_RELEASE",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Release</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i291",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_RELEASE",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Release</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i292",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_RELEASE",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Release</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i293",
+      "from": "GITHUB_LIST_ORGS_FOR_AUTH_USER",
+      "to": "GITHUB_ADD_OR_UPDATE_TEAM_MEMBERSHIP_FOR_USER",
+      "label": "org",
+      "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>Update Team Membership</b> <i>(auto-inferred)</i>",
+      "parameter": "org",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i294",
+      "from": "GITHUB_LIST_COLLABORATORS",
+      "to": "GITHUB_ADD_OR_UPDATE_TEAM_MEMBERSHIP_FOR_USER",
+      "label": "username",
+      "title": "<b>List Collaborators</b> provides <code>username</code> needed by <b>Update Team Membership</b> <i>(auto-inferred)</i>",
+      "parameter": "username",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i295",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_COLLABORATORS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Collaborators</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i296",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_COLLABORATORS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Collaborators</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i297",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_COLLABORATORS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Collaborators</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i298",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_COLLABORATORS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Collaborators</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i299",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_COLLABORATORS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Collaborators</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i300",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_COLLABORATORS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Collaborators</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i301",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Add Collaborator</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i302",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Add Collaborator</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i303",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Add Collaborator</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i304",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Add Collaborator</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i305",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Add Collaborator</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i306",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Add Collaborator</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i307",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_REPOSITORY_INVITATIONS",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>List Repo Invitations</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i308",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_REPOSITORY_INVITATIONS",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>List Repo Invitations</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i309",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_REPOSITORY_INVITATIONS",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>List Repo Invitations</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i310",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_LIST_REPOSITORY_INVITATIONS",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>List Repo Invitations</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i311",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_LIST_REPOSITORY_INVITATIONS",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>List Repo Invitations</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i312",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_LIST_REPOSITORY_INVITATIONS",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>List Repo Invitations</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i313",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_CHECK_RUN",
+      "label": "owner",
+      "title": "<b>List My Repos</b> provides <code>owner</code> needed by <b>Create Check Run</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i314",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_CHECK_RUN",
+      "label": "owner",
+      "title": "<b>List Org Repos</b> provides <code>owner</code> needed by <b>Create Check Run</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i315",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_CHECK_RUN",
+      "label": "owner",
+      "title": "<b>Create Repo</b> provides <code>owner</code> needed by <b>Create Check Run</b> <i>(auto-inferred)</i>",
+      "parameter": "owner",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i316",
+      "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
+      "to": "GITHUB_CREATE_A_CHECK_RUN",
+      "label": "repo",
+      "title": "<b>List My Repos</b> provides <code>repo</code> needed by <b>Create Check Run</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i317",
+      "from": "GITHUB_LIST_REPOS_FOR_ORG",
+      "to": "GITHUB_CREATE_A_CHECK_RUN",
+      "label": "repo",
+      "title": "<b>List Org Repos</b> provides <code>repo</code> needed by <b>Create Check Run</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i318",
+      "from": "GITHUB_CREATE_REPO",
+      "to": "GITHUB_CREATE_A_CHECK_RUN",
+      "label": "repo",
+      "title": "<b>Create Repo</b> provides <code>repo</code> needed by <b>Create Check Run</b> <i>(auto-inferred)</i>",
+      "parameter": "repo",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
+      "arrows": "to"
+    },
+    {
+      "id": "i319",
+      "from": "GITHUB_CREATE_A_COMMIT",
+      "to": "GITHUB_CREATE_A_CHECK_RUN",
+      "label": "commit_sha",
+      "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Create Check Run</b> <i>(auto-inferred)</i>",
+      "parameter": "commit_sha",
+      "source": "tool",
+      "inferred": true,
+      "confidence": 0.9,
       "arrows": "to"
     },
     {
@@ -3975,9 +8106,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_GMAIL_REPLY_TO_THREAD",
       "label": "body",
-      "title": "<b>User provides</b> <code>body</code> (string) → <b>Reply to Thread</b><br/>Reply message text",
+      "title": "<b>User provides</b> <code>body</code> (string) to <b>Reply to Thread</b>. Reply message text.",
       "parameter": "body",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3985,9 +8118,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_GMAIL_SEND_EMAIL",
       "label": "subject",
-      "title": "<b>User provides</b> <code>subject</code> (string) → <b>Send Email</b><br/>Email subject line<br/>Example: <i>Meeting notes</i>",
+      "title": "<b>User provides</b> <code>subject</code> (string) to <b>Send Email</b>. Email subject line. Example: Meeting notes",
       "parameter": "subject",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -3995,9 +8130,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_GMAIL_SEND_EMAIL",
       "label": "body",
-      "title": "<b>User provides</b> <code>body</code> (string) → <b>Send Email</b><br/>Email message body",
+      "title": "<b>User provides</b> <code>body</code> (string) to <b>Send Email</b>. Email message body.",
       "parameter": "body",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4005,9 +8142,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_GMAIL_CREATE_LABEL",
       "label": "name",
-      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Label</b><br/>Label display name<br/>Example: <i>Urgent</i>",
+      "title": "<b>User provides</b> <code>name</code> (string) to <b>Create Label</b>. Label display name. Example: Urgent",
       "parameter": "name",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4015,9 +8154,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_CONTACTS_SEARCH",
       "label": "query",
-      "title": "<b>User provides</b> <code>query</code> (string) → <b>Search Contacts</b><br/>Person's name or partial email to search for<br/>Example: <i>John Smith</i>",
+      "title": "<b>User provides</b> <code>query</code> (string) to <b>Search Contacts</b>. Person's name or partial email to search for. Example: John Smith",
       "parameter": "query",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4025,9 +8166,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_CALENDARS_INSERT",
       "label": "summary",
-      "title": "<b>User provides</b> <code>summary</code> (string) → <b>Create Calendar</b><br/>Calendar title<br/>Example: <i>Work</i>",
+      "title": "<b>User provides</b> <code>summary</code> (string) to <b>Create Calendar</b>. Calendar title. Example: Work",
       "parameter": "summary",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4035,9 +8178,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_EVENTS_INSERT",
       "label": "summary",
-      "title": "<b>User provides</b> <code>summary</code> (string) → <b>Create Event</b><br/>Event title<br/>Example: <i>Team standup</i>",
+      "title": "<b>User provides</b> <code>summary</code> (string) to <b>Create Event</b>. Event title. Example: Team standup",
       "parameter": "summary",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4045,9 +8190,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_EVENTS_INSERT",
       "label": "start_time",
-      "title": "<b>User provides</b> <code>start_time</code> (string) → <b>Create Event</b><br/>Start datetime ISO 8601 (e.g. 2024-06-01T10:00:00Z)",
+      "title": "<b>User provides</b> <code>start_time</code> (string) to <b>Create Event</b>. Start datetime ISO 8601 (e.g. 2024-06-01T10:00:00Z).",
       "parameter": "start_time",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4055,9 +8202,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_EVENTS_INSERT",
       "label": "end_time",
-      "title": "<b>User provides</b> <code>end_time</code> (string) → <b>Create Event</b><br/>End datetime ISO 8601",
+      "title": "<b>User provides</b> <code>end_time</code> (string) to <b>Create Event</b>. End datetime ISO 8601.",
       "parameter": "end_time",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4065,9 +8214,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_ACL_INSERT",
       "label": "role",
-      "title": "<b>User provides</b> <code>role</code> (string) → <b>Create ACL Rule</b><br/>Access role: reader | writer | owner",
+      "title": "<b>User provides</b> <code>role</code> (string) to <b>Create ACL Rule</b>. Access role: reader | writer | owner.",
       "parameter": "role",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4075,9 +8226,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_ACL_INSERT",
       "label": "scope_type",
-      "title": "<b>User provides</b> <code>scope_type</code> (string) → <b>Create ACL Rule</b><br/>Scope type: user | group | domain",
+      "title": "<b>User provides</b> <code>scope_type</code> (string) to <b>Create ACL Rule</b>. Scope type: user | group | domain.",
       "parameter": "scope_type",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4085,9 +8238,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_ACL_INSERT",
       "label": "scope_value",
-      "title": "<b>User provides</b> <code>scope_value</code> (string) → <b>Create ACL Rule</b><br/>Email address or domain to grant access",
+      "title": "<b>User provides</b> <code>scope_value</code> (string) to <b>Create ACL Rule</b>. Email address or domain to grant access.",
       "parameter": "scope_value",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4095,9 +8250,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_DRIVE_CREATE_FILE",
       "label": "name",
-      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create File</b><br/>File name<br/>Example: <i>report.pdf</i>",
+      "title": "<b>User provides</b> <code>name</code> (string) to <b>Create File</b>. File name. Example: report.pdf",
       "parameter": "name",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4105,9 +8262,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_CREATE_COMMENT",
       "label": "content",
-      "title": "<b>User provides</b> <code>content</code> (string) → <b>Comment on File</b><br/>Comment text",
+      "title": "<b>User provides</b> <code>content</code> (string) to <b>Comment on File</b>. Comment text.",
       "parameter": "content",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4115,9 +8274,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
       "label": "role",
-      "title": "<b>User provides</b> <code>role</code> (string) → <b>Share File</b><br/>Permission role: reader | writer | commenter | owner",
+      "title": "<b>User provides</b> <code>role</code> (string) to <b>Share File</b>. Permission role: reader | writer | commenter | owner.",
       "parameter": "role",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4125,9 +8286,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
       "label": "type",
-      "title": "<b>User provides</b> <code>type</code> (string) → <b>Share File</b><br/>Principal type: user | group | domain | anyone",
+      "title": "<b>User provides</b> <code>type</code> (string) to <b>Share File</b>. Principal type: user | group | domain | anyone.",
       "parameter": "type",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4135,9 +8298,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
       "label": "title",
-      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Spreadsheet</b><br/>Spreadsheet title<br/>Example: <i>Budget 2024</i>",
+      "title": "<b>User provides</b> <code>title</code> (string) to <b>Create Spreadsheet</b>. Spreadsheet title. Example: Budget 2024",
       "parameter": "title",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4145,9 +8310,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_CLEAR_VALUES",
       "label": "range",
-      "title": "<b>User provides</b> <code>range</code> (string) → <b>Clear Cells</b><br/>A1 notation range to clear<br/>Example: <i>A1:Z100</i>",
+      "title": "<b>User provides</b> <code>range</code> (string) to <b>Clear Cells</b>. A1 notation range to clear. Example: A1:Z100",
       "parameter": "range",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4155,9 +8322,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_BATCH_UPDATE",
       "label": "values",
-      "title": "<b>User provides</b> <code>values</code> (array) → <b>Write Cells</b><br/>2D array of cell values to write",
+      "title": "<b>User provides</b> <code>values</code> (array) to <b>Write Cells</b>. 2D array of cell values to write.",
       "parameter": "values",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4165,9 +8334,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_BATCH_UPDATE",
       "label": "range",
-      "title": "<b>User provides</b> <code>range</code> (string) → <b>Write Cells</b><br/>A1 notation range (e.g. Sheet1!A1:C5)",
+      "title": "<b>User provides</b> <code>range</code> (string) to <b>Write Cells</b>. A1 notation range (e.g. Sheet1!A1:C5).",
       "parameter": "range",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4175,9 +8346,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
       "label": "operation",
-      "title": "<b>User provides</b> <code>operation</code> (string) → <b>Aggregate Column</b><br/>Operation: sum | average | count | min | max",
+      "title": "<b>User provides</b> <code>operation</code> (string) to <b>Aggregate Column</b>. Operation: sum | average | count | min | max.",
       "parameter": "operation",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4185,9 +8358,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
       "label": "target_column",
-      "title": "<b>User provides</b> <code>target_column</code> (string) → <b>Aggregate Column</b><br/>Column letter to aggregate (e.g. B)",
+      "title": "<b>User provides</b> <code>target_column</code> (string) to <b>Aggregate Column</b>. Column letter to aggregate (e.g. B).",
       "parameter": "target_column",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4195,9 +8370,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
       "label": "sheet_name",
-      "title": "<b>User provides</b> <code>sheet_name</code> (string) → <b>Aggregate Column</b><br/>Sheet tab name",
+      "title": "<b>User provides</b> <code>sheet_name</code> (string) to <b>Aggregate Column</b>. Sheet tab name.",
       "parameter": "sheet_name",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4205,9 +8382,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
       "label": "title",
-      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Task List</b><br/>Task list name<br/>Example: <i>Sprint 5</i>",
+      "title": "<b>User provides</b> <code>title</code> (string) to <b>Create Task List</b>. Task list name. Example: Sprint 5",
       "parameter": "title",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4215,9 +8394,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_TASKS_INSERT_TASK",
       "label": "title",
-      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Task</b><br/>Task title<br/>Example: <i>Review pull request</i>",
+      "title": "<b>User provides</b> <code>title</code> (string) to <b>Create Task</b>. Task title. Example: Review pull request",
       "parameter": "title",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4225,9 +8406,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_BULK_INSERT_TASKS",
       "label": "tasks",
-      "title": "<b>User provides</b> <code>tasks</code> (array) → <b>Bulk Create Tasks</b><br/>Array of task objects [{title, notes?, due?}]",
+      "title": "<b>User provides</b> <code>tasks</code> (array) to <b>Bulk Create Tasks</b>. Array of task objects [{title, notes?, due?}].",
       "parameter": "tasks",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4235,9 +8418,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_CREATE_ALBUM",
       "label": "title",
-      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Album</b><br/>Album name<br/>Example: <i>Vacation 2024</i>",
+      "title": "<b>User provides</b> <code>title</code> (string) to <b>Create Album</b>. Album name. Example: Vacation 2024",
       "parameter": "title",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4245,9 +8430,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_BATCH_RUN_REPORTS",
       "label": "dateRanges",
-      "title": "<b>User provides</b> <code>dateRanges</code> (array) → <b>Run Analytics Reports</b><br/>Date range(s): [{startDate, endDate}] e.g. [{startDate:'7daysAgo',endDate:'today'}]",
+      "title": "<b>User provides</b> <code>dateRanges</code> (array) to <b>Run Analytics Reports</b>. Date range(s): [{startDate, endDate}] e.g. [{startDate:'7daysAgo',endDate:'today'}].",
       "parameter": "dateRanges",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4255,9 +8442,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_BATCH_RUN_REPORTS",
       "label": "metrics",
-      "title": "<b>User provides</b> <code>metrics</code> (array) → <b>Run Analytics Reports</b><br/>Metric names e.g. ['sessions','users','pageviews']",
+      "title": "<b>User provides</b> <code>metrics</code> (array) to <b>Run Analytics Reports</b>. Metric names e.g. ['sessions','users','pageviews'].",
       "parameter": "metrics",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4265,9 +8454,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
       "label": "dateRanges",
-      "title": "<b>User provides</b> <code>dateRanges</code> (array) → <b>Run Pivot Reports</b><br/>Date range(s) for the pivot report",
+      "title": "<b>User provides</b> <code>dateRanges</code> (array) to <b>Run Pivot Reports</b>. Date range(s) for the pivot report.",
       "parameter": "dateRanges",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4275,9 +8466,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
       "label": "pivots",
-      "title": "<b>User provides</b> <code>pivots</code> (array) → <b>Run Pivot Reports</b><br/>Pivot definitions [{fieldNames, limit}]",
+      "title": "<b>User provides</b> <code>pivots</code> (array) to <b>Run Pivot Reports</b>. Pivot definitions [{fieldNames, limit}].",
       "parameter": "pivots",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4285,9 +8478,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
       "label": "metrics",
-      "title": "<b>User provides</b> <code>metrics</code> (array) → <b>Run Pivot Reports</b><br/>Metric names",
+      "title": "<b>User provides</b> <code>metrics</code> (array) to <b>Run Pivot Reports</b>. Metric names.",
       "parameter": "metrics",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4295,9 +8490,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_CREATE_CUSTOM_DIMENSION",
       "label": "displayName",
-      "title": "<b>User provides</b> <code>displayName</code> (string) → <b>Create Custom Dimension</b><br/>Human-readable dimension name (max 82 chars)",
+      "title": "<b>User provides</b> <code>displayName</code> (string) to <b>Create Custom Dimension</b>. Human-readable dimension name (max 82 chars).",
       "parameter": "displayName",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4305,9 +8502,11 @@
       "from": "USER_INPUT",
       "to": "GOOGLESUPER_CREATE_CUSTOM_DIMENSION",
       "label": "scope",
-      "title": "<b>User provides</b> <code>scope</code> (string) → <b>Create Custom Dimension</b><br/>Scope: EVENT | USER | ITEM",
+      "title": "<b>User provides</b> <code>scope</code> (string) to <b>Create Custom Dimension</b>. Scope: EVENT | USER | ITEM.",
       "parameter": "scope",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4315,9 +8514,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_REPO",
       "label": "name",
-      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Repo</b><br/>Repository name<br/>Example: <i>my-project</i>",
+      "title": "<b>User provides</b> <code>name</code> (string) to <b>Create Repo</b>. Repository name. Example: my-project",
       "parameter": "name",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4325,9 +8526,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_A_BLOB",
       "label": "content",
-      "title": "<b>User provides</b> <code>content</code> (string) → <b>Create Blob</b><br/>File content to store as a Git blob",
+      "title": "<b>User provides</b> <code>content</code> (string) to <b>Create Blob</b>. File content to store as a Git blob.",
       "parameter": "content",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4335,9 +8538,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_A_TREE",
       "label": "tree",
-      "title": "<b>User provides</b> <code>tree</code> (array) → <b>Create Tree</b><br/>Tree entries [{path, mode, type, sha or content}]",
+      "title": "<b>User provides</b> <code>tree</code> (array) to <b>Create Tree</b>. Tree entries [{path, mode, type, sha or content}].",
       "parameter": "tree",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4345,9 +8550,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_A_COMMIT",
       "label": "message",
-      "title": "<b>User provides</b> <code>message</code> (string) → <b>Create Commit</b><br/>Commit message<br/>Example: <i>fix: resolve null pointer in auth</i>",
+      "title": "<b>User provides</b> <code>message</code> (string) to <b>Create Commit</b>. Commit message. Example: fix: resolve null pointer in auth",
       "parameter": "message",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4355,9 +8562,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_COMMIT_MULTIPLE_FILES",
       "label": "message",
-      "title": "<b>User provides</b> <code>message</code> (string) → <b>Commit Multiple Files</b><br/>Commit message",
+      "title": "<b>User provides</b> <code>message</code> (string) to <b>Commit Multiple Files</b>. Commit message.",
       "parameter": "message",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4365,9 +8574,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
       "label": "body",
-      "title": "<b>User provides</b> <code>body</code> (string) → <b>Comment on Commit</b><br/>Comment text (supports markdown)",
+      "title": "<b>User provides</b> <code>body</code> (string) to <b>Comment on Commit</b>. Comment text (supports markdown).",
       "parameter": "body",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4375,9 +8586,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_A_COMMIT_STATUS",
       "label": "state",
-      "title": "<b>User provides</b> <code>state</code> (string) → <b>Set Commit Status</b><br/>CI status: error | failure | pending | success",
+      "title": "<b>User provides</b> <code>state</code> (string) to <b>Set Commit Status</b>. CI status: error | failure | pending | success.",
       "parameter": "state",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4385,9 +8598,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_ISSUE",
       "label": "title",
-      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Issue</b><br/>Issue title<br/>Example: <i>Bug: login fails on Safari</i>",
+      "title": "<b>User provides</b> <code>title</code> (string) to <b>Create Issue</b>. Issue title. Example: Bug: login fails on Safari",
       "parameter": "title",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4395,9 +8610,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_LABEL",
       "label": "name",
-      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Label</b><br/>Label text<br/>Example: <i>bug</i>",
+      "title": "<b>User provides</b> <code>name</code> (string) to <b>Create Label</b>. Label text. Example: bug",
       "parameter": "name",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4405,9 +8622,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_LABEL",
       "label": "color",
-      "title": "<b>User provides</b> <code>color</code> (string) → <b>Create Label</b><br/>Hex color without # (e.g. d73a4a)",
+      "title": "<b>User provides</b> <code>color</code> (string) to <b>Create Label</b>. Hex color without # (e.g. d73a4a).",
       "parameter": "color",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4415,9 +8634,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_PULL_REQUEST",
       "label": "title",
-      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Pull Request</b><br/>Pull request title",
+      "title": "<b>User provides</b> <code>title</code> (string) to <b>Create Pull Request</b>. Pull request title.",
       "parameter": "title",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4425,9 +8646,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_PULL_REQUEST",
       "label": "base",
-      "title": "<b>User provides</b> <code>base</code> (string) → <b>Create Pull Request</b><br/>Target branch to merge into (e.g. main)",
+      "title": "<b>User provides</b> <code>base</code> (string) to <b>Create Pull Request</b>. Target branch to merge into (e.g. main).",
       "parameter": "base",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4435,9 +8658,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_TRIGGER_WORKFLOW",
       "label": "ref",
-      "title": "<b>User provides</b> <code>ref</code> (string) → <b>Trigger Workflow</b><br/>Branch or tag to run workflow on<br/>Example: <i>main</i>",
+      "title": "<b>User provides</b> <code>ref</code> (string) to <b>Trigger Workflow</b>. Branch or tag to run workflow on. Example: main",
       "parameter": "ref",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4445,9 +8670,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
       "label": "state",
-      "title": "<b>User provides</b> <code>state</code> (string) → <b>Update Deployment Status</b><br/>Deployment state: error | failure | inactive | in_progress | queued | pending | success",
+      "title": "<b>User provides</b> <code>state</code> (string) to <b>Update Deployment Status</b>. Deployment state: error | failure | inactive | in_progress | queued | pending | success.",
       "parameter": "state",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4455,9 +8682,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_RELEASE",
       "label": "tag_name",
-      "title": "<b>User provides</b> <code>tag_name</code> (string) → <b>Create Release</b><br/>Git tag for this release (e.g. v1.2.0)",
+      "title": "<b>User provides</b> <code>tag_name</code> (string) to <b>Create Release</b>. Git tag for this release (e.g. v1.2.0).",
       "parameter": "tag_name",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4465,9 +8694,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_TEAM",
       "label": "name",
-      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Team</b><br/>Team name",
+      "title": "<b>User provides</b> <code>name</code> (string) to <b>Create Team</b>. Team name.",
       "parameter": "name",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     },
     {
@@ -4475,9 +8706,11 @@
       "from": "USER_INPUT",
       "to": "GITHUB_CREATE_A_CHECK_RUN",
       "label": "name",
-      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Check Run</b><br/>Check run display name (e.g. Unit Tests)",
+      "title": "<b>User provides</b> <code>name</code> (string) to <b>Create Check Run</b>. Check run display name (e.g. Unit Tests).",
       "parameter": "name",
       "source": "user",
+      "inferred": false,
+      "confidence": 1,
       "arrows": "to"
     }
   ]
