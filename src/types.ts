@@ -5,6 +5,14 @@ export type ToolGroup =
   | "github_prs" | "github_actions" | "github_deploy" | "github_releases"
   | "github_org" | "github_collaborators" | "github_checks";
 
+export interface UserInputDef {
+  param: string;
+  type: "string" | "number" | "boolean" | "array" | "object";
+  description: string;
+  required: boolean;
+  example?: string;
+}
+
 export interface ToolDef {
   id: string;
   label: string;
@@ -12,12 +20,16 @@ export interface ToolDef {
   group: ToolGroup;
   provides: string[];
   requires: string[];
+  user_inputs?: UserInputDef[];
 }
 
+/** source="tool" → parameter flows from another tool's output.
+ *  source="user" → parameter must be supplied by the user/agent caller. */
 export interface DependencyEdge {
   from: string;
   to: string;
   parameter: string;
+  source: "tool" | "user";
 }
 
 export interface GroupConfig {
@@ -32,6 +44,8 @@ export interface GraphData {
     generated_at: string;
     total_tools: number;
     total_dependencies: number;
+    total_user_input_edges: number;
+    composio_enriched: boolean;
   };
   groups: Record<string, GroupConfig>;
   nodes: {
@@ -41,6 +55,8 @@ export interface GraphData {
     group: string;
     provides: string[];
     requires: string[];
+    user_inputs: UserInputDef[];
+    has_user_inputs: boolean;
   }[];
   edges: {
     id: string;
@@ -49,6 +65,7 @@ export interface GraphData {
     label: string;
     title: string;
     parameter: string;
+    source: "tool" | "user";
     arrows: string;
   }[];
 }

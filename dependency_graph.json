@@ -1,13 +1,15 @@
 {
   "metadata": {
-    "description": "Tool dependency graph for Google Super and GitHub toolkits. An edge FROM→TO means tool FROM provides a parameter that tool TO requires. Built by analysing each tool's inputs/outputs and mapping the parameter flows.",
+    "description": "Tool dependency graph for Google Super and GitHub (Composio toolkits). Edges show parameter flows between tools (source=tool) or from the user/agent (source=user). An agent uses this graph to decide: run a prerequisite tool OR prompt the user.",
     "toolkits": [
       "googlesuper",
       "github"
     ],
-    "generated_at": "2026-04-30T16:37:18.153Z",
+    "generated_at": "2026-04-30T16:56:30.076Z",
     "total_tools": 126,
-    "total_dependencies": 145
+    "total_dependencies": 145,
+    "total_user_input_edges": 51,
+    "composio_enriched": false
   },
   "groups": {
     "gmail": {
@@ -85,9 +87,25 @@
     "github_checks": {
       "color": "#032F62",
       "label": "GitHub: Checks"
+    },
+    "user_input": {
+      "color": "#F79F1A",
+      "label": "User / Agent Input"
     }
   },
   "nodes": [
+    {
+      "id": "USER_INPUT",
+      "label": "User / Agent",
+      "title": "<b>User / Agent</b><br/>Parameters supplied directly by the user or inferred from conversation context.",
+      "group": "user_input",
+      "provides": [
+        "user-supplied params"
+      ],
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
+    },
     {
       "id": "GOOGLESUPER_GMAIL_LIST_THREADS",
       "label": "List Threads",
@@ -96,27 +114,40 @@
       "provides": [
         "thread_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_GET_THREAD",
       "label": "Get Thread",
-      "title": "<b>Get Thread</b><br/>Fetch full details of a single Gmail thread. Requires thread_id.<br/><b>Requires:</b> thread_id",
+      "title": "<b>Get Thread</b><br/>Fetch full details of a single Gmail thread. Requires thread_id.<br/><b>Requires (tool):</b> thread_id",
       "group": "gmail",
       "provides": [],
       "requires": [
         "thread_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_REPLY_TO_THREAD",
       "label": "Reply to Thread",
-      "title": "<b>Reply to Thread</b><br/>Send a reply within an existing Gmail thread. Requires thread_id.<br/><b>Requires:</b> thread_id",
+      "title": "<b>Reply to Thread</b><br/>Send a reply within an existing Gmail thread. Requires thread_id.<br/><b>Requires (tool):</b> thread_id<br/><b>Requires (user):</b> body",
       "group": "gmail",
       "provides": [],
       "requires": [
         "thread_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "body",
+          "type": "string",
+          "description": "Reply message text",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_GMAIL_LIST_MESSAGES",
@@ -126,37 +157,66 @@
       "provides": [
         "message_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_GET_MESSAGE",
       "label": "Get Message",
-      "title": "<b>Get Message</b><br/>Fetch full content of a specific Gmail message. Requires message_id.<br/><b>Requires:</b> message_id",
+      "title": "<b>Get Message</b><br/>Fetch full content of a specific Gmail message. Requires message_id.<br/><b>Requires (tool):</b> message_id",
       "group": "gmail",
       "provides": [],
       "requires": [
         "message_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_SEND_EMAIL",
       "label": "Send Email",
-      "title": "<b>Send Email</b><br/>Compose and send a new Gmail message. Requires recipient email address.<br/><b>Requires:</b> email",
+      "title": "<b>Send Email</b><br/>Compose and send a new Gmail message. Requires recipient email address.<br/><b>Requires (tool):</b> email<br/><b>Requires (user):</b> subject, body",
       "group": "gmail",
       "provides": [],
       "requires": [
         "email"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "to",
+          "type": "string",
+          "description": "Recipient email (alternative: derive via Search Contacts)",
+          "required": false,
+          "example": "alice@example.com"
+        },
+        {
+          "param": "subject",
+          "type": "string",
+          "description": "Email subject line",
+          "required": true,
+          "example": "Meeting notes"
+        },
+        {
+          "param": "body",
+          "type": "string",
+          "description": "Email message body",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_GMAIL_DELETE_MESSAGE",
       "label": "Delete Message",
-      "title": "<b>Delete Message</b><br/>Permanently delete a Gmail message. Requires message_id.<br/><b>Requires:</b> message_id",
+      "title": "<b>Delete Message</b><br/>Permanently delete a Gmail message. Requires message_id.<br/><b>Requires (tool):</b> message_id",
       "group": "gmail",
       "provides": [],
       "requires": [
         "message_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_LIST_DRAFTS",
@@ -166,7 +226,9 @@
       "provides": [
         "draft_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_CREATE_DRAFT",
@@ -176,27 +238,52 @@
       "provides": [
         "draft_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "to",
+          "type": "string",
+          "description": "Recipient email address",
+          "required": false
+        },
+        {
+          "param": "subject",
+          "type": "string",
+          "description": "Draft subject",
+          "required": false
+        },
+        {
+          "param": "body",
+          "type": "string",
+          "description": "Draft body",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_GMAIL_GET_DRAFT",
       "label": "Get Draft",
-      "title": "<b>Get Draft</b><br/>Retrieve content of a specific Gmail draft. Requires draft_id.<br/><b>Requires:</b> draft_id",
+      "title": "<b>Get Draft</b><br/>Retrieve content of a specific Gmail draft. Requires draft_id.<br/><b>Requires (tool):</b> draft_id",
       "group": "gmail",
       "provides": [],
       "requires": [
         "draft_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_SEND_DRAFT",
       "label": "Send Draft",
-      "title": "<b>Send Draft</b><br/>Send an existing Gmail draft. Requires draft_id.<br/><b>Requires:</b> draft_id",
+      "title": "<b>Send Draft</b><br/>Send an existing Gmail draft. Requires draft_id.<br/><b>Requires (tool):</b> draft_id",
       "group": "gmail",
       "provides": [],
       "requires": [
         "draft_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_LIST_LABELS",
@@ -206,49 +293,67 @@
       "provides": [
         "label_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_GMAIL_CREATE_LABEL",
       "label": "Create Label",
-      "title": "<b>Create Label</b><br/>Create a new Gmail label. Returns label_id.<br/><b>Provides:</b> label_id",
+      "title": "<b>Create Label</b><br/>Create a new Gmail label. Returns label_id.<br/><b>Provides:</b> label_id<br/><b>Requires (user):</b> name",
       "group": "gmail",
       "provides": [
         "label_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "name",
+          "type": "string",
+          "description": "Label display name",
+          "required": true,
+          "example": "Urgent"
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_ADD_LABEL_TO_EMAIL",
       "label": "Modify Email Labels",
-      "title": "<b>Modify Email Labels</b><br/>Add or remove labels on a Gmail message. Requires message_id + label_id.<br/><b>Requires:</b> message_id, label_id",
+      "title": "<b>Modify Email Labels</b><br/>Add or remove labels on a Gmail message. Requires message_id + label_id.<br/><b>Requires (tool):</b> message_id, label_id",
       "group": "gmail",
       "provides": [],
       "requires": [
         "message_id",
         "label_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_BATCH_DELETE_MESSAGES",
       "label": "Batch Delete Messages",
-      "title": "<b>Batch Delete Messages</b><br/>Permanently delete multiple Gmail messages. Requires message_ids.<br/><b>Requires:</b> message_id",
+      "title": "<b>Batch Delete Messages</b><br/>Permanently delete multiple Gmail messages. Requires message_ids.<br/><b>Requires (tool):</b> message_id",
       "group": "gmail",
       "provides": [],
       "requires": [
         "message_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_BATCH_MODIFY_MESSAGES",
       "label": "Batch Modify Messages",
-      "title": "<b>Batch Modify Messages</b><br/>Apply label changes to up to 1000 messages. Requires message_ids + label_ids.<br/><b>Requires:</b> message_id, label_id",
+      "title": "<b>Batch Modify Messages</b><br/>Apply label changes to up to 1000 messages. Requires message_ids + label_ids.<br/><b>Requires (tool):</b> message_id, label_id",
       "group": "gmail",
       "provides": [],
       "requires": [
         "message_id",
         "label_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CONTACTS_LIST",
@@ -259,18 +364,30 @@
         "email",
         "contact_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CONTACTS_SEARCH",
       "label": "Search Contacts",
-      "title": "<b>Search Contacts</b><br/>Search contacts by name or email. Returns matching email addresses. Used to look up email from a person's name.<br/><b>Provides:</b> email, contact_id",
+      "title": "<b>Search Contacts</b><br/>Search contacts by name or email. Returns matching email addresses. Used to look up email from a person's name.<br/><b>Provides:</b> email, contact_id<br/><b>Requires (user):</b> query",
       "group": "contacts",
       "provides": [
         "email",
         "contact_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "query",
+          "type": "string",
+          "description": "Person's name or partial email to search for",
+          "required": true,
+          "example": "John Smith"
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_CALENDAR_LIST_LIST",
@@ -280,160 +397,274 @@
       "provides": [
         "calendar_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CALENDARS_INSERT",
       "label": "Create Calendar",
-      "title": "<b>Create Calendar</b><br/>Create a new secondary Google Calendar. Returns calendar_id.<br/><b>Provides:</b> calendar_id",
+      "title": "<b>Create Calendar</b><br/>Create a new secondary Google Calendar. Returns calendar_id.<br/><b>Provides:</b> calendar_id<br/><b>Requires (user):</b> summary",
       "group": "calendar",
       "provides": [
         "calendar_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "summary",
+          "type": "string",
+          "description": "Calendar title",
+          "required": true,
+          "example": "Work"
+        },
+        {
+          "param": "timeZone",
+          "type": "string",
+          "description": "IANA timezone (e.g. America/New_York)",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_CALENDAR_LIST_GET",
       "label": "Get Calendar",
-      "title": "<b>Get Calendar</b><br/>Retrieve metadata for a specific calendar. Requires calendar_id.<br/><b>Requires:</b> calendar_id",
+      "title": "<b>Get Calendar</b><br/>Retrieve metadata for a specific calendar. Requires calendar_id.<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CALENDARS_UPDATE",
       "label": "Update Calendar",
-      "title": "<b>Update Calendar</b><br/>Update calendar metadata (title, timezone, etc.). Requires calendar_id.<br/><b>Requires:</b> calendar_id",
+      "title": "<b>Update Calendar</b><br/>Update calendar metadata (title, timezone, etc.). Requires calendar_id.<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CALENDARS_DELETE",
       "label": "Delete Calendar",
-      "title": "<b>Delete Calendar</b><br/>Permanently delete a secondary calendar. Requires calendar_id.<br/><b>Requires:</b> calendar_id",
+      "title": "<b>Delete Calendar</b><br/>Permanently delete a secondary calendar. Requires calendar_id.<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_EVENTS_LIST",
       "label": "List Events",
-      "title": "<b>List Events</b><br/>List events in a calendar. Requires calendar_id. Returns event_ids.<br/><b>Provides:</b> event_id<br/><b>Requires:</b> calendar_id",
+      "title": "<b>List Events</b><br/>List events in a calendar. Requires calendar_id. Returns event_ids.<br/><b>Provides:</b> event_id<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [
         "event_id"
       ],
       "requires": [
         "calendar_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_EVENTS_GET",
       "label": "Get Event",
-      "title": "<b>Get Event</b><br/>Retrieve full details of a calendar event. Requires calendar_id + event_id.<br/><b>Requires:</b> calendar_id, event_id",
+      "title": "<b>Get Event</b><br/>Retrieve full details of a calendar event. Requires calendar_id + event_id.<br/><b>Requires (tool):</b> calendar_id, event_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id",
         "event_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_EVENTS_INSERT",
       "label": "Create Event",
-      "title": "<b>Create Event</b><br/>Create a new event in a calendar. Requires calendar_id.<br/><b>Provides:</b> event_id<br/><b>Requires:</b> calendar_id",
+      "title": "<b>Create Event</b><br/>Create a new event in a calendar. Requires calendar_id.<br/><b>Provides:</b> event_id<br/><b>Requires (tool):</b> calendar_id<br/><b>Requires (user):</b> summary, start_time, end_time",
       "group": "calendar",
       "provides": [
         "event_id"
       ],
       "requires": [
         "calendar_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "summary",
+          "type": "string",
+          "description": "Event title",
+          "required": true,
+          "example": "Team standup"
+        },
+        {
+          "param": "start_time",
+          "type": "string",
+          "description": "Start datetime ISO 8601 (e.g. 2024-06-01T10:00:00Z)",
+          "required": true
+        },
+        {
+          "param": "end_time",
+          "type": "string",
+          "description": "End datetime ISO 8601",
+          "required": true
+        },
+        {
+          "param": "description",
+          "type": "string",
+          "description": "Event description",
+          "required": false
+        },
+        {
+          "param": "location",
+          "type": "string",
+          "description": "Event location",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_EVENTS_UPDATE",
       "label": "Update Event",
-      "title": "<b>Update Event</b><br/>Update an existing calendar event. Requires calendar_id + event_id.<br/><b>Requires:</b> calendar_id, event_id",
+      "title": "<b>Update Event</b><br/>Update an existing calendar event. Requires calendar_id + event_id.<br/><b>Requires (tool):</b> calendar_id, event_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id",
         "event_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "summary",
+          "type": "string",
+          "description": "New event title",
+          "required": false
+        },
+        {
+          "param": "start_time",
+          "type": "string",
+          "description": "New start datetime",
+          "required": false
+        },
+        {
+          "param": "end_time",
+          "type": "string",
+          "description": "New end datetime",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_EVENTS_DELETE",
       "label": "Delete Event",
-      "title": "<b>Delete Event</b><br/>Delete a calendar event. Requires calendar_id + event_id.<br/><b>Requires:</b> calendar_id, event_id",
+      "title": "<b>Delete Event</b><br/>Delete a calendar event. Requires calendar_id + event_id.<br/><b>Requires (tool):</b> calendar_id, event_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id",
         "event_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CLEAR_CALENDAR",
       "label": "Clear Calendar",
-      "title": "<b>Clear Calendar</b><br/>Delete all events from a primary calendar. Requires calendar_id.<br/><b>Requires:</b> calendar_id",
+      "title": "<b>Clear Calendar</b><br/>Delete all events from a primary calendar. Requires calendar_id.<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_ACL_LIST",
       "label": "List ACL Rules",
-      "title": "<b>List ACL Rules</b><br/>List access control rules for a calendar. Requires calendar_id. Returns rule_ids.<br/><b>Provides:</b> rule_id<br/><b>Requires:</b> calendar_id",
+      "title": "<b>List ACL Rules</b><br/>List access control rules for a calendar. Requires calendar_id. Returns rule_ids.<br/><b>Provides:</b> rule_id<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [
         "rule_id"
       ],
       "requires": [
         "calendar_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_ACL_INSERT",
       "label": "Create ACL Rule",
-      "title": "<b>Create ACL Rule</b><br/>Grant sharing permission to a user/group/domain. Requires calendar_id.<br/><b>Provides:</b> rule_id<br/><b>Requires:</b> calendar_id",
+      "title": "<b>Create ACL Rule</b><br/>Grant sharing permission to a user/group/domain. Requires calendar_id.<br/><b>Provides:</b> rule_id<br/><b>Requires (tool):</b> calendar_id<br/><b>Requires (user):</b> role, scope_type, scope_value",
       "group": "calendar",
       "provides": [
         "rule_id"
       ],
       "requires": [
         "calendar_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "role",
+          "type": "string",
+          "description": "Access role: reader | writer | owner",
+          "required": true
+        },
+        {
+          "param": "scope_type",
+          "type": "string",
+          "description": "Scope type: user | group | domain",
+          "required": true
+        },
+        {
+          "param": "scope_value",
+          "type": "string",
+          "description": "Email address or domain to grant access",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_ACL_DELETE",
       "label": "Delete ACL Rule",
-      "title": "<b>Delete ACL Rule</b><br/>Remove a sharing permission rule. Requires calendar_id + rule_id.<br/><b>Requires:</b> calendar_id, rule_id",
+      "title": "<b>Delete ACL Rule</b><br/>Remove a sharing permission rule. Requires calendar_id + rule_id.<br/><b>Requires (tool):</b> calendar_id, rule_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id",
         "rule_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_ACL_UPDATE",
       "label": "Update ACL Rule",
-      "title": "<b>Update ACL Rule</b><br/>Fully update a calendar access rule. Requires calendar_id + rule_id.<br/><b>Requires:</b> calendar_id, rule_id",
+      "title": "<b>Update ACL Rule</b><br/>Fully update a calendar access rule. Requires calendar_id + rule_id.<br/><b>Requires (tool):</b> calendar_id, rule_id",
       "group": "calendar",
       "provides": [],
       "requires": [
         "calendar_id",
         "rule_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_DRIVE_LIST_FILES",
@@ -443,7 +674,9 @@
       "provides": [
         "file_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_DRIVE_SEARCH_FILES",
@@ -453,79 +686,141 @@
       "provides": [
         "file_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_DRIVE_CREATE_FILE",
       "label": "Create File",
-      "title": "<b>Create File</b><br/>Create a new file in Google Drive. Returns file_id.<br/><b>Provides:</b> file_id",
+      "title": "<b>Create File</b><br/>Create a new file in Google Drive. Returns file_id.<br/><b>Provides:</b> file_id<br/><b>Requires (user):</b> name",
       "group": "drive",
       "provides": [
         "file_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "name",
+          "type": "string",
+          "description": "File name",
+          "required": true,
+          "example": "report.pdf"
+        },
+        {
+          "param": "content",
+          "type": "string",
+          "description": "File content or URL to upload",
+          "required": false
+        },
+        {
+          "param": "mimeType",
+          "type": "string",
+          "description": "MIME type (e.g. application/pdf)",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_DRIVE_GET_FILE",
       "label": "Get File Metadata",
-      "title": "<b>Get File Metadata</b><br/>Retrieve metadata for a specific Drive file. Requires file_id.<br/><b>Requires:</b> file_id",
+      "title": "<b>Get File Metadata</b><br/>Retrieve metadata for a specific Drive file. Requires file_id.<br/><b>Requires (tool):</b> file_id",
       "group": "drive",
       "provides": [],
       "requires": [
         "file_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_DRIVE_DELETE_FILE",
       "label": "Delete File",
-      "title": "<b>Delete File</b><br/>Permanently delete a Drive file. Requires file_id.<br/><b>Requires:</b> file_id",
+      "title": "<b>Delete File</b><br/>Permanently delete a Drive file. Requires file_id.<br/><b>Requires (tool):</b> file_id",
       "group": "drive",
       "provides": [],
       "requires": [
         "file_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_DRIVE_DOWNLOAD_FILE",
       "label": "Download File",
-      "title": "<b>Download File</b><br/>Download file content from Drive. Requires file_id.<br/><b>Requires:</b> file_id",
+      "title": "<b>Download File</b><br/>Download file content from Drive. Requires file_id.<br/><b>Requires (tool):</b> file_id",
       "group": "drive",
       "provides": [],
       "requires": [
         "file_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_COPY_FILE_ADVANCED",
       "label": "Copy File",
-      "title": "<b>Copy File</b><br/>Duplicate a Drive file with advanced options. Requires file_id. Returns new file_id.<br/><b>Provides:</b> file_id<br/><b>Requires:</b> file_id",
+      "title": "<b>Copy File</b><br/>Duplicate a Drive file with advanced options. Requires file_id. Returns new file_id.<br/><b>Provides:</b> file_id<br/><b>Requires (tool):</b> file_id",
       "group": "drive",
       "provides": [
         "file_id"
       ],
       "requires": [
         "file_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CREATE_COMMENT",
       "label": "Comment on File",
-      "title": "<b>Comment on File</b><br/>Add a comment to a Drive file. Requires file_id.<br/><b>Requires:</b> file_id",
+      "title": "<b>Comment on File</b><br/>Add a comment to a Drive file. Requires file_id.<br/><b>Requires (tool):</b> file_id<br/><b>Requires (user):</b> content",
       "group": "drive",
       "provides": [],
       "requires": [
         "file_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "content",
+          "type": "string",
+          "description": "Comment text",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
       "label": "Share File",
-      "title": "<b>Share File</b><br/>Grant sharing permissions to a Drive file. Requires file_id.<br/><b>Requires:</b> file_id",
+      "title": "<b>Share File</b><br/>Grant sharing permissions to a Drive file. Requires file_id.<br/><b>Requires (tool):</b> file_id<br/><b>Requires (user):</b> role, type",
       "group": "drive",
       "provides": [],
       "requires": [
         "file_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "role",
+          "type": "string",
+          "description": "Permission role: reader | writer | commenter | owner",
+          "required": true
+        },
+        {
+          "param": "type",
+          "type": "string",
+          "description": "Principal type: user | group | domain | anyone",
+          "required": true
+        },
+        {
+          "param": "email_address",
+          "type": "string",
+          "description": "Email of user/group to share with",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_DRIVE_LIST_FOLDERS",
@@ -535,18 +830,22 @@
       "provides": [
         "folder_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_ADD_PARENT",
       "label": "Move to Folder",
-      "title": "<b>Move to Folder</b><br/>Move a file into a folder (add parent). Requires file_id + folder_id.<br/><b>Requires:</b> file_id, folder_id",
+      "title": "<b>Move to Folder</b><br/>Move a file into a folder (add parent). Requires file_id + folder_id.<br/><b>Requires (tool):</b> file_id, folder_id",
       "group": "drive",
       "provides": [],
       "requires": [
         "file_id",
         "folder_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
@@ -556,101 +855,177 @@
       "provides": [
         "spreadsheet_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
       "label": "Create Spreadsheet",
-      "title": "<b>Create Spreadsheet</b><br/>Create a new Google Sheets spreadsheet. Returns spreadsheet_id.<br/><b>Provides:</b> spreadsheet_id",
+      "title": "<b>Create Spreadsheet</b><br/>Create a new Google Sheets spreadsheet. Returns spreadsheet_id.<br/><b>Provides:</b> spreadsheet_id<br/><b>Requires (user):</b> title",
       "group": "sheets",
       "provides": [
         "spreadsheet_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "Spreadsheet title",
+          "required": true,
+          "example": "Budget 2024"
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_BATCH_GET",
       "label": "Read Cell Ranges",
-      "title": "<b>Read Cell Ranges</b><br/>Read values from one or more cell ranges. Requires spreadsheet_id.<br/><b>Requires:</b> spreadsheet_id",
+      "title": "<b>Read Cell Ranges</b><br/>Read values from one or more cell ranges. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id",
       "group": "sheets",
       "provides": [],
       "requires": [
         "spreadsheet_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_ADD_SHEET",
       "label": "Add Sheet Tab",
-      "title": "<b>Add Sheet Tab</b><br/>Add a new sheet tab to a spreadsheet. Requires spreadsheet_id. Returns sheet_id.<br/><b>Provides:</b> sheet_id<br/><b>Requires:</b> spreadsheet_id",
+      "title": "<b>Add Sheet Tab</b><br/>Add a new sheet tab to a spreadsheet. Requires spreadsheet_id. Returns sheet_id.<br/><b>Provides:</b> sheet_id<br/><b>Requires (tool):</b> spreadsheet_id",
       "group": "sheets",
       "provides": [
         "sheet_id"
       ],
       "requires": [
         "spreadsheet_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "New sheet tab name",
+          "required": false,
+          "example": "Q2 Data"
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_APPEND_DIMENSION",
       "label": "Append Rows/Columns",
-      "title": "<b>Append Rows/Columns</b><br/>Add empty rows or columns to a sheet. Requires spreadsheet_id + sheet_id.<br/><b>Requires:</b> spreadsheet_id, sheet_id",
+      "title": "<b>Append Rows/Columns</b><br/>Add empty rows or columns to a sheet. Requires spreadsheet_id + sheet_id.<br/><b>Requires (tool):</b> spreadsheet_id, sheet_id",
       "group": "sheets",
       "provides": [],
       "requires": [
         "spreadsheet_id",
         "sheet_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CREATE_CHART",
       "label": "Create Chart",
-      "title": "<b>Create Chart</b><br/>Create a chart from sheet data. Requires spreadsheet_id + sheet_id.<br/><b>Requires:</b> spreadsheet_id, sheet_id",
+      "title": "<b>Create Chart</b><br/>Create a chart from sheet data. Requires spreadsheet_id + sheet_id.<br/><b>Requires (tool):</b> spreadsheet_id, sheet_id",
       "group": "sheets",
       "provides": [],
       "requires": [
         "spreadsheet_id",
         "sheet_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CLEAR_VALUES",
       "label": "Clear Cells",
-      "title": "<b>Clear Cells</b><br/>Clear cell content from an A1-notation range. Requires spreadsheet_id.<br/><b>Requires:</b> spreadsheet_id",
+      "title": "<b>Clear Cells</b><br/>Clear cell content from an A1-notation range. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> range",
       "group": "sheets",
       "provides": [],
       "requires": [
         "spreadsheet_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "range",
+          "type": "string",
+          "description": "A1 notation range to clear",
+          "required": true,
+          "example": "A1:Z100"
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_BATCH_UPDATE",
       "label": "Write Cells",
-      "title": "<b>Write Cells</b><br/>Write values to one or more cell ranges. Requires spreadsheet_id.<br/><b>Requires:</b> spreadsheet_id",
+      "title": "<b>Write Cells</b><br/>Write values to one or more cell ranges. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> values, range",
       "group": "sheets",
       "provides": [],
       "requires": [
         "spreadsheet_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "values",
+          "type": "array",
+          "description": "2D array of cell values to write",
+          "required": true
+        },
+        {
+          "param": "range",
+          "type": "string",
+          "description": "A1 notation range (e.g. Sheet1!A1:C5)",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
       "label": "Aggregate Column",
-      "title": "<b>Aggregate Column</b><br/>Perform sum/avg/count/min/max on filtered column data. Requires spreadsheet_id.<br/><b>Requires:</b> spreadsheet_id",
+      "title": "<b>Aggregate Column</b><br/>Perform sum/avg/count/min/max on filtered column data. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> operation, target_column, sheet_name",
       "group": "sheets",
       "provides": [],
       "requires": [
         "spreadsheet_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "operation",
+          "type": "string",
+          "description": "Operation: sum | average | count | min | max",
+          "required": true
+        },
+        {
+          "param": "target_column",
+          "type": "string",
+          "description": "Column letter to aggregate (e.g. B)",
+          "required": true
+        },
+        {
+          "param": "sheet_name",
+          "type": "string",
+          "description": "Sheet tab name",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_AUTO_RESIZE_DIMENSIONS",
       "label": "Auto-Resize Columns",
-      "title": "<b>Auto-Resize Columns</b><br/>Auto-fit column widths or row heights. Requires spreadsheet_id.<br/><b>Requires:</b> spreadsheet_id",
+      "title": "<b>Auto-Resize Columns</b><br/>Auto-fit column widths or row heights. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id",
       "group": "sheets",
       "provides": [],
       "requires": [
         "spreadsheet_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_TASKS_LIST_TASKLISTS",
@@ -660,94 +1035,166 @@
       "provides": [
         "tasklist_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
       "label": "Create Task List",
-      "title": "<b>Create Task List</b><br/>Create a new Google Task List. Returns tasklist_id.<br/><b>Provides:</b> tasklist_id",
+      "title": "<b>Create Task List</b><br/>Create a new Google Task List. Returns tasklist_id.<br/><b>Provides:</b> tasklist_id<br/><b>Requires (user):</b> title",
       "group": "tasks",
       "provides": [
         "tasklist_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "Task list name",
+          "required": true,
+          "example": "Sprint 5"
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_TASKS_LIST_TASKS",
       "label": "List Tasks",
-      "title": "<b>List Tasks</b><br/>List tasks in a task list. Requires tasklist_id. Returns task_ids.<br/><b>Provides:</b> task_id<br/><b>Requires:</b> tasklist_id",
+      "title": "<b>List Tasks</b><br/>List tasks in a task list. Requires tasklist_id. Returns task_ids.<br/><b>Provides:</b> task_id<br/><b>Requires (tool):</b> tasklist_id",
       "group": "tasks",
       "provides": [
         "task_id"
       ],
       "requires": [
         "tasklist_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_TASKS_GET_TASK",
       "label": "Get Task",
-      "title": "<b>Get Task</b><br/>Retrieve details of a specific task. Requires tasklist_id + task_id.<br/><b>Requires:</b> tasklist_id, task_id",
+      "title": "<b>Get Task</b><br/>Retrieve details of a specific task. Requires tasklist_id + task_id.<br/><b>Requires (tool):</b> tasklist_id, task_id",
       "group": "tasks",
       "provides": [],
       "requires": [
         "tasklist_id",
         "task_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_TASKS_INSERT_TASK",
       "label": "Create Task",
-      "title": "<b>Create Task</b><br/>Create a new task in a task list. Requires tasklist_id.<br/><b>Provides:</b> task_id<br/><b>Requires:</b> tasklist_id",
+      "title": "<b>Create Task</b><br/>Create a new task in a task list. Requires tasklist_id.<br/><b>Provides:</b> task_id<br/><b>Requires (tool):</b> tasklist_id<br/><b>Requires (user):</b> title",
       "group": "tasks",
       "provides": [
         "task_id"
       ],
       "requires": [
         "tasklist_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "Task title",
+          "required": true,
+          "example": "Review pull request"
+        },
+        {
+          "param": "notes",
+          "type": "string",
+          "description": "Task notes/description",
+          "required": false
+        },
+        {
+          "param": "due",
+          "type": "string",
+          "description": "Due date ISO 8601",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_TASKS_UPDATE_TASK",
       "label": "Update Task",
-      "title": "<b>Update Task</b><br/>Update an existing task. Requires tasklist_id + task_id.<br/><b>Requires:</b> tasklist_id, task_id",
+      "title": "<b>Update Task</b><br/>Update an existing task. Requires tasklist_id + task_id.<br/><b>Requires (tool):</b> tasklist_id, task_id",
       "group": "tasks",
       "provides": [],
       "requires": [
         "tasklist_id",
         "task_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "Updated task title",
+          "required": false
+        },
+        {
+          "param": "status",
+          "type": "string",
+          "description": "New status: needsAction | completed",
+          "required": false
+        },
+        {
+          "param": "notes",
+          "type": "string",
+          "description": "Updated notes",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_TASKS_DELETE_TASK",
       "label": "Delete Task",
-      "title": "<b>Delete Task</b><br/>Delete a task from a list. Requires tasklist_id + task_id.<br/><b>Requires:</b> tasklist_id, task_id",
+      "title": "<b>Delete Task</b><br/>Delete a task from a list. Requires tasklist_id + task_id.<br/><b>Requires (tool):</b> tasklist_id, task_id",
       "group": "tasks",
       "provides": [],
       "requires": [
         "tasklist_id",
         "task_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CLEAR_TASKS",
       "label": "Clear Completed Tasks",
-      "title": "<b>Clear Completed Tasks</b><br/>Remove all completed tasks from a list. Requires tasklist_id.<br/><b>Requires:</b> tasklist_id",
+      "title": "<b>Clear Completed Tasks</b><br/>Remove all completed tasks from a list. Requires tasklist_id.<br/><b>Requires (tool):</b> tasklist_id",
       "group": "tasks",
       "provides": [],
       "requires": [
         "tasklist_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_BULK_INSERT_TASKS",
       "label": "Bulk Create Tasks",
-      "title": "<b>Bulk Create Tasks</b><br/>Create multiple tasks efficiently. Requires tasklist_id.<br/><b>Requires:</b> tasklist_id",
+      "title": "<b>Bulk Create Tasks</b><br/>Create multiple tasks efficiently. Requires tasklist_id.<br/><b>Requires (tool):</b> tasklist_id<br/><b>Requires (user):</b> tasks",
       "group": "tasks",
       "provides": [],
       "requires": [
         "tasklist_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "tasks",
+          "type": "array",
+          "description": "Array of task objects [{title, notes?, due?}]",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_PHOTOS_LIST_ALBUMS",
@@ -757,17 +1204,29 @@
       "provides": [
         "album_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_CREATE_ALBUM",
       "label": "Create Album",
-      "title": "<b>Create Album</b><br/>Create a new Google Photos album. Returns album_id.<br/><b>Provides:</b> album_id",
+      "title": "<b>Create Album</b><br/>Create a new Google Photos album. Returns album_id.<br/><b>Provides:</b> album_id<br/><b>Requires (user):</b> title",
       "group": "photos",
       "provides": [
         "album_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "Album name",
+          "required": true,
+          "example": "Vacation 2024"
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_PHOTOS_LIST_MEDIA_ITEMS",
@@ -777,7 +1236,9 @@
       "provides": [
         "media_item_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_BATCH_CREATE_MEDIA_ITEMS",
@@ -787,38 +1248,72 @@
       "provides": [
         "media_item_id"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "urls",
+          "type": "array",
+          "description": "Image/video URLs to upload",
+          "required": false
+        },
+        {
+          "param": "media_files",
+          "type": "array",
+          "description": "Local file paths to upload",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_BATCH_ADD_MEDIA_ITEMS",
       "label": "Add Media to Album",
-      "title": "<b>Add Media to Album</b><br/>Add up to 50 media items to an album. Requires album_id + media_item_ids.<br/><b>Requires:</b> album_id, media_item_id",
+      "title": "<b>Add Media to Album</b><br/>Add up to 50 media items to an album. Requires album_id + media_item_ids.<br/><b>Requires (tool):</b> album_id, media_item_id",
       "group": "photos",
       "provides": [],
       "requires": [
         "album_id",
         "media_item_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_BATCH_GET_MEDIA_ITEMS",
       "label": "Get Media Details",
-      "title": "<b>Get Media Details</b><br/>Retrieve details for specified media items. Requires media_item_ids.<br/><b>Requires:</b> media_item_id",
+      "title": "<b>Get Media Details</b><br/>Retrieve details for specified media items. Requires media_item_ids.<br/><b>Requires (tool):</b> media_item_id",
       "group": "photos",
       "provides": [],
       "requires": [
         "media_item_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GOOGLESUPER_ADD_ENRICHMENT",
       "label": "Add Album Enrichment",
-      "title": "<b>Add Album Enrichment</b><br/>Add text/location/map enrichment to an album. Requires album_id.<br/><b>Requires:</b> album_id",
+      "title": "<b>Add Album Enrichment</b><br/>Add text/location/map enrichment to an album. Requires album_id.<br/><b>Requires (tool):</b> album_id",
       "group": "photos",
       "provides": [],
       "requires": [
         "album_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "text",
+          "type": "string",
+          "description": "Text enrichment content for album",
+          "required": false
+        },
+        {
+          "param": "location",
+          "type": "object",
+          "description": "Location data {lat, lon, name}",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_ANALYTICS_LIST_PROPERTIES",
@@ -828,49 +1323,123 @@
       "provides": [
         "ga4_property"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "account_id",
+          "type": "string",
+          "description": "GA4 account ID (if filtering by account)",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_BATCH_RUN_REPORTS",
       "label": "Run Analytics Reports",
-      "title": "<b>Run Analytics Reports</b><br/>Fetch up to 5 GA4 reports in a single request. Requires property ID.<br/><b>Requires:</b> ga4_property",
+      "title": "<b>Run Analytics Reports</b><br/>Fetch up to 5 GA4 reports in a single request. Requires property ID.<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> dateRanges, metrics",
       "group": "analytics",
       "provides": [],
       "requires": [
         "ga4_property"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "dateRanges",
+          "type": "array",
+          "description": "Date range(s): [{startDate, endDate}] e.g. [{startDate:'7daysAgo',endDate:'today'}]",
+          "required": true
+        },
+        {
+          "param": "metrics",
+          "type": "array",
+          "description": "Metric names e.g. ['sessions','users','pageviews']",
+          "required": true
+        },
+        {
+          "param": "dimensions",
+          "type": "array",
+          "description": "Dimension names e.g. ['city','browser']",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
       "label": "Run Pivot Reports",
-      "title": "<b>Run Pivot Reports</b><br/>Return multiple pivot table reports. Requires property ID.<br/><b>Requires:</b> ga4_property",
+      "title": "<b>Run Pivot Reports</b><br/>Return multiple pivot table reports. Requires property ID.<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> dateRanges, pivots, metrics",
       "group": "analytics",
       "provides": [],
       "requires": [
         "ga4_property"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "dateRanges",
+          "type": "array",
+          "description": "Date range(s) for the pivot report",
+          "required": true
+        },
+        {
+          "param": "pivots",
+          "type": "array",
+          "description": "Pivot definitions [{fieldNames, limit}]",
+          "required": true
+        },
+        {
+          "param": "metrics",
+          "type": "array",
+          "description": "Metric names",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_CREATE_CUSTOM_DIMENSION",
       "label": "Create Custom Dimension",
-      "title": "<b>Create Custom Dimension</b><br/>Add a custom dimension to a GA4 property. Requires property ID. Returns dimension_name.<br/><b>Provides:</b> dimension_name<br/><b>Requires:</b> ga4_property",
+      "title": "<b>Create Custom Dimension</b><br/>Add a custom dimension to a GA4 property. Requires property ID. Returns dimension_name.<br/><b>Provides:</b> dimension_name<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> displayName, scope",
       "group": "analytics",
       "provides": [
         "dimension_name"
       ],
       "requires": [
         "ga4_property"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "displayName",
+          "type": "string",
+          "description": "Human-readable dimension name (max 82 chars)",
+          "required": true
+        },
+        {
+          "param": "scope",
+          "type": "string",
+          "description": "Scope: EVENT | USER | ITEM",
+          "required": true
+        },
+        {
+          "param": "description",
+          "type": "string",
+          "description": "Dimension description (max 150 chars)",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GOOGLESUPER_ARCHIVE_CUSTOM_DIMENSION",
       "label": "Archive Custom Dimension",
-      "title": "<b>Archive Custom Dimension</b><br/>Remove a custom dimension from active use. Requires dimension_name (with property path).<br/><b>Requires:</b> dimension_name",
+      "title": "<b>Archive Custom Dimension</b><br/>Remove a custom dimension from active use. Requires dimension_name (with property path).<br/><b>Requires (tool):</b> dimension_name",
       "group": "analytics",
       "provides": [],
       "requires": [
         "dimension_name"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
@@ -881,12 +1450,14 @@
         "owner",
         "repo"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_REPOS_FOR_ORG",
       "label": "List Org Repos",
-      "title": "<b>List Org Repos</b><br/>List repositories in an organization. Requires org name. Returns owner + repo.<br/><b>Provides:</b> owner, repo<br/><b>Requires:</b> org",
+      "title": "<b>List Org Repos</b><br/>List repositories in an organization. Requires org name. Returns owner + repo.<br/><b>Provides:</b> owner, repo<br/><b>Requires (tool):</b> org",
       "group": "github_repo",
       "provides": [
         "owner",
@@ -894,56 +1465,86 @@
       ],
       "requires": [
         "org"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_REPO",
       "label": "Create Repo",
-      "title": "<b>Create Repo</b><br/>Create a new GitHub repository. Returns owner + repo.<br/><b>Provides:</b> owner, repo",
+      "title": "<b>Create Repo</b><br/>Create a new GitHub repository. Returns owner + repo.<br/><b>Provides:</b> owner, repo<br/><b>Requires (user):</b> name",
       "group": "github_repo",
       "provides": [
         "owner",
         "repo"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [
+        {
+          "param": "name",
+          "type": "string",
+          "description": "Repository name",
+          "required": true,
+          "example": "my-project"
+        },
+        {
+          "param": "description",
+          "type": "string",
+          "description": "Repository description",
+          "required": false
+        },
+        {
+          "param": "private",
+          "type": "boolean",
+          "description": "Whether repository is private",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_GET_REPO",
       "label": "Get Repo",
-      "title": "<b>Get Repo</b><br/>Get full repository metadata. Requires owner + repo.<br/><b>Requires:</b> owner, repo",
+      "title": "<b>Get Repo</b><br/>Get full repository metadata. Requires owner + repo.<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_repo",
       "provides": [],
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_DELETE_REPO",
       "label": "Delete Repo",
-      "title": "<b>Delete Repo</b><br/>Permanently delete a repository. Requires owner + repo.<br/><b>Requires:</b> owner, repo",
+      "title": "<b>Delete Repo</b><br/>Permanently delete a repository. Requires owner + repo.<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_repo",
       "provides": [],
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_FORK",
       "label": "Fork Repo",
-      "title": "<b>Fork Repo</b><br/>Fork a repository to another account. Requires owner + repo.<br/><b>Requires:</b> owner, repo",
+      "title": "<b>Fork Repo</b><br/>Fork a repository to another account. Requires owner + repo.<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_repo",
       "provides": [],
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_BRANCHES",
       "label": "List Branches",
-      "title": "<b>List Branches</b><br/>List branches for a repository. Requires owner + repo. Returns branch_names.<br/><b>Provides:</b> branch_name<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Branches</b><br/>List branches for a repository. Requires owner + repo. Returns branch_names.<br/><b>Provides:</b> branch_name<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_branches",
       "provides": [
         "branch_name"
@@ -951,12 +1552,14 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_BRANCH",
       "label": "Create Branch",
-      "title": "<b>Create Branch</b><br/>Create a new branch from a commit SHA. Requires owner + repo + sha.<br/><b>Provides:</b> branch_name<br/><b>Requires:</b> owner, repo, commit_sha",
+      "title": "<b>Create Branch</b><br/>Create a new branch from a commit SHA. Requires owner + repo + sha.<br/><b>Provides:</b> branch_name<br/><b>Requires (tool):</b> owner, repo, commit_sha",
       "group": "github_branches",
       "provides": [
         "branch_name"
@@ -965,12 +1568,14 @@
         "owner",
         "repo",
         "commit_sha"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_COMMITS",
       "label": "List Commits",
-      "title": "<b>List Commits</b><br/>List commits for a repository. Requires owner + repo. Returns commit SHAs.<br/><b>Provides:</b> commit_sha<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Commits</b><br/>List commits for a repository. Requires owner + repo. Returns commit SHAs.<br/><b>Provides:</b> commit_sha<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_commits",
       "provides": [
         "commit_sha"
@@ -978,36 +1583,42 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_GET_COMMIT",
       "label": "Get Commit",
-      "title": "<b>Get Commit</b><br/>Fetch full details of a commit. Requires owner + repo + commit_sha.<br/><b>Requires:</b> owner, repo, commit_sha",
+      "title": "<b>Get Commit</b><br/>Fetch full details of a commit. Requires owner + repo + commit_sha.<br/><b>Requires (tool):</b> owner, repo, commit_sha",
       "group": "github_commits",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "commit_sha"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_COMPARE_TWO_COMMITS",
       "label": "Compare Commits",
-      "title": "<b>Compare Commits</b><br/>Compare two commits (diff). Requires owner + repo + two commit SHAs (BASE...HEAD format).<br/><b>Requires:</b> owner, repo, commit_sha",
+      "title": "<b>Compare Commits</b><br/>Compare two commits (diff). Requires owner + repo + two commit SHAs (BASE...HEAD format).<br/><b>Requires (tool):</b> owner, repo, commit_sha",
       "group": "github_commits",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "commit_sha"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_A_BLOB",
       "label": "Create Blob",
-      "title": "<b>Create Blob</b><br/>Create a Git blob object from file content. Requires owner + repo. Returns blob_sha.<br/><b>Provides:</b> blob_sha<br/><b>Requires:</b> owner, repo",
+      "title": "<b>Create Blob</b><br/>Create a Git blob object from file content. Requires owner + repo. Returns blob_sha.<br/><b>Provides:</b> blob_sha<br/><b>Requires (tool):</b> owner, repo<br/><b>Requires (user):</b> content",
       "group": "github_commits",
       "provides": [
         "blob_sha"
@@ -1015,12 +1626,27 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "content",
+          "type": "string",
+          "description": "File content to store as a Git blob",
+          "required": true
+        },
+        {
+          "param": "encoding",
+          "type": "string",
+          "description": "Content encoding: utf-8 | base64",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_CREATE_A_TREE",
       "label": "Create Tree",
-      "title": "<b>Create Tree</b><br/>Create a Git tree from blobs. Requires owner + repo + blob_sha. Returns tree_sha.<br/><b>Provides:</b> tree_sha<br/><b>Requires:</b> owner, repo, blob_sha",
+      "title": "<b>Create Tree</b><br/>Create a Git tree from blobs. Requires owner + repo + blob_sha. Returns tree_sha.<br/><b>Provides:</b> tree_sha<br/><b>Requires (tool):</b> owner, repo, blob_sha<br/><b>Requires (user):</b> tree",
       "group": "github_commits",
       "provides": [
         "tree_sha"
@@ -1029,12 +1655,27 @@
         "owner",
         "repo",
         "blob_sha"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "tree",
+          "type": "array",
+          "description": "Tree entries [{path, mode, type, sha or content}]",
+          "required": true
+        },
+        {
+          "param": "base_tree",
+          "type": "string",
+          "description": "SHA of existing base tree (optional)",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_CREATE_A_COMMIT",
       "label": "Create Commit",
-      "title": "<b>Create Commit</b><br/>Create a Git commit from a tree + parent commit. Requires owner + repo + tree_sha + parent commit_sha. Returns new commit_sha.<br/><b>Provides:</b> commit_sha<br/><b>Requires:</b> owner, repo, tree_sha, commit_sha",
+      "title": "<b>Create Commit</b><br/>Create a Git commit from a tree + parent commit. Requires owner + repo + tree_sha + parent commit_sha. Returns new commit_sha.<br/><b>Provides:</b> commit_sha<br/><b>Requires (tool):</b> owner, repo, tree_sha, commit_sha<br/><b>Requires (user):</b> message",
       "group": "github_commits",
       "provides": [
         "commit_sha"
@@ -1044,48 +1685,127 @@
         "repo",
         "tree_sha",
         "commit_sha"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "message",
+          "type": "string",
+          "description": "Commit message",
+          "required": true,
+          "example": "fix: resolve null pointer in auth"
+        },
+        {
+          "param": "author__name",
+          "type": "string",
+          "description": "Author display name",
+          "required": false
+        },
+        {
+          "param": "author__email",
+          "type": "string",
+          "description": "Author email",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_COMMIT_MULTIPLE_FILES",
       "label": "Commit Multiple Files",
-      "title": "<b>Commit Multiple Files</b><br/>Atomically create/update/delete files in one commit. Requires owner + repo + branch_name.<br/><b>Requires:</b> owner, repo, branch_name",
+      "title": "<b>Commit Multiple Files</b><br/>Atomically create/update/delete files in one commit. Requires owner + repo + branch_name.<br/><b>Requires (tool):</b> owner, repo, branch_name<br/><b>Requires (user):</b> message",
       "group": "github_commits",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "branch_name"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "message",
+          "type": "string",
+          "description": "Commit message",
+          "required": true
+        },
+        {
+          "param": "upserts",
+          "type": "array",
+          "description": "Files to create/update [{path, content}]",
+          "required": false
+        },
+        {
+          "param": "deletes",
+          "type": "array",
+          "description": "File paths to delete",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_CREATE_A_COMMIT_COMMENT",
       "label": "Comment on Commit",
-      "title": "<b>Comment on Commit</b><br/>Add a comment to a specific commit. Requires owner + repo + commit_sha.<br/><b>Requires:</b> owner, repo, commit_sha",
+      "title": "<b>Comment on Commit</b><br/>Add a comment to a specific commit. Requires owner + repo + commit_sha.<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> body",
       "group": "github_commits",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "commit_sha"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "body",
+          "type": "string",
+          "description": "Comment text (supports markdown)",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_CREATE_A_COMMIT_STATUS",
       "label": "Set Commit Status",
-      "title": "<b>Set Commit Status</b><br/>Set CI/CD status (pending/success/failure/error) on a commit. Requires owner + repo + commit_sha.<br/><b>Requires:</b> owner, repo, commit_sha",
+      "title": "<b>Set Commit Status</b><br/>Set CI/CD status (pending/success/failure/error) on a commit. Requires owner + repo + commit_sha.<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> state",
       "group": "github_commits",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "commit_sha"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "state",
+          "type": "string",
+          "description": "CI status: error | failure | pending | success",
+          "required": true
+        },
+        {
+          "param": "description",
+          "type": "string",
+          "description": "Short human-readable status description",
+          "required": false
+        },
+        {
+          "param": "context",
+          "type": "string",
+          "description": "CI context identifier (e.g. ci/build)",
+          "required": false
+        },
+        {
+          "param": "target_url",
+          "type": "string",
+          "description": "URL linking to build details",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_LIST_ISSUES",
       "label": "List Issues",
-      "title": "<b>List Issues</b><br/>List issues for a repository. Requires owner + repo. Returns issue_numbers.<br/><b>Provides:</b> issue_number<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Issues</b><br/>List issues for a repository. Requires owner + repo. Returns issue_numbers.<br/><b>Provides:</b> issue_number<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_issues",
       "provides": [
         "issue_number"
@@ -1093,24 +1813,28 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_GET_ISSUE",
       "label": "Get Issue",
-      "title": "<b>Get Issue</b><br/>Retrieve full details of an issue. Requires owner + repo + issue_number.<br/><b>Requires:</b> owner, repo, issue_number",
+      "title": "<b>Get Issue</b><br/>Retrieve full details of an issue. Requires owner + repo + issue_number.<br/><b>Requires (tool):</b> owner, repo, issue_number",
       "group": "github_issues",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "issue_number"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_ISSUE",
       "label": "Create Issue",
-      "title": "<b>Create Issue</b><br/>Open a new issue in a repository. Requires owner + repo.<br/><b>Provides:</b> issue_number<br/><b>Requires:</b> owner, repo",
+      "title": "<b>Create Issue</b><br/>Open a new issue in a repository. Requires owner + repo.<br/><b>Provides:</b> issue_number<br/><b>Requires (tool):</b> owner, repo<br/><b>Requires (user):</b> title",
       "group": "github_issues",
       "provides": [
         "issue_number"
@@ -1118,36 +1842,75 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "Issue title",
+          "required": true,
+          "example": "Bug: login fails on Safari"
+        },
+        {
+          "param": "body",
+          "type": "string",
+          "description": "Issue description (markdown)",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_UPDATE_ISSUE",
       "label": "Update Issue",
-      "title": "<b>Update Issue</b><br/>Edit an existing issue (title, body, state, etc.). Requires owner + repo + issue_number.<br/><b>Requires:</b> owner, repo, issue_number",
+      "title": "<b>Update Issue</b><br/>Edit an existing issue (title, body, state, etc.). Requires owner + repo + issue_number.<br/><b>Requires (tool):</b> owner, repo, issue_number",
       "group": "github_issues",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "issue_number"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "Updated issue title",
+          "required": false
+        },
+        {
+          "param": "body",
+          "type": "string",
+          "description": "Updated issue body",
+          "required": false
+        },
+        {
+          "param": "state",
+          "type": "string",
+          "description": "Issue state: open | closed",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
       "label": "Assign Users to Issue",
-      "title": "<b>Assign Users to Issue</b><br/>Assign up to 10 users to an issue. Requires owner + repo + issue_number.<br/><b>Requires:</b> owner, repo, issue_number",
+      "title": "<b>Assign Users to Issue</b><br/>Assign up to 10 users to an issue. Requires owner + repo + issue_number.<br/><b>Requires (tool):</b> owner, repo, issue_number",
       "group": "github_issues",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "issue_number"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
       "label": "Add Labels to Issue",
-      "title": "<b>Add Labels to Issue</b><br/>Apply labels to an issue. Requires owner + repo + issue_number + label_names.<br/><b>Requires:</b> owner, repo, issue_number, label_name",
+      "title": "<b>Add Labels to Issue</b><br/>Apply labels to an issue. Requires owner + repo + issue_number + label_names.<br/><b>Requires (tool):</b> owner, repo, issue_number, label_name",
       "group": "github_issues",
       "provides": [],
       "requires": [
@@ -1155,12 +1918,14 @@
         "repo",
         "issue_number",
         "label_name"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_LABELS_FOR_REPO",
       "label": "List Repo Labels",
-      "title": "<b>List Repo Labels</b><br/>List all labels in a repository. Requires owner + repo. Returns label_names.<br/><b>Provides:</b> label_name<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Repo Labels</b><br/>List all labels in a repository. Requires owner + repo. Returns label_names.<br/><b>Provides:</b> label_name<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_issues",
       "provides": [
         "label_name"
@@ -1168,12 +1933,14 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_LABEL",
       "label": "Create Label",
-      "title": "<b>Create Label</b><br/>Create a new label in a repository. Requires owner + repo. Returns label_name.<br/><b>Provides:</b> label_name<br/><b>Requires:</b> owner, repo",
+      "title": "<b>Create Label</b><br/>Create a new label in a repository. Requires owner + repo. Returns label_name.<br/><b>Provides:</b> label_name<br/><b>Requires (tool):</b> owner, repo<br/><b>Requires (user):</b> name, color",
       "group": "github_issues",
       "provides": [
         "label_name"
@@ -1181,12 +1948,34 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "name",
+          "type": "string",
+          "description": "Label text",
+          "required": true,
+          "example": "bug"
+        },
+        {
+          "param": "color",
+          "type": "string",
+          "description": "Hex color without # (e.g. d73a4a)",
+          "required": true
+        },
+        {
+          "param": "description",
+          "type": "string",
+          "description": "Label description",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_LIST_PULL_REQUESTS",
       "label": "List Pull Requests",
-      "title": "<b>List Pull Requests</b><br/>List open/closed PRs for a repository. Requires owner + repo. Returns pull_numbers.<br/><b>Provides:</b> pull_number<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Pull Requests</b><br/>List open/closed PRs for a repository. Requires owner + repo. Returns pull_numbers.<br/><b>Provides:</b> pull_number<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_prs",
       "provides": [
         "pull_number"
@@ -1194,24 +1983,28 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_GET_PULL_REQUEST",
       "label": "Get Pull Request",
-      "title": "<b>Get Pull Request</b><br/>Retrieve full PR details. Requires owner + repo + pull_number.<br/><b>Requires:</b> owner, repo, pull_number",
+      "title": "<b>Get Pull Request</b><br/>Retrieve full PR details. Requires owner + repo + pull_number.<br/><b>Requires (tool):</b> owner, repo, pull_number",
       "group": "github_prs",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "pull_number"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_PULL_REQUEST",
       "label": "Create Pull Request",
-      "title": "<b>Create Pull Request</b><br/>Open a new pull request. Requires owner + repo + head branch + base branch.<br/><b>Provides:</b> pull_number<br/><b>Requires:</b> owner, repo, branch_name",
+      "title": "<b>Create Pull Request</b><br/>Open a new pull request. Requires owner + repo + head branch + base branch.<br/><b>Provides:</b> pull_number<br/><b>Requires (tool):</b> owner, repo, branch_name<br/><b>Requires (user):</b> title, base",
       "group": "github_prs",
       "provides": [
         "pull_number"
@@ -1220,36 +2013,61 @@
         "owner",
         "repo",
         "branch_name"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "title",
+          "type": "string",
+          "description": "Pull request title",
+          "required": true
+        },
+        {
+          "param": "body",
+          "type": "string",
+          "description": "PR description (markdown)",
+          "required": false
+        },
+        {
+          "param": "base",
+          "type": "string",
+          "description": "Target branch to merge into (e.g. main)",
+          "required": true
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_MERGE_PULL_REQUEST",
       "label": "Merge Pull Request",
-      "title": "<b>Merge Pull Request</b><br/>Merge a pull request. Requires owner + repo + pull_number.<br/><b>Requires:</b> owner, repo, pull_number",
+      "title": "<b>Merge Pull Request</b><br/>Merge a pull request. Requires owner + repo + pull_number.<br/><b>Requires (tool):</b> owner, repo, pull_number",
       "group": "github_prs",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "pull_number"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
       "label": "Check PR Merged",
-      "title": "<b>Check PR Merged</b><br/>Check if a PR has been merged (HTTP 204 = merged). Requires owner + repo + pull_number.<br/><b>Requires:</b> owner, repo, pull_number",
+      "title": "<b>Check PR Merged</b><br/>Check if a PR has been merged (HTTP 204 = merged). Requires owner + repo + pull_number.<br/><b>Requires (tool):</b> owner, repo, pull_number",
       "group": "github_prs",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "pull_number"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_WORKFLOWS",
       "label": "List Workflows",
-      "title": "<b>List Workflows</b><br/>List GitHub Actions workflows in a repository. Requires owner + repo. Returns workflow_ids.<br/><b>Provides:</b> workflow_id<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Workflows</b><br/>List GitHub Actions workflows in a repository. Requires owner + repo. Returns workflow_ids.<br/><b>Provides:</b> workflow_id<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_actions",
       "provides": [
         "workflow_id"
@@ -1257,12 +2075,14 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_WORKFLOW_RUNS",
       "label": "List Workflow Runs",
-      "title": "<b>List Workflow Runs</b><br/>List recent workflow run history. Requires owner + repo. Returns run_ids.<br/><b>Provides:</b> run_id<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Workflow Runs</b><br/>List recent workflow run history. Requires owner + repo. Returns run_ids.<br/><b>Provides:</b> run_id<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_actions",
       "provides": [
         "run_id"
@@ -1270,48 +2090,70 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_TRIGGER_WORKFLOW",
       "label": "Trigger Workflow",
-      "title": "<b>Trigger Workflow</b><br/>Manually trigger a workflow dispatch event. Requires owner + repo + workflow_id.<br/><b>Requires:</b> owner, repo, workflow_id",
+      "title": "<b>Trigger Workflow</b><br/>Manually trigger a workflow dispatch event. Requires owner + repo + workflow_id.<br/><b>Requires (tool):</b> owner, repo, workflow_id<br/><b>Requires (user):</b> ref",
       "group": "github_actions",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "workflow_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "ref",
+          "type": "string",
+          "description": "Branch or tag to run workflow on",
+          "required": true,
+          "example": "main"
+        },
+        {
+          "param": "inputs",
+          "type": "object",
+          "description": "Workflow dispatch inputs as key-value pairs",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_CANCEL_WORKFLOW_RUN",
       "label": "Cancel Workflow Run",
-      "title": "<b>Cancel Workflow Run</b><br/>Cancel a queued or in-progress workflow run. Requires owner + repo + run_id.<br/><b>Requires:</b> owner, repo, run_id",
+      "title": "<b>Cancel Workflow Run</b><br/>Cancel a queued or in-progress workflow run. Requires owner + repo + run_id.<br/><b>Requires (tool):</b> owner, repo, run_id",
       "group": "github_actions",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "run_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
       "label": "Approve Fork Workflow",
-      "title": "<b>Approve Fork Workflow</b><br/>Approve a workflow run from a fork PR. Requires owner + repo + run_id.<br/><b>Requires:</b> owner, repo, run_id",
+      "title": "<b>Approve Fork Workflow</b><br/>Approve a workflow run from a fork PR. Requires owner + repo + run_id.<br/><b>Requires (tool):</b> owner, repo, run_id",
       "group": "github_actions",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "run_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_DEPLOYMENTS",
       "label": "List Deployments",
-      "title": "<b>List Deployments</b><br/>List deployments for a repository. Requires owner + repo. Returns deployment_ids.<br/><b>Provides:</b> deployment_id<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Deployments</b><br/>List deployments for a repository. Requires owner + repo. Returns deployment_ids.<br/><b>Provides:</b> deployment_id<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_deploy",
       "provides": [
         "deployment_id"
@@ -1319,12 +2161,14 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_DEPLOYMENT",
       "label": "Create Deployment",
-      "title": "<b>Create Deployment</b><br/>Create a deployment targeting a ref (branch, tag, SHA). Requires owner + repo + ref.<br/><b>Provides:</b> deployment_id<br/><b>Requires:</b> owner, repo, branch_name",
+      "title": "<b>Create Deployment</b><br/>Create a deployment targeting a ref (branch, tag, SHA). Requires owner + repo + ref.<br/><b>Provides:</b> deployment_id<br/><b>Requires (tool):</b> owner, repo, branch_name",
       "group": "github_deploy",
       "provides": [
         "deployment_id"
@@ -1333,24 +2177,73 @@
         "owner",
         "repo",
         "branch_name"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "environment",
+          "type": "string",
+          "description": "Target environment name (e.g. production, staging)",
+          "required": false,
+          "example": "production"
+        },
+        {
+          "param": "description",
+          "type": "string",
+          "description": "Deployment description",
+          "required": false
+        },
+        {
+          "param": "auto_merge",
+          "type": "boolean",
+          "description": "Auto-merge default branch into requested ref",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_CREATE_DEPLOYMENT_STATUS",
       "label": "Update Deployment Status",
-      "title": "<b>Update Deployment Status</b><br/>Update the operational state of a deployment. Requires owner + repo + deployment_id.<br/><b>Requires:</b> owner, repo, deployment_id",
+      "title": "<b>Update Deployment Status</b><br/>Update the operational state of a deployment. Requires owner + repo + deployment_id.<br/><b>Requires (tool):</b> owner, repo, deployment_id<br/><b>Requires (user):</b> state",
       "group": "github_deploy",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "deployment_id"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "state",
+          "type": "string",
+          "description": "Deployment state: error | failure | inactive | in_progress | queued | pending | success",
+          "required": true
+        },
+        {
+          "param": "log_url",
+          "type": "string",
+          "description": "URL of deployment log",
+          "required": false
+        },
+        {
+          "param": "environment_url",
+          "type": "string",
+          "description": "URL of deployed environment",
+          "required": false
+        },
+        {
+          "param": "description",
+          "type": "string",
+          "description": "Status description",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_LIST_RELEASES",
       "label": "List Releases",
-      "title": "<b>List Releases</b><br/>List releases for a repository. Requires owner + repo. Returns release_ids.<br/><b>Provides:</b> release_id<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Releases</b><br/>List releases for a repository. Requires owner + repo. Returns release_ids.<br/><b>Provides:</b> release_id<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_releases",
       "provides": [
         "release_id"
@@ -1358,24 +2251,28 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_GET_RELEASE",
       "label": "Get Release",
-      "title": "<b>Get Release</b><br/>Retrieve release details. Requires owner + repo + release_id.<br/><b>Requires:</b> owner, repo, release_id",
+      "title": "<b>Get Release</b><br/>Retrieve release details. Requires owner + repo + release_id.<br/><b>Requires (tool):</b> owner, repo, release_id",
       "group": "github_releases",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "release_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_RELEASE",
       "label": "Create Release",
-      "title": "<b>Create Release</b><br/>Create a new release (with tag). Requires owner + repo.<br/><b>Provides:</b> release_id<br/><b>Requires:</b> owner, repo",
+      "title": "<b>Create Release</b><br/>Create a new release (with tag). Requires owner + repo.<br/><b>Provides:</b> release_id<br/><b>Requires (tool):</b> owner, repo<br/><b>Requires (user):</b> tag_name",
       "group": "github_releases",
       "provides": [
         "release_id"
@@ -1383,7 +2280,41 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "tag_name",
+          "type": "string",
+          "description": "Git tag for this release (e.g. v1.2.0)",
+          "required": true
+        },
+        {
+          "param": "name",
+          "type": "string",
+          "description": "Release title",
+          "required": false,
+          "example": "v1.2.0 — Performance improvements"
+        },
+        {
+          "param": "body",
+          "type": "string",
+          "description": "Release notes (markdown)",
+          "required": false
+        },
+        {
+          "param": "draft",
+          "type": "boolean",
+          "description": "Create as unpublished draft",
+          "required": false
+        },
+        {
+          "param": "prerelease",
+          "type": "boolean",
+          "description": "Mark as pre-release",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_LIST_ORGS_FOR_AUTH_USER",
@@ -1393,60 +2324,96 @@
       "provides": [
         "org"
       ],
-      "requires": []
+      "requires": [],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_LIST_TEAMS",
       "label": "List Teams",
-      "title": "<b>List Teams</b><br/>List teams in an organization. Requires org. Returns team_slugs.<br/><b>Provides:</b> team_slug<br/><b>Requires:</b> org",
+      "title": "<b>List Teams</b><br/>List teams in an organization. Requires org. Returns team_slugs.<br/><b>Provides:</b> team_slug<br/><b>Requires (tool):</b> org",
       "group": "github_org",
       "provides": [
         "team_slug"
       ],
       "requires": [
         "org"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_TEAM",
       "label": "Create Team",
-      "title": "<b>Create Team</b><br/>Create a new team in an organization. Requires org. Returns team_slug.<br/><b>Provides:</b> team_slug<br/><b>Requires:</b> org",
+      "title": "<b>Create Team</b><br/>Create a new team in an organization. Requires org. Returns team_slug.<br/><b>Provides:</b> team_slug<br/><b>Requires (tool):</b> org<br/><b>Requires (user):</b> name",
       "group": "github_org",
       "provides": [
         "team_slug"
       ],
       "requires": [
         "org"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "name",
+          "type": "string",
+          "description": "Team name",
+          "required": true
+        },
+        {
+          "param": "description",
+          "type": "string",
+          "description": "Team description",
+          "required": false
+        },
+        {
+          "param": "privacy",
+          "type": "string",
+          "description": "Visibility: secret | closed",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_LIST_MEMBERS",
       "label": "List Org Members",
-      "title": "<b>List Org Members</b><br/>List members of an organization. Requires org. Returns usernames.<br/><b>Provides:</b> username<br/><b>Requires:</b> org",
+      "title": "<b>List Org Members</b><br/>List members of an organization. Requires org. Returns usernames.<br/><b>Provides:</b> username<br/><b>Requires (tool):</b> org",
       "group": "github_org",
       "provides": [
         "username"
       ],
       "requires": [
         "org"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_ADD_OR_UPDATE_TEAM_MEMBERSHIP_FOR_USER",
       "label": "Update Team Membership",
-      "title": "<b>Update Team Membership</b><br/>Add/update a user's membership in a team. Requires org + team_slug + username.<br/><b>Requires:</b> org, team_slug, username",
+      "title": "<b>Update Team Membership</b><br/>Add/update a user's membership in a team. Requires org + team_slug + username.<br/><b>Requires (tool):</b> org, team_slug, username",
       "group": "github_org",
       "provides": [],
       "requires": [
         "org",
         "team_slug",
         "username"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "role",
+          "type": "string",
+          "description": "Team role: member | maintainer",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_LIST_COLLABORATORS",
       "label": "List Collaborators",
-      "title": "<b>List Collaborators</b><br/>List collaborators for a repository. Requires owner + repo. Returns usernames.<br/><b>Provides:</b> username<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Collaborators</b><br/>List collaborators for a repository. Requires owner + repo. Returns usernames.<br/><b>Provides:</b> username<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_collaborators",
       "provides": [
         "username"
@@ -1454,24 +2421,35 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
       "label": "Add Collaborator",
-      "title": "<b>Add Collaborator</b><br/>Grant user access to a repository. Requires owner + repo + username.<br/><b>Requires:</b> owner, repo, username",
+      "title": "<b>Add Collaborator</b><br/>Grant user access to a repository. Requires owner + repo + username.<br/><b>Requires (tool):</b> owner, repo, username",
       "group": "github_collaborators",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "username"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "permission",
+          "type": "string",
+          "description": "Access level: pull | triage | push | maintain | admin",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     },
     {
       "id": "GITHUB_LIST_REPOSITORY_INVITATIONS",
       "label": "List Repo Invitations",
-      "title": "<b>List Repo Invitations</b><br/>List pending repository invitations. Requires owner + repo. Returns invitation_ids.<br/><b>Provides:</b> invitation_id<br/><b>Requires:</b> owner, repo",
+      "title": "<b>List Repo Invitations</b><br/>List pending repository invitations. Requires owner + repo. Returns invitation_ids.<br/><b>Provides:</b> invitation_id<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_collaborators",
       "provides": [
         "invitation_id"
@@ -1479,1335 +2457,2027 @@
       "requires": [
         "owner",
         "repo"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_ACCEPT_REPOSITORY_INVITATION",
       "label": "Accept Invitation",
-      "title": "<b>Accept Invitation</b><br/>Accept a repository collaboration invitation. Requires invitation_id.<br/><b>Requires:</b> invitation_id",
+      "title": "<b>Accept Invitation</b><br/>Accept a repository collaboration invitation. Requires invitation_id.<br/><b>Requires (tool):</b> invitation_id",
       "group": "github_collaborators",
       "provides": [],
       "requires": [
         "invitation_id"
-      ]
+      ],
+      "user_inputs": [],
+      "has_user_inputs": false
     },
     {
       "id": "GITHUB_CREATE_A_CHECK_RUN",
       "label": "Create Check Run",
-      "title": "<b>Create Check Run</b><br/>Report CI check status with annotations. Requires owner + repo + commit_sha (head_sha).<br/><b>Requires:</b> owner, repo, commit_sha",
+      "title": "<b>Create Check Run</b><br/>Report CI check status with annotations. Requires owner + repo + commit_sha (head_sha).<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> name",
       "group": "github_checks",
       "provides": [],
       "requires": [
         "owner",
         "repo",
         "commit_sha"
-      ]
+      ],
+      "user_inputs": [
+        {
+          "param": "name",
+          "type": "string",
+          "description": "Check run display name (e.g. Unit Tests)",
+          "required": true
+        },
+        {
+          "param": "status",
+          "type": "string",
+          "description": "Check status: queued | in_progress | completed",
+          "required": false
+        },
+        {
+          "param": "conclusion",
+          "type": "string",
+          "description": "Conclusion when completed: success | failure | neutral | cancelled",
+          "required": false
+        },
+        {
+          "param": "output__title",
+          "type": "string",
+          "description": "Check output title",
+          "required": false
+        },
+        {
+          "param": "output__summary",
+          "type": "string",
+          "description": "Check output summary (markdown)",
+          "required": false
+        }
+      ],
+      "has_user_inputs": true
     }
   ],
   "edges": [
     {
-      "id": "e000",
+      "id": "t000",
       "from": "GOOGLESUPER_GMAIL_LIST_THREADS",
       "to": "GOOGLESUPER_GMAIL_GET_THREAD",
       "label": "thread_id",
-      "title": "<b>List Threads</b> → provides <code>thread_id</code> → <b>Get Thread</b>",
+      "title": "<b>List Threads</b> provides <code>thread_id</code> needed by <b>Get Thread</b>",
       "parameter": "thread_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e001",
+      "id": "t001",
       "from": "GOOGLESUPER_GMAIL_LIST_THREADS",
       "to": "GOOGLESUPER_GMAIL_REPLY_TO_THREAD",
       "label": "thread_id",
-      "title": "<b>List Threads</b> → provides <code>thread_id</code> → <b>Reply to Thread</b>",
+      "title": "<b>List Threads</b> provides <code>thread_id</code> needed by <b>Reply to Thread</b>",
       "parameter": "thread_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e002",
+      "id": "t002",
       "from": "GOOGLESUPER_GMAIL_LIST_MESSAGES",
       "to": "GOOGLESUPER_GMAIL_GET_MESSAGE",
       "label": "message_id",
-      "title": "<b>List Messages</b> → provides <code>message_id</code> → <b>Get Message</b>",
+      "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Get Message</b>",
       "parameter": "message_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e003",
+      "id": "t003",
       "from": "GOOGLESUPER_GMAIL_LIST_MESSAGES",
       "to": "GOOGLESUPER_GMAIL_DELETE_MESSAGE",
       "label": "message_id",
-      "title": "<b>List Messages</b> → provides <code>message_id</code> → <b>Delete Message</b>",
+      "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Delete Message</b>",
       "parameter": "message_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e004",
+      "id": "t004",
       "from": "GOOGLESUPER_GMAIL_LIST_MESSAGES",
       "to": "GOOGLESUPER_ADD_LABEL_TO_EMAIL",
       "label": "message_id",
-      "title": "<b>List Messages</b> → provides <code>message_id</code> → <b>Modify Email Labels</b>",
+      "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Modify Email Labels</b>",
       "parameter": "message_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e005",
+      "id": "t005",
       "from": "GOOGLESUPER_GMAIL_LIST_MESSAGES",
       "to": "GOOGLESUPER_BATCH_DELETE_MESSAGES",
       "label": "message_id",
-      "title": "<b>List Messages</b> → provides <code>message_id</code> → <b>Batch Delete Messages</b>",
+      "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Batch Delete Messages</b>",
       "parameter": "message_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e006",
+      "id": "t006",
       "from": "GOOGLESUPER_GMAIL_LIST_MESSAGES",
       "to": "GOOGLESUPER_BATCH_MODIFY_MESSAGES",
       "label": "message_id",
-      "title": "<b>List Messages</b> → provides <code>message_id</code> → <b>Batch Modify Messages</b>",
+      "title": "<b>List Messages</b> provides <code>message_id</code> needed by <b>Batch Modify Messages</b>",
       "parameter": "message_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e007",
+      "id": "t007",
       "from": "GOOGLESUPER_GMAIL_LIST_LABELS",
       "to": "GOOGLESUPER_ADD_LABEL_TO_EMAIL",
       "label": "label_id",
-      "title": "<b>List Labels</b> → provides <code>label_id</code> → <b>Modify Email Labels</b>",
+      "title": "<b>List Labels</b> provides <code>label_id</code> needed by <b>Modify Email Labels</b>",
       "parameter": "label_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e008",
+      "id": "t008",
       "from": "GOOGLESUPER_GMAIL_LIST_LABELS",
       "to": "GOOGLESUPER_BATCH_MODIFY_MESSAGES",
       "label": "label_id",
-      "title": "<b>List Labels</b> → provides <code>label_id</code> → <b>Batch Modify Messages</b>",
+      "title": "<b>List Labels</b> provides <code>label_id</code> needed by <b>Batch Modify Messages</b>",
       "parameter": "label_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e009",
+      "id": "t009",
       "from": "GOOGLESUPER_GMAIL_CREATE_LABEL",
       "to": "GOOGLESUPER_ADD_LABEL_TO_EMAIL",
       "label": "label_id",
-      "title": "<b>Create Label</b> → provides <code>label_id</code> → <b>Modify Email Labels</b>",
+      "title": "<b>Create Label</b> provides <code>label_id</code> needed by <b>Modify Email Labels</b>",
       "parameter": "label_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e010",
+      "id": "t010",
       "from": "GOOGLESUPER_GMAIL_CREATE_LABEL",
       "to": "GOOGLESUPER_BATCH_MODIFY_MESSAGES",
       "label": "label_id",
-      "title": "<b>Create Label</b> → provides <code>label_id</code> → <b>Batch Modify Messages</b>",
+      "title": "<b>Create Label</b> provides <code>label_id</code> needed by <b>Batch Modify Messages</b>",
       "parameter": "label_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e011",
+      "id": "t011",
       "from": "GOOGLESUPER_GMAIL_LIST_DRAFTS",
       "to": "GOOGLESUPER_GMAIL_GET_DRAFT",
       "label": "draft_id",
-      "title": "<b>List Drafts</b> → provides <code>draft_id</code> → <b>Get Draft</b>",
+      "title": "<b>List Drafts</b> provides <code>draft_id</code> needed by <b>Get Draft</b>",
       "parameter": "draft_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e012",
+      "id": "t012",
       "from": "GOOGLESUPER_GMAIL_LIST_DRAFTS",
       "to": "GOOGLESUPER_GMAIL_SEND_DRAFT",
       "label": "draft_id",
-      "title": "<b>List Drafts</b> → provides <code>draft_id</code> → <b>Send Draft</b>",
+      "title": "<b>List Drafts</b> provides <code>draft_id</code> needed by <b>Send Draft</b>",
       "parameter": "draft_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e013",
+      "id": "t013",
       "from": "GOOGLESUPER_GMAIL_CREATE_DRAFT",
       "to": "GOOGLESUPER_GMAIL_GET_DRAFT",
       "label": "draft_id",
-      "title": "<b>Create Draft</b> → provides <code>draft_id</code> → <b>Get Draft</b>",
+      "title": "<b>Create Draft</b> provides <code>draft_id</code> needed by <b>Get Draft</b>",
       "parameter": "draft_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e014",
+      "id": "t014",
       "from": "GOOGLESUPER_GMAIL_CREATE_DRAFT",
       "to": "GOOGLESUPER_GMAIL_SEND_DRAFT",
       "label": "draft_id",
-      "title": "<b>Create Draft</b> → provides <code>draft_id</code> → <b>Send Draft</b>",
+      "title": "<b>Create Draft</b> provides <code>draft_id</code> needed by <b>Send Draft</b>",
       "parameter": "draft_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e015",
+      "id": "t015",
       "from": "GOOGLESUPER_CONTACTS_SEARCH",
       "to": "GOOGLESUPER_GMAIL_SEND_EMAIL",
       "label": "email",
-      "title": "<b>Search Contacts</b> → provides <code>email</code> → <b>Send Email</b>",
+      "title": "<b>Search Contacts</b> provides <code>email</code> needed by <b>Send Email</b>",
       "parameter": "email",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e016",
+      "id": "t016",
       "from": "GOOGLESUPER_CONTACTS_LIST",
       "to": "GOOGLESUPER_GMAIL_SEND_EMAIL",
       "label": "email",
-      "title": "<b>List Contacts</b> → provides <code>email</code> → <b>Send Email</b>",
+      "title": "<b>List Contacts</b> provides <code>email</code> needed by <b>Send Email</b>",
       "parameter": "email",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e017",
+      "id": "t017",
       "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
       "to": "GOOGLESUPER_CALENDAR_LIST_GET",
       "label": "calendar_id",
-      "title": "<b>List Calendars</b> → provides <code>calendar_id</code> → <b>Get Calendar</b>",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Get Calendar</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e018",
+      "id": "t018",
       "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
       "to": "GOOGLESUPER_CALENDARS_UPDATE",
       "label": "calendar_id",
-      "title": "<b>List Calendars</b> → provides <code>calendar_id</code> → <b>Update Calendar</b>",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Update Calendar</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e019",
+      "id": "t019",
       "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
       "to": "GOOGLESUPER_CALENDARS_DELETE",
       "label": "calendar_id",
-      "title": "<b>List Calendars</b> → provides <code>calendar_id</code> → <b>Delete Calendar</b>",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Delete Calendar</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e020",
+      "id": "t020",
       "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
       "to": "GOOGLESUPER_EVENTS_LIST",
       "label": "calendar_id",
-      "title": "<b>List Calendars</b> → provides <code>calendar_id</code> → <b>List Events</b>",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>List Events</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e021",
+      "id": "t021",
       "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
       "to": "GOOGLESUPER_EVENTS_INSERT",
       "label": "calendar_id",
-      "title": "<b>List Calendars</b> → provides <code>calendar_id</code> → <b>Create Event</b>",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Create Event</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e022",
+      "id": "t022",
       "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
       "to": "GOOGLESUPER_CLEAR_CALENDAR",
       "label": "calendar_id",
-      "title": "<b>List Calendars</b> → provides <code>calendar_id</code> → <b>Clear Calendar</b>",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Clear Calendar</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e023",
+      "id": "t023",
       "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
       "to": "GOOGLESUPER_ACL_LIST",
       "label": "calendar_id",
-      "title": "<b>List Calendars</b> → provides <code>calendar_id</code> → <b>List ACL Rules</b>",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>List ACL Rules</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e024",
+      "id": "t024",
       "from": "GOOGLESUPER_CALENDAR_LIST_LIST",
       "to": "GOOGLESUPER_ACL_INSERT",
       "label": "calendar_id",
-      "title": "<b>List Calendars</b> → provides <code>calendar_id</code> → <b>Create ACL Rule</b>",
+      "title": "<b>List Calendars</b> provides <code>calendar_id</code> needed by <b>Create ACL Rule</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e025",
+      "id": "t025",
       "from": "GOOGLESUPER_CALENDARS_INSERT",
       "to": "GOOGLESUPER_EVENTS_LIST",
       "label": "calendar_id",
-      "title": "<b>Create Calendar</b> → provides <code>calendar_id</code> → <b>List Events</b>",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>List Events</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e026",
+      "id": "t026",
       "from": "GOOGLESUPER_CALENDARS_INSERT",
       "to": "GOOGLESUPER_EVENTS_INSERT",
       "label": "calendar_id",
-      "title": "<b>Create Calendar</b> → provides <code>calendar_id</code> → <b>Create Event</b>",
+      "title": "<b>Create Calendar</b> provides <code>calendar_id</code> needed by <b>Create Event</b>",
       "parameter": "calendar_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e027",
+      "id": "t027",
       "from": "GOOGLESUPER_EVENTS_LIST",
       "to": "GOOGLESUPER_EVENTS_GET",
       "label": "event_id",
-      "title": "<b>List Events</b> → provides <code>event_id</code> → <b>Get Event</b>",
+      "title": "<b>List Events</b> provides <code>event_id</code> needed by <b>Get Event</b>",
       "parameter": "event_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e028",
+      "id": "t028",
       "from": "GOOGLESUPER_EVENTS_LIST",
       "to": "GOOGLESUPER_EVENTS_UPDATE",
       "label": "event_id",
-      "title": "<b>List Events</b> → provides <code>event_id</code> → <b>Update Event</b>",
+      "title": "<b>List Events</b> provides <code>event_id</code> needed by <b>Update Event</b>",
       "parameter": "event_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e029",
+      "id": "t029",
       "from": "GOOGLESUPER_EVENTS_LIST",
       "to": "GOOGLESUPER_EVENTS_DELETE",
       "label": "event_id",
-      "title": "<b>List Events</b> → provides <code>event_id</code> → <b>Delete Event</b>",
+      "title": "<b>List Events</b> provides <code>event_id</code> needed by <b>Delete Event</b>",
       "parameter": "event_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e030",
+      "id": "t030",
       "from": "GOOGLESUPER_ACL_LIST",
       "to": "GOOGLESUPER_ACL_DELETE",
       "label": "rule_id",
-      "title": "<b>List ACL Rules</b> → provides <code>rule_id</code> → <b>Delete ACL Rule</b>",
+      "title": "<b>List ACL Rules</b> provides <code>rule_id</code> needed by <b>Delete ACL Rule</b>",
       "parameter": "rule_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e031",
+      "id": "t031",
       "from": "GOOGLESUPER_ACL_LIST",
       "to": "GOOGLESUPER_ACL_UPDATE",
       "label": "rule_id",
-      "title": "<b>List ACL Rules</b> → provides <code>rule_id</code> → <b>Update ACL Rule</b>",
+      "title": "<b>List ACL Rules</b> provides <code>rule_id</code> needed by <b>Update ACL Rule</b>",
       "parameter": "rule_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e032",
+      "id": "t032",
       "from": "GOOGLESUPER_DRIVE_LIST_FILES",
       "to": "GOOGLESUPER_DRIVE_GET_FILE",
       "label": "file_id",
-      "title": "<b>List Files</b> → provides <code>file_id</code> → <b>Get File Metadata</b>",
+      "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Get File Metadata</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e033",
+      "id": "t033",
       "from": "GOOGLESUPER_DRIVE_LIST_FILES",
       "to": "GOOGLESUPER_DRIVE_DELETE_FILE",
       "label": "file_id",
-      "title": "<b>List Files</b> → provides <code>file_id</code> → <b>Delete File</b>",
+      "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Delete File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e034",
+      "id": "t034",
       "from": "GOOGLESUPER_DRIVE_LIST_FILES",
       "to": "GOOGLESUPER_DRIVE_DOWNLOAD_FILE",
       "label": "file_id",
-      "title": "<b>List Files</b> → provides <code>file_id</code> → <b>Download File</b>",
+      "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Download File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e035",
+      "id": "t035",
       "from": "GOOGLESUPER_DRIVE_LIST_FILES",
       "to": "GOOGLESUPER_COPY_FILE_ADVANCED",
       "label": "file_id",
-      "title": "<b>List Files</b> → provides <code>file_id</code> → <b>Copy File</b>",
+      "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Copy File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e036",
+      "id": "t036",
       "from": "GOOGLESUPER_DRIVE_LIST_FILES",
       "to": "GOOGLESUPER_CREATE_COMMENT",
       "label": "file_id",
-      "title": "<b>List Files</b> → provides <code>file_id</code> → <b>Comment on File</b>",
+      "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Comment on File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e037",
+      "id": "t037",
       "from": "GOOGLESUPER_DRIVE_LIST_FILES",
       "to": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
       "label": "file_id",
-      "title": "<b>List Files</b> → provides <code>file_id</code> → <b>Share File</b>",
+      "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Share File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e038",
+      "id": "t038",
       "from": "GOOGLESUPER_DRIVE_LIST_FILES",
       "to": "GOOGLESUPER_ADD_PARENT",
       "label": "file_id",
-      "title": "<b>List Files</b> → provides <code>file_id</code> → <b>Move to Folder</b>",
+      "title": "<b>List Files</b> provides <code>file_id</code> needed by <b>Move to Folder</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e039",
+      "id": "t039",
       "from": "GOOGLESUPER_DRIVE_SEARCH_FILES",
       "to": "GOOGLESUPER_DRIVE_GET_FILE",
       "label": "file_id",
-      "title": "<b>Search Files</b> → provides <code>file_id</code> → <b>Get File Metadata</b>",
+      "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Get File Metadata</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e040",
+      "id": "t040",
       "from": "GOOGLESUPER_DRIVE_SEARCH_FILES",
       "to": "GOOGLESUPER_DRIVE_DELETE_FILE",
       "label": "file_id",
-      "title": "<b>Search Files</b> → provides <code>file_id</code> → <b>Delete File</b>",
+      "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Delete File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e041",
+      "id": "t041",
       "from": "GOOGLESUPER_DRIVE_SEARCH_FILES",
       "to": "GOOGLESUPER_DRIVE_DOWNLOAD_FILE",
       "label": "file_id",
-      "title": "<b>Search Files</b> → provides <code>file_id</code> → <b>Download File</b>",
+      "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Download File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e042",
+      "id": "t042",
       "from": "GOOGLESUPER_DRIVE_SEARCH_FILES",
       "to": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
       "label": "file_id",
-      "title": "<b>Search Files</b> → provides <code>file_id</code> → <b>Share File</b>",
+      "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Share File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e043",
+      "id": "t043",
       "from": "GOOGLESUPER_DRIVE_SEARCH_FILES",
       "to": "GOOGLESUPER_CREATE_COMMENT",
       "label": "file_id",
-      "title": "<b>Search Files</b> → provides <code>file_id</code> → <b>Comment on File</b>",
+      "title": "<b>Search Files</b> provides <code>file_id</code> needed by <b>Comment on File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e044",
+      "id": "t044",
       "from": "GOOGLESUPER_DRIVE_CREATE_FILE",
       "to": "GOOGLESUPER_DRIVE_GET_FILE",
       "label": "file_id",
-      "title": "<b>Create File</b> → provides <code>file_id</code> → <b>Get File Metadata</b>",
+      "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Get File Metadata</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e045",
+      "id": "t045",
       "from": "GOOGLESUPER_DRIVE_CREATE_FILE",
       "to": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
       "label": "file_id",
-      "title": "<b>Create File</b> → provides <code>file_id</code> → <b>Share File</b>",
+      "title": "<b>Create File</b> provides <code>file_id</code> needed by <b>Share File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e046",
+      "id": "t046",
       "from": "GOOGLESUPER_COPY_FILE_ADVANCED",
       "to": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
       "label": "file_id",
-      "title": "<b>Copy File</b> → provides <code>file_id</code> → <b>Share File</b>",
+      "title": "<b>Copy File</b> provides <code>file_id</code> needed by <b>Share File</b>",
       "parameter": "file_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e047",
+      "id": "t047",
       "from": "GOOGLESUPER_DRIVE_LIST_FOLDERS",
       "to": "GOOGLESUPER_ADD_PARENT",
       "label": "folder_id",
-      "title": "<b>List Folders</b> → provides <code>folder_id</code> → <b>Move to Folder</b>",
+      "title": "<b>List Folders</b> provides <code>folder_id</code> needed by <b>Move to Folder</b>",
       "parameter": "folder_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e048",
+      "id": "t048",
       "from": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
       "to": "GOOGLESUPER_BATCH_GET",
       "label": "spreadsheet_id",
-      "title": "<b>List Spreadsheets</b> → provides <code>spreadsheet_id</code> → <b>Read Cell Ranges</b>",
+      "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Read Cell Ranges</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e049",
+      "id": "t049",
       "from": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
       "to": "GOOGLESUPER_ADD_SHEET",
       "label": "spreadsheet_id",
-      "title": "<b>List Spreadsheets</b> → provides <code>spreadsheet_id</code> → <b>Add Sheet Tab</b>",
+      "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Add Sheet Tab</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e050",
+      "id": "t050",
       "from": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
       "to": "GOOGLESUPER_CLEAR_VALUES",
       "label": "spreadsheet_id",
-      "title": "<b>List Spreadsheets</b> → provides <code>spreadsheet_id</code> → <b>Clear Cells</b>",
+      "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Clear Cells</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e051",
+      "id": "t051",
       "from": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
       "to": "GOOGLESUPER_BATCH_UPDATE",
       "label": "spreadsheet_id",
-      "title": "<b>List Spreadsheets</b> → provides <code>spreadsheet_id</code> → <b>Write Cells</b>",
+      "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Write Cells</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e052",
+      "id": "t052",
       "from": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
       "to": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
       "label": "spreadsheet_id",
-      "title": "<b>List Spreadsheets</b> → provides <code>spreadsheet_id</code> → <b>Aggregate Column</b>",
+      "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Aggregate Column</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e053",
+      "id": "t053",
       "from": "GOOGLESUPER_SHEETS_LIST_SPREADSHEETS",
       "to": "GOOGLESUPER_AUTO_RESIZE_DIMENSIONS",
       "label": "spreadsheet_id",
-      "title": "<b>List Spreadsheets</b> → provides <code>spreadsheet_id</code> → <b>Auto-Resize Columns</b>",
+      "title": "<b>List Spreadsheets</b> provides <code>spreadsheet_id</code> needed by <b>Auto-Resize Columns</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e054",
+      "id": "t054",
       "from": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
       "to": "GOOGLESUPER_ADD_SHEET",
       "label": "spreadsheet_id",
-      "title": "<b>Create Spreadsheet</b> → provides <code>spreadsheet_id</code> → <b>Add Sheet Tab</b>",
+      "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Add Sheet Tab</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e055",
+      "id": "t055",
       "from": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
       "to": "GOOGLESUPER_BATCH_GET",
       "label": "spreadsheet_id",
-      "title": "<b>Create Spreadsheet</b> → provides <code>spreadsheet_id</code> → <b>Read Cell Ranges</b>",
+      "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Read Cell Ranges</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e056",
+      "id": "t056",
       "from": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
       "to": "GOOGLESUPER_BATCH_UPDATE",
       "label": "spreadsheet_id",
-      "title": "<b>Create Spreadsheet</b> → provides <code>spreadsheet_id</code> → <b>Write Cells</b>",
+      "title": "<b>Create Spreadsheet</b> provides <code>spreadsheet_id</code> needed by <b>Write Cells</b>",
       "parameter": "spreadsheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e057",
+      "id": "t057",
       "from": "GOOGLESUPER_ADD_SHEET",
       "to": "GOOGLESUPER_APPEND_DIMENSION",
       "label": "sheet_id",
-      "title": "<b>Add Sheet Tab</b> → provides <code>sheet_id</code> → <b>Append Rows/Columns</b>",
+      "title": "<b>Add Sheet Tab</b> provides <code>sheet_id</code> needed by <b>Append Rows/Columns</b>",
       "parameter": "sheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e058",
+      "id": "t058",
       "from": "GOOGLESUPER_ADD_SHEET",
       "to": "GOOGLESUPER_CREATE_CHART",
       "label": "sheet_id",
-      "title": "<b>Add Sheet Tab</b> → provides <code>sheet_id</code> → <b>Create Chart</b>",
+      "title": "<b>Add Sheet Tab</b> provides <code>sheet_id</code> needed by <b>Create Chart</b>",
       "parameter": "sheet_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e059",
+      "id": "t059",
       "from": "GOOGLESUPER_TASKS_LIST_TASKLISTS",
       "to": "GOOGLESUPER_TASKS_LIST_TASKS",
       "label": "tasklist_id",
-      "title": "<b>List Task Lists</b> → provides <code>tasklist_id</code> → <b>List Tasks</b>",
+      "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>List Tasks</b>",
       "parameter": "tasklist_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e060",
+      "id": "t060",
       "from": "GOOGLESUPER_TASKS_LIST_TASKLISTS",
       "to": "GOOGLESUPER_TASKS_INSERT_TASK",
       "label": "tasklist_id",
-      "title": "<b>List Task Lists</b> → provides <code>tasklist_id</code> → <b>Create Task</b>",
+      "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Create Task</b>",
       "parameter": "tasklist_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e061",
+      "id": "t061",
       "from": "GOOGLESUPER_TASKS_LIST_TASKLISTS",
       "to": "GOOGLESUPER_CLEAR_TASKS",
       "label": "tasklist_id",
-      "title": "<b>List Task Lists</b> → provides <code>tasklist_id</code> → <b>Clear Completed Tasks</b>",
+      "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Clear Completed Tasks</b>",
       "parameter": "tasklist_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e062",
+      "id": "t062",
       "from": "GOOGLESUPER_TASKS_LIST_TASKLISTS",
       "to": "GOOGLESUPER_BULK_INSERT_TASKS",
       "label": "tasklist_id",
-      "title": "<b>List Task Lists</b> → provides <code>tasklist_id</code> → <b>Bulk Create Tasks</b>",
+      "title": "<b>List Task Lists</b> provides <code>tasklist_id</code> needed by <b>Bulk Create Tasks</b>",
       "parameter": "tasklist_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e063",
+      "id": "t063",
       "from": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
       "to": "GOOGLESUPER_TASKS_LIST_TASKS",
       "label": "tasklist_id",
-      "title": "<b>Create Task List</b> → provides <code>tasklist_id</code> → <b>List Tasks</b>",
+      "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>List Tasks</b>",
       "parameter": "tasklist_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e064",
+      "id": "t064",
       "from": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
       "to": "GOOGLESUPER_TASKS_INSERT_TASK",
       "label": "tasklist_id",
-      "title": "<b>Create Task List</b> → provides <code>tasklist_id</code> → <b>Create Task</b>",
+      "title": "<b>Create Task List</b> provides <code>tasklist_id</code> needed by <b>Create Task</b>",
       "parameter": "tasklist_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e065",
+      "id": "t065",
       "from": "GOOGLESUPER_TASKS_LIST_TASKS",
       "to": "GOOGLESUPER_TASKS_GET_TASK",
       "label": "task_id",
-      "title": "<b>List Tasks</b> → provides <code>task_id</code> → <b>Get Task</b>",
+      "title": "<b>List Tasks</b> provides <code>task_id</code> needed by <b>Get Task</b>",
       "parameter": "task_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e066",
+      "id": "t066",
       "from": "GOOGLESUPER_TASKS_LIST_TASKS",
       "to": "GOOGLESUPER_TASKS_UPDATE_TASK",
       "label": "task_id",
-      "title": "<b>List Tasks</b> → provides <code>task_id</code> → <b>Update Task</b>",
+      "title": "<b>List Tasks</b> provides <code>task_id</code> needed by <b>Update Task</b>",
       "parameter": "task_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e067",
+      "id": "t067",
       "from": "GOOGLESUPER_TASKS_LIST_TASKS",
       "to": "GOOGLESUPER_TASKS_DELETE_TASK",
       "label": "task_id",
-      "title": "<b>List Tasks</b> → provides <code>task_id</code> → <b>Delete Task</b>",
+      "title": "<b>List Tasks</b> provides <code>task_id</code> needed by <b>Delete Task</b>",
       "parameter": "task_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e068",
+      "id": "t068",
       "from": "GOOGLESUPER_PHOTOS_LIST_ALBUMS",
       "to": "GOOGLESUPER_BATCH_ADD_MEDIA_ITEMS",
       "label": "album_id",
-      "title": "<b>List Albums</b> → provides <code>album_id</code> → <b>Add Media to Album</b>",
+      "title": "<b>List Albums</b> provides <code>album_id</code> needed by <b>Add Media to Album</b>",
       "parameter": "album_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e069",
+      "id": "t069",
       "from": "GOOGLESUPER_PHOTOS_LIST_ALBUMS",
       "to": "GOOGLESUPER_ADD_ENRICHMENT",
       "label": "album_id",
-      "title": "<b>List Albums</b> → provides <code>album_id</code> → <b>Add Album Enrichment</b>",
+      "title": "<b>List Albums</b> provides <code>album_id</code> needed by <b>Add Album Enrichment</b>",
       "parameter": "album_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e070",
+      "id": "t070",
       "from": "GOOGLESUPER_CREATE_ALBUM",
       "to": "GOOGLESUPER_BATCH_ADD_MEDIA_ITEMS",
       "label": "album_id",
-      "title": "<b>Create Album</b> → provides <code>album_id</code> → <b>Add Media to Album</b>",
+      "title": "<b>Create Album</b> provides <code>album_id</code> needed by <b>Add Media to Album</b>",
       "parameter": "album_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e071",
+      "id": "t071",
       "from": "GOOGLESUPER_CREATE_ALBUM",
       "to": "GOOGLESUPER_ADD_ENRICHMENT",
       "label": "album_id",
-      "title": "<b>Create Album</b> → provides <code>album_id</code> → <b>Add Album Enrichment</b>",
+      "title": "<b>Create Album</b> provides <code>album_id</code> needed by <b>Add Album Enrichment</b>",
       "parameter": "album_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e072",
+      "id": "t072",
       "from": "GOOGLESUPER_PHOTOS_LIST_MEDIA_ITEMS",
       "to": "GOOGLESUPER_BATCH_ADD_MEDIA_ITEMS",
       "label": "media_item_id",
-      "title": "<b>List Media Items</b> → provides <code>media_item_id</code> → <b>Add Media to Album</b>",
+      "title": "<b>List Media Items</b> provides <code>media_item_id</code> needed by <b>Add Media to Album</b>",
       "parameter": "media_item_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e073",
+      "id": "t073",
       "from": "GOOGLESUPER_PHOTOS_LIST_MEDIA_ITEMS",
       "to": "GOOGLESUPER_BATCH_GET_MEDIA_ITEMS",
       "label": "media_item_id",
-      "title": "<b>List Media Items</b> → provides <code>media_item_id</code> → <b>Get Media Details</b>",
+      "title": "<b>List Media Items</b> provides <code>media_item_id</code> needed by <b>Get Media Details</b>",
       "parameter": "media_item_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e074",
+      "id": "t074",
       "from": "GOOGLESUPER_BATCH_CREATE_MEDIA_ITEMS",
       "to": "GOOGLESUPER_BATCH_ADD_MEDIA_ITEMS",
       "label": "media_item_id",
-      "title": "<b>Upload Media</b> → provides <code>media_item_id</code> → <b>Add Media to Album</b>",
+      "title": "<b>Upload Media</b> provides <code>media_item_id</code> needed by <b>Add Media to Album</b>",
       "parameter": "media_item_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e075",
+      "id": "t075",
       "from": "GOOGLESUPER_BATCH_CREATE_MEDIA_ITEMS",
       "to": "GOOGLESUPER_BATCH_GET_MEDIA_ITEMS",
       "label": "media_item_id",
-      "title": "<b>Upload Media</b> → provides <code>media_item_id</code> → <b>Get Media Details</b>",
+      "title": "<b>Upload Media</b> provides <code>media_item_id</code> needed by <b>Get Media Details</b>",
       "parameter": "media_item_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e076",
+      "id": "t076",
       "from": "GOOGLESUPER_ANALYTICS_LIST_PROPERTIES",
       "to": "GOOGLESUPER_BATCH_RUN_REPORTS",
       "label": "ga4_property",
-      "title": "<b>List GA4 Properties</b> → provides <code>ga4_property</code> → <b>Run Analytics Reports</b>",
+      "title": "<b>List GA4 Properties</b> provides <code>ga4_property</code> needed by <b>Run Analytics Reports</b>",
       "parameter": "ga4_property",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e077",
+      "id": "t077",
       "from": "GOOGLESUPER_ANALYTICS_LIST_PROPERTIES",
       "to": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
       "label": "ga4_property",
-      "title": "<b>List GA4 Properties</b> → provides <code>ga4_property</code> → <b>Run Pivot Reports</b>",
+      "title": "<b>List GA4 Properties</b> provides <code>ga4_property</code> needed by <b>Run Pivot Reports</b>",
       "parameter": "ga4_property",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e078",
+      "id": "t078",
       "from": "GOOGLESUPER_ANALYTICS_LIST_PROPERTIES",
       "to": "GOOGLESUPER_CREATE_CUSTOM_DIMENSION",
       "label": "ga4_property",
-      "title": "<b>List GA4 Properties</b> → provides <code>ga4_property</code> → <b>Create Custom Dimension</b>",
+      "title": "<b>List GA4 Properties</b> provides <code>ga4_property</code> needed by <b>Create Custom Dimension</b>",
       "parameter": "ga4_property",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e079",
+      "id": "t079",
       "from": "GOOGLESUPER_CREATE_CUSTOM_DIMENSION",
       "to": "GOOGLESUPER_ARCHIVE_CUSTOM_DIMENSION",
       "label": "dimension_name",
-      "title": "<b>Create Custom Dimension</b> → provides <code>dimension_name</code> → <b>Archive Custom Dimension</b>",
+      "title": "<b>Create Custom Dimension</b> provides <code>dimension_name</code> needed by <b>Archive Custom Dimension</b>",
       "parameter": "dimension_name",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e080",
+      "id": "t080",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_GET_REPO",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>Get Repo</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Get Repo</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e081",
+      "id": "t081",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_DELETE_REPO",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>Delete Repo</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Delete Repo</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e082",
+      "id": "t082",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_CREATE_FORK",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>Fork Repo</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Fork Repo</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e083",
+      "id": "t083",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_BRANCHES",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Branches</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Branches</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e084",
+      "id": "t084",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_COMMITS",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Commits</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Commits</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e085",
+      "id": "t085",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_ISSUES",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Issues</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Issues</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e086",
+      "id": "t086",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_CREATE_ISSUE",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>Create Issue</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Create Issue</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e087",
+      "id": "t087",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_PULL_REQUESTS",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Pull Requests</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Pull Requests</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e088",
+      "id": "t088",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_LABELS_FOR_REPO",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Repo Labels</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Repo Labels</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e089",
+      "id": "t089",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_CREATE_LABEL",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>Create Label</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Create Label</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e090",
+      "id": "t090",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_WORKFLOWS",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Workflows</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Workflows</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e091",
+      "id": "t091",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_WORKFLOW_RUNS",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Workflow Runs</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Workflow Runs</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e092",
+      "id": "t092",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_DEPLOYMENTS",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Deployments</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Deployments</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e093",
+      "id": "t093",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_RELEASES",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Releases</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Releases</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e094",
+      "id": "t094",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_CREATE_RELEASE",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>Create Release</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Create Release</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e095",
+      "id": "t095",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_CREATE_A_BLOB",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>Create Blob</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Create Blob</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e096",
+      "id": "t096",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_COLLABORATORS",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Collaborators</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Collaborators</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e097",
+      "id": "t097",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>Add Collaborator</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>Add Collaborator</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e098",
+      "id": "t098",
       "from": "GITHUB_LIST_REPOS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_REPOSITORY_INVITATIONS",
       "label": "owner/repo",
-      "title": "<b>List My Repos</b> → provides <code>owner/repo</code> → <b>List Repo Invitations</b>",
+      "title": "<b>List My Repos</b> provides <code>owner/repo</code> needed by <b>List Repo Invitations</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e099",
+      "id": "t099",
       "from": "GITHUB_CREATE_REPO",
       "to": "GITHUB_LIST_BRANCHES",
       "label": "owner/repo",
-      "title": "<b>Create Repo</b> → provides <code>owner/repo</code> → <b>List Branches</b>",
+      "title": "<b>Create Repo</b> provides <code>owner/repo</code> needed by <b>List Branches</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e100",
+      "id": "t100",
       "from": "GITHUB_CREATE_REPO",
       "to": "GITHUB_LIST_COMMITS",
       "label": "owner/repo",
-      "title": "<b>Create Repo</b> → provides <code>owner/repo</code> → <b>List Commits</b>",
+      "title": "<b>Create Repo</b> provides <code>owner/repo</code> needed by <b>List Commits</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e101",
+      "id": "t101",
       "from": "GITHUB_CREATE_REPO",
       "to": "GITHUB_CREATE_ISSUE",
       "label": "owner/repo",
-      "title": "<b>Create Repo</b> → provides <code>owner/repo</code> → <b>Create Issue</b>",
+      "title": "<b>Create Repo</b> provides <code>owner/repo</code> needed by <b>Create Issue</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e102",
+      "id": "t102",
       "from": "GITHUB_LIST_REPOS_FOR_ORG",
       "to": "GITHUB_LIST_BRANCHES",
       "label": "owner/repo",
-      "title": "<b>List Org Repos</b> → provides <code>owner/repo</code> → <b>List Branches</b>",
+      "title": "<b>List Org Repos</b> provides <code>owner/repo</code> needed by <b>List Branches</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e103",
+      "id": "t103",
       "from": "GITHUB_LIST_REPOS_FOR_ORG",
       "to": "GITHUB_LIST_COMMITS",
       "label": "owner/repo",
-      "title": "<b>List Org Repos</b> → provides <code>owner/repo</code> → <b>List Commits</b>",
+      "title": "<b>List Org Repos</b> provides <code>owner/repo</code> needed by <b>List Commits</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e104",
+      "id": "t104",
       "from": "GITHUB_LIST_REPOS_FOR_ORG",
       "to": "GITHUB_LIST_ISSUES",
       "label": "owner/repo",
-      "title": "<b>List Org Repos</b> → provides <code>owner/repo</code> → <b>List Issues</b>",
+      "title": "<b>List Org Repos</b> provides <code>owner/repo</code> needed by <b>List Issues</b>",
       "parameter": "owner/repo",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e105",
+      "id": "t105",
       "from": "GITHUB_LIST_ORGS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_REPOS_FOR_ORG",
       "label": "org",
-      "title": "<b>List My Orgs</b> → provides <code>org</code> → <b>List Org Repos</b>",
+      "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>List Org Repos</b>",
       "parameter": "org",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e106",
+      "id": "t106",
       "from": "GITHUB_LIST_ORGS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_TEAMS",
       "label": "org",
-      "title": "<b>List My Orgs</b> → provides <code>org</code> → <b>List Teams</b>",
+      "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>List Teams</b>",
       "parameter": "org",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e107",
+      "id": "t107",
       "from": "GITHUB_LIST_ORGS_FOR_AUTH_USER",
       "to": "GITHUB_CREATE_TEAM",
       "label": "org",
-      "title": "<b>List My Orgs</b> → provides <code>org</code> → <b>Create Team</b>",
+      "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>Create Team</b>",
       "parameter": "org",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e108",
+      "id": "t108",
       "from": "GITHUB_LIST_ORGS_FOR_AUTH_USER",
       "to": "GITHUB_LIST_MEMBERS",
       "label": "org",
-      "title": "<b>List My Orgs</b> → provides <code>org</code> → <b>List Org Members</b>",
+      "title": "<b>List My Orgs</b> provides <code>org</code> needed by <b>List Org Members</b>",
       "parameter": "org",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e109",
+      "id": "t109",
       "from": "GITHUB_LIST_BRANCHES",
       "to": "GITHUB_CREATE_PULL_REQUEST",
       "label": "branch_name",
-      "title": "<b>List Branches</b> → provides <code>branch_name</code> → <b>Create Pull Request</b>",
+      "title": "<b>List Branches</b> provides <code>branch_name</code> needed by <b>Create Pull Request</b>",
       "parameter": "branch_name",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e110",
+      "id": "t110",
       "from": "GITHUB_LIST_BRANCHES",
       "to": "GITHUB_COMMIT_MULTIPLE_FILES",
       "label": "branch_name",
-      "title": "<b>List Branches</b> → provides <code>branch_name</code> → <b>Commit Multiple Files</b>",
+      "title": "<b>List Branches</b> provides <code>branch_name</code> needed by <b>Commit Multiple Files</b>",
       "parameter": "branch_name",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e111",
+      "id": "t111",
       "from": "GITHUB_LIST_BRANCHES",
       "to": "GITHUB_CREATE_DEPLOYMENT",
       "label": "branch_name",
-      "title": "<b>List Branches</b> → provides <code>branch_name</code> → <b>Create Deployment</b>",
+      "title": "<b>List Branches</b> provides <code>branch_name</code> needed by <b>Create Deployment</b>",
       "parameter": "branch_name",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e112",
+      "id": "t112",
       "from": "GITHUB_LIST_COMMITS",
       "to": "GITHUB_GET_COMMIT",
       "label": "commit_sha",
-      "title": "<b>List Commits</b> → provides <code>commit_sha</code> → <b>Get Commit</b>",
+      "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Get Commit</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e113",
+      "id": "t113",
       "from": "GITHUB_LIST_COMMITS",
       "to": "GITHUB_COMPARE_TWO_COMMITS",
       "label": "commit_sha",
-      "title": "<b>List Commits</b> → provides <code>commit_sha</code> → <b>Compare Commits</b>",
+      "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Compare Commits</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e114",
+      "id": "t114",
       "from": "GITHUB_LIST_COMMITS",
       "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
       "label": "commit_sha",
-      "title": "<b>List Commits</b> → provides <code>commit_sha</code> → <b>Comment on Commit</b>",
+      "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Comment on Commit</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e115",
+      "id": "t115",
       "from": "GITHUB_LIST_COMMITS",
       "to": "GITHUB_CREATE_A_COMMIT_STATUS",
       "label": "commit_sha",
-      "title": "<b>List Commits</b> → provides <code>commit_sha</code> → <b>Set Commit Status</b>",
+      "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Set Commit Status</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e116",
+      "id": "t116",
       "from": "GITHUB_LIST_COMMITS",
       "to": "GITHUB_CREATE_A_CHECK_RUN",
       "label": "commit_sha",
-      "title": "<b>List Commits</b> → provides <code>commit_sha</code> → <b>Create Check Run</b>",
+      "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Create Check Run</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e117",
+      "id": "t117",
       "from": "GITHUB_LIST_COMMITS",
       "to": "GITHUB_CREATE_A_COMMIT",
       "label": "commit_sha",
-      "title": "<b>List Commits</b> → provides <code>commit_sha</code> → <b>Create Commit</b>",
+      "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Create Commit</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e118",
+      "id": "t118",
       "from": "GITHUB_LIST_COMMITS",
       "to": "GITHUB_CREATE_BRANCH",
       "label": "commit_sha",
-      "title": "<b>List Commits</b> → provides <code>commit_sha</code> → <b>Create Branch</b>",
+      "title": "<b>List Commits</b> provides <code>commit_sha</code> needed by <b>Create Branch</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e119",
+      "id": "t119",
       "from": "GITHUB_CREATE_A_BLOB",
       "to": "GITHUB_CREATE_A_TREE",
       "label": "blob_sha",
-      "title": "<b>Create Blob</b> → provides <code>blob_sha</code> → <b>Create Tree</b>",
+      "title": "<b>Create Blob</b> provides <code>blob_sha</code> needed by <b>Create Tree</b>",
       "parameter": "blob_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e120",
+      "id": "t120",
       "from": "GITHUB_CREATE_A_TREE",
       "to": "GITHUB_CREATE_A_COMMIT",
       "label": "tree_sha",
-      "title": "<b>Create Tree</b> → provides <code>tree_sha</code> → <b>Create Commit</b>",
+      "title": "<b>Create Tree</b> provides <code>tree_sha</code> needed by <b>Create Commit</b>",
       "parameter": "tree_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e121",
+      "id": "t121",
       "from": "GITHUB_CREATE_A_COMMIT",
       "to": "GITHUB_CREATE_BRANCH",
       "label": "commit_sha",
-      "title": "<b>Create Commit</b> → provides <code>commit_sha</code> → <b>Create Branch</b>",
+      "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Create Branch</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e122",
+      "id": "t122",
       "from": "GITHUB_CREATE_A_COMMIT",
       "to": "GITHUB_CREATE_DEPLOYMENT",
       "label": "commit_sha",
-      "title": "<b>Create Commit</b> → provides <code>commit_sha</code> → <b>Create Deployment</b>",
+      "title": "<b>Create Commit</b> provides <code>commit_sha</code> needed by <b>Create Deployment</b>",
       "parameter": "commit_sha",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e123",
+      "id": "t123",
       "from": "GITHUB_LIST_ISSUES",
       "to": "GITHUB_GET_ISSUE",
       "label": "issue_number",
-      "title": "<b>List Issues</b> → provides <code>issue_number</code> → <b>Get Issue</b>",
+      "title": "<b>List Issues</b> provides <code>issue_number</code> needed by <b>Get Issue</b>",
       "parameter": "issue_number",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e124",
+      "id": "t124",
       "from": "GITHUB_LIST_ISSUES",
       "to": "GITHUB_UPDATE_ISSUE",
       "label": "issue_number",
-      "title": "<b>List Issues</b> → provides <code>issue_number</code> → <b>Update Issue</b>",
+      "title": "<b>List Issues</b> provides <code>issue_number</code> needed by <b>Update Issue</b>",
       "parameter": "issue_number",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e125",
+      "id": "t125",
       "from": "GITHUB_LIST_ISSUES",
       "to": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
       "label": "issue_number",
-      "title": "<b>List Issues</b> → provides <code>issue_number</code> → <b>Assign Users to Issue</b>",
+      "title": "<b>List Issues</b> provides <code>issue_number</code> needed by <b>Assign Users to Issue</b>",
       "parameter": "issue_number",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e126",
+      "id": "t126",
       "from": "GITHUB_LIST_ISSUES",
       "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
       "label": "issue_number",
-      "title": "<b>List Issues</b> → provides <code>issue_number</code> → <b>Add Labels to Issue</b>",
+      "title": "<b>List Issues</b> provides <code>issue_number</code> needed by <b>Add Labels to Issue</b>",
       "parameter": "issue_number",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e127",
+      "id": "t127",
       "from": "GITHUB_LIST_LABELS_FOR_REPO",
       "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
       "label": "label_name",
-      "title": "<b>List Repo Labels</b> → provides <code>label_name</code> → <b>Add Labels to Issue</b>",
+      "title": "<b>List Repo Labels</b> provides <code>label_name</code> needed by <b>Add Labels to Issue</b>",
       "parameter": "label_name",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e128",
+      "id": "t128",
       "from": "GITHUB_CREATE_LABEL",
       "to": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
       "label": "label_name",
-      "title": "<b>Create Label</b> → provides <code>label_name</code> → <b>Add Labels to Issue</b>",
+      "title": "<b>Create Label</b> provides <code>label_name</code> needed by <b>Add Labels to Issue</b>",
       "parameter": "label_name",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e129",
+      "id": "t129",
       "from": "GITHUB_LIST_PULL_REQUESTS",
       "to": "GITHUB_GET_PULL_REQUEST",
       "label": "pull_number",
-      "title": "<b>List Pull Requests</b> → provides <code>pull_number</code> → <b>Get Pull Request</b>",
+      "title": "<b>List Pull Requests</b> provides <code>pull_number</code> needed by <b>Get Pull Request</b>",
       "parameter": "pull_number",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e130",
+      "id": "t130",
       "from": "GITHUB_LIST_PULL_REQUESTS",
       "to": "GITHUB_MERGE_PULL_REQUEST",
       "label": "pull_number",
-      "title": "<b>List Pull Requests</b> → provides <code>pull_number</code> → <b>Merge Pull Request</b>",
+      "title": "<b>List Pull Requests</b> provides <code>pull_number</code> needed by <b>Merge Pull Request</b>",
       "parameter": "pull_number",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e131",
+      "id": "t131",
       "from": "GITHUB_LIST_PULL_REQUESTS",
       "to": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
       "label": "pull_number",
-      "title": "<b>List Pull Requests</b> → provides <code>pull_number</code> → <b>Check PR Merged</b>",
+      "title": "<b>List Pull Requests</b> provides <code>pull_number</code> needed by <b>Check PR Merged</b>",
       "parameter": "pull_number",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e132",
+      "id": "t132",
       "from": "GITHUB_CREATE_PULL_REQUEST",
       "to": "GITHUB_MERGE_PULL_REQUEST",
       "label": "pull_number",
-      "title": "<b>Create Pull Request</b> → provides <code>pull_number</code> → <b>Merge Pull Request</b>",
+      "title": "<b>Create Pull Request</b> provides <code>pull_number</code> needed by <b>Merge Pull Request</b>",
       "parameter": "pull_number",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e133",
+      "id": "t133",
       "from": "GITHUB_LIST_WORKFLOWS",
       "to": "GITHUB_TRIGGER_WORKFLOW",
       "label": "workflow_id",
-      "title": "<b>List Workflows</b> → provides <code>workflow_id</code> → <b>Trigger Workflow</b>",
+      "title": "<b>List Workflows</b> provides <code>workflow_id</code> needed by <b>Trigger Workflow</b>",
       "parameter": "workflow_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e134",
+      "id": "t134",
       "from": "GITHUB_LIST_WORKFLOW_RUNS",
       "to": "GITHUB_CANCEL_WORKFLOW_RUN",
       "label": "run_id",
-      "title": "<b>List Workflow Runs</b> → provides <code>run_id</code> → <b>Cancel Workflow Run</b>",
+      "title": "<b>List Workflow Runs</b> provides <code>run_id</code> needed by <b>Cancel Workflow Run</b>",
       "parameter": "run_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e135",
+      "id": "t135",
       "from": "GITHUB_LIST_WORKFLOW_RUNS",
       "to": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
       "label": "run_id",
-      "title": "<b>List Workflow Runs</b> → provides <code>run_id</code> → <b>Approve Fork Workflow</b>",
+      "title": "<b>List Workflow Runs</b> provides <code>run_id</code> needed by <b>Approve Fork Workflow</b>",
       "parameter": "run_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e136",
+      "id": "t136",
       "from": "GITHUB_LIST_DEPLOYMENTS",
       "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
       "label": "deployment_id",
-      "title": "<b>List Deployments</b> → provides <code>deployment_id</code> → <b>Update Deployment Status</b>",
+      "title": "<b>List Deployments</b> provides <code>deployment_id</code> needed by <b>Update Deployment Status</b>",
       "parameter": "deployment_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e137",
+      "id": "t137",
       "from": "GITHUB_CREATE_DEPLOYMENT",
       "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
       "label": "deployment_id",
-      "title": "<b>Create Deployment</b> → provides <code>deployment_id</code> → <b>Update Deployment Status</b>",
+      "title": "<b>Create Deployment</b> provides <code>deployment_id</code> needed by <b>Update Deployment Status</b>",
       "parameter": "deployment_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e138",
+      "id": "t138",
       "from": "GITHUB_LIST_RELEASES",
       "to": "GITHUB_GET_RELEASE",
       "label": "release_id",
-      "title": "<b>List Releases</b> → provides <code>release_id</code> → <b>Get Release</b>",
+      "title": "<b>List Releases</b> provides <code>release_id</code> needed by <b>Get Release</b>",
       "parameter": "release_id",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e139",
+      "id": "t139",
       "from": "GITHUB_LIST_TEAMS",
       "to": "GITHUB_ADD_OR_UPDATE_TEAM_MEMBERSHIP_FOR_USER",
       "label": "team_slug",
-      "title": "<b>List Teams</b> → provides <code>team_slug</code> → <b>Update Team Membership</b>",
+      "title": "<b>List Teams</b> provides <code>team_slug</code> needed by <b>Update Team Membership</b>",
       "parameter": "team_slug",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e140",
+      "id": "t140",
       "from": "GITHUB_CREATE_TEAM",
       "to": "GITHUB_ADD_OR_UPDATE_TEAM_MEMBERSHIP_FOR_USER",
       "label": "team_slug",
-      "title": "<b>Create Team</b> → provides <code>team_slug</code> → <b>Update Team Membership</b>",
+      "title": "<b>Create Team</b> provides <code>team_slug</code> needed by <b>Update Team Membership</b>",
       "parameter": "team_slug",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e141",
+      "id": "t141",
       "from": "GITHUB_LIST_MEMBERS",
       "to": "GITHUB_ADD_OR_UPDATE_TEAM_MEMBERSHIP_FOR_USER",
       "label": "username",
-      "title": "<b>List Org Members</b> → provides <code>username</code> → <b>Update Team Membership</b>",
+      "title": "<b>List Org Members</b> provides <code>username</code> needed by <b>Update Team Membership</b>",
       "parameter": "username",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e142",
+      "id": "t142",
       "from": "GITHUB_LIST_MEMBERS",
       "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
       "label": "username",
-      "title": "<b>List Org Members</b> → provides <code>username</code> → <b>Add Collaborator</b>",
+      "title": "<b>List Org Members</b> provides <code>username</code> needed by <b>Add Collaborator</b>",
       "parameter": "username",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e143",
+      "id": "t143",
       "from": "GITHUB_LIST_COLLABORATORS",
       "to": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
       "label": "username",
-      "title": "<b>List Collaborators</b> → provides <code>username</code> → <b>Add Collaborator</b>",
+      "title": "<b>List Collaborators</b> provides <code>username</code> needed by <b>Add Collaborator</b>",
       "parameter": "username",
+      "source": "tool",
       "arrows": "to"
     },
     {
-      "id": "e144",
+      "id": "t144",
       "from": "GITHUB_LIST_REPOSITORY_INVITATIONS",
       "to": "GITHUB_ACCEPT_REPOSITORY_INVITATION",
       "label": "invitation_id",
-      "title": "<b>List Repo Invitations</b> → provides <code>invitation_id</code> → <b>Accept Invitation</b>",
+      "title": "<b>List Repo Invitations</b> provides <code>invitation_id</code> needed by <b>Accept Invitation</b>",
       "parameter": "invitation_id",
+      "source": "tool",
+      "arrows": "to"
+    },
+    {
+      "id": "u000",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_GMAIL_REPLY_TO_THREAD",
+      "label": "body",
+      "title": "<b>User provides</b> <code>body</code> (string) → <b>Reply to Thread</b><br/>Reply message text",
+      "parameter": "body",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u001",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_GMAIL_SEND_EMAIL",
+      "label": "subject",
+      "title": "<b>User provides</b> <code>subject</code> (string) → <b>Send Email</b><br/>Email subject line<br/>Example: <i>Meeting notes</i>",
+      "parameter": "subject",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u002",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_GMAIL_SEND_EMAIL",
+      "label": "body",
+      "title": "<b>User provides</b> <code>body</code> (string) → <b>Send Email</b><br/>Email message body",
+      "parameter": "body",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u003",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_GMAIL_CREATE_LABEL",
+      "label": "name",
+      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Label</b><br/>Label display name<br/>Example: <i>Urgent</i>",
+      "parameter": "name",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u004",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_CONTACTS_SEARCH",
+      "label": "query",
+      "title": "<b>User provides</b> <code>query</code> (string) → <b>Search Contacts</b><br/>Person's name or partial email to search for<br/>Example: <i>John Smith</i>",
+      "parameter": "query",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u005",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_CALENDARS_INSERT",
+      "label": "summary",
+      "title": "<b>User provides</b> <code>summary</code> (string) → <b>Create Calendar</b><br/>Calendar title<br/>Example: <i>Work</i>",
+      "parameter": "summary",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u006",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_EVENTS_INSERT",
+      "label": "summary",
+      "title": "<b>User provides</b> <code>summary</code> (string) → <b>Create Event</b><br/>Event title<br/>Example: <i>Team standup</i>",
+      "parameter": "summary",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u007",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_EVENTS_INSERT",
+      "label": "start_time",
+      "title": "<b>User provides</b> <code>start_time</code> (string) → <b>Create Event</b><br/>Start datetime ISO 8601 (e.g. 2024-06-01T10:00:00Z)",
+      "parameter": "start_time",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u008",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_EVENTS_INSERT",
+      "label": "end_time",
+      "title": "<b>User provides</b> <code>end_time</code> (string) → <b>Create Event</b><br/>End datetime ISO 8601",
+      "parameter": "end_time",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u009",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_ACL_INSERT",
+      "label": "role",
+      "title": "<b>User provides</b> <code>role</code> (string) → <b>Create ACL Rule</b><br/>Access role: reader | writer | owner",
+      "parameter": "role",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u010",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_ACL_INSERT",
+      "label": "scope_type",
+      "title": "<b>User provides</b> <code>scope_type</code> (string) → <b>Create ACL Rule</b><br/>Scope type: user | group | domain",
+      "parameter": "scope_type",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u011",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_ACL_INSERT",
+      "label": "scope_value",
+      "title": "<b>User provides</b> <code>scope_value</code> (string) → <b>Create ACL Rule</b><br/>Email address or domain to grant access",
+      "parameter": "scope_value",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u012",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_DRIVE_CREATE_FILE",
+      "label": "name",
+      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create File</b><br/>File name<br/>Example: <i>report.pdf</i>",
+      "parameter": "name",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u013",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_CREATE_COMMENT",
+      "label": "content",
+      "title": "<b>User provides</b> <code>content</code> (string) → <b>Comment on File</b><br/>Comment text",
+      "parameter": "content",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u014",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
+      "label": "role",
+      "title": "<b>User provides</b> <code>role</code> (string) → <b>Share File</b><br/>Permission role: reader | writer | commenter | owner",
+      "parameter": "role",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u015",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
+      "label": "type",
+      "title": "<b>User provides</b> <code>type</code> (string) → <b>Share File</b><br/>Principal type: user | group | domain | anyone",
+      "parameter": "type",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u016",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_SHEETS_CREATE_SPREADSHEET",
+      "label": "title",
+      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Spreadsheet</b><br/>Spreadsheet title<br/>Example: <i>Budget 2024</i>",
+      "parameter": "title",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u017",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_CLEAR_VALUES",
+      "label": "range",
+      "title": "<b>User provides</b> <code>range</code> (string) → <b>Clear Cells</b><br/>A1 notation range to clear<br/>Example: <i>A1:Z100</i>",
+      "parameter": "range",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u018",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_BATCH_UPDATE",
+      "label": "values",
+      "title": "<b>User provides</b> <code>values</code> (array) → <b>Write Cells</b><br/>2D array of cell values to write",
+      "parameter": "values",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u019",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_BATCH_UPDATE",
+      "label": "range",
+      "title": "<b>User provides</b> <code>range</code> (string) → <b>Write Cells</b><br/>A1 notation range (e.g. Sheet1!A1:C5)",
+      "parameter": "range",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u020",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
+      "label": "operation",
+      "title": "<b>User provides</b> <code>operation</code> (string) → <b>Aggregate Column</b><br/>Operation: sum | average | count | min | max",
+      "parameter": "operation",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u021",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
+      "label": "target_column",
+      "title": "<b>User provides</b> <code>target_column</code> (string) → <b>Aggregate Column</b><br/>Column letter to aggregate (e.g. B)",
+      "parameter": "target_column",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u022",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
+      "label": "sheet_name",
+      "title": "<b>User provides</b> <code>sheet_name</code> (string) → <b>Aggregate Column</b><br/>Sheet tab name",
+      "parameter": "sheet_name",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u023",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_TASKS_CREATE_TASKLIST",
+      "label": "title",
+      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Task List</b><br/>Task list name<br/>Example: <i>Sprint 5</i>",
+      "parameter": "title",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u024",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_TASKS_INSERT_TASK",
+      "label": "title",
+      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Task</b><br/>Task title<br/>Example: <i>Review pull request</i>",
+      "parameter": "title",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u025",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_BULK_INSERT_TASKS",
+      "label": "tasks",
+      "title": "<b>User provides</b> <code>tasks</code> (array) → <b>Bulk Create Tasks</b><br/>Array of task objects [{title, notes?, due?}]",
+      "parameter": "tasks",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u026",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_CREATE_ALBUM",
+      "label": "title",
+      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Album</b><br/>Album name<br/>Example: <i>Vacation 2024</i>",
+      "parameter": "title",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u027",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_BATCH_RUN_REPORTS",
+      "label": "dateRanges",
+      "title": "<b>User provides</b> <code>dateRanges</code> (array) → <b>Run Analytics Reports</b><br/>Date range(s): [{startDate, endDate}] e.g. [{startDate:'7daysAgo',endDate:'today'}]",
+      "parameter": "dateRanges",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u028",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_BATCH_RUN_REPORTS",
+      "label": "metrics",
+      "title": "<b>User provides</b> <code>metrics</code> (array) → <b>Run Analytics Reports</b><br/>Metric names e.g. ['sessions','users','pageviews']",
+      "parameter": "metrics",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u029",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
+      "label": "dateRanges",
+      "title": "<b>User provides</b> <code>dateRanges</code> (array) → <b>Run Pivot Reports</b><br/>Date range(s) for the pivot report",
+      "parameter": "dateRanges",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u030",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
+      "label": "pivots",
+      "title": "<b>User provides</b> <code>pivots</code> (array) → <b>Run Pivot Reports</b><br/>Pivot definitions [{fieldNames, limit}]",
+      "parameter": "pivots",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u031",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
+      "label": "metrics",
+      "title": "<b>User provides</b> <code>metrics</code> (array) → <b>Run Pivot Reports</b><br/>Metric names",
+      "parameter": "metrics",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u032",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_CREATE_CUSTOM_DIMENSION",
+      "label": "displayName",
+      "title": "<b>User provides</b> <code>displayName</code> (string) → <b>Create Custom Dimension</b><br/>Human-readable dimension name (max 82 chars)",
+      "parameter": "displayName",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u033",
+      "from": "USER_INPUT",
+      "to": "GOOGLESUPER_CREATE_CUSTOM_DIMENSION",
+      "label": "scope",
+      "title": "<b>User provides</b> <code>scope</code> (string) → <b>Create Custom Dimension</b><br/>Scope: EVENT | USER | ITEM",
+      "parameter": "scope",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u034",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_REPO",
+      "label": "name",
+      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Repo</b><br/>Repository name<br/>Example: <i>my-project</i>",
+      "parameter": "name",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u035",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_A_BLOB",
+      "label": "content",
+      "title": "<b>User provides</b> <code>content</code> (string) → <b>Create Blob</b><br/>File content to store as a Git blob",
+      "parameter": "content",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u036",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_A_TREE",
+      "label": "tree",
+      "title": "<b>User provides</b> <code>tree</code> (array) → <b>Create Tree</b><br/>Tree entries [{path, mode, type, sha or content}]",
+      "parameter": "tree",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u037",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_A_COMMIT",
+      "label": "message",
+      "title": "<b>User provides</b> <code>message</code> (string) → <b>Create Commit</b><br/>Commit message<br/>Example: <i>fix: resolve null pointer in auth</i>",
+      "parameter": "message",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u038",
+      "from": "USER_INPUT",
+      "to": "GITHUB_COMMIT_MULTIPLE_FILES",
+      "label": "message",
+      "title": "<b>User provides</b> <code>message</code> (string) → <b>Commit Multiple Files</b><br/>Commit message",
+      "parameter": "message",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u039",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_A_COMMIT_COMMENT",
+      "label": "body",
+      "title": "<b>User provides</b> <code>body</code> (string) → <b>Comment on Commit</b><br/>Comment text (supports markdown)",
+      "parameter": "body",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u040",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_A_COMMIT_STATUS",
+      "label": "state",
+      "title": "<b>User provides</b> <code>state</code> (string) → <b>Set Commit Status</b><br/>CI status: error | failure | pending | success",
+      "parameter": "state",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u041",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_ISSUE",
+      "label": "title",
+      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Issue</b><br/>Issue title<br/>Example: <i>Bug: login fails on Safari</i>",
+      "parameter": "title",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u042",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_LABEL",
+      "label": "name",
+      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Label</b><br/>Label text<br/>Example: <i>bug</i>",
+      "parameter": "name",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u043",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_LABEL",
+      "label": "color",
+      "title": "<b>User provides</b> <code>color</code> (string) → <b>Create Label</b><br/>Hex color without # (e.g. d73a4a)",
+      "parameter": "color",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u044",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "title",
+      "title": "<b>User provides</b> <code>title</code> (string) → <b>Create Pull Request</b><br/>Pull request title",
+      "parameter": "title",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u045",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_PULL_REQUEST",
+      "label": "base",
+      "title": "<b>User provides</b> <code>base</code> (string) → <b>Create Pull Request</b><br/>Target branch to merge into (e.g. main)",
+      "parameter": "base",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u046",
+      "from": "USER_INPUT",
+      "to": "GITHUB_TRIGGER_WORKFLOW",
+      "label": "ref",
+      "title": "<b>User provides</b> <code>ref</code> (string) → <b>Trigger Workflow</b><br/>Branch or tag to run workflow on<br/>Example: <i>main</i>",
+      "parameter": "ref",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u047",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_DEPLOYMENT_STATUS",
+      "label": "state",
+      "title": "<b>User provides</b> <code>state</code> (string) → <b>Update Deployment Status</b><br/>Deployment state: error | failure | inactive | in_progress | queued | pending | success",
+      "parameter": "state",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u048",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_RELEASE",
+      "label": "tag_name",
+      "title": "<b>User provides</b> <code>tag_name</code> (string) → <b>Create Release</b><br/>Git tag for this release (e.g. v1.2.0)",
+      "parameter": "tag_name",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u049",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_TEAM",
+      "label": "name",
+      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Team</b><br/>Team name",
+      "parameter": "name",
+      "source": "user",
+      "arrows": "to"
+    },
+    {
+      "id": "u050",
+      "from": "USER_INPUT",
+      "to": "GITHUB_CREATE_A_CHECK_RUN",
+      "label": "name",
+      "title": "<b>User provides</b> <code>name</code> (string) → <b>Create Check Run</b><br/>Check run display name (e.g. Unit Tests)",
+      "parameter": "name",
+      "source": "user",
       "arrows": "to"
     }
   ]
