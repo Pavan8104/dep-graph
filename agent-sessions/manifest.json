@@ -1,10 +1,10 @@
 {
   "mode": "collected",
-  "generatedAt": "2026-04-30T17:21:12.894Z",
+  "generatedAt": "2026-04-30T17:52:59.073Z",
   "projectRoot": "/Users/pavan/Downloads/dep-graph",
   "outputDir": "/Users/pavan/Downloads/dep-graph/agent-sessions",
   "windowMinutes": 90,
-  "cutoffTime": "2026-04-30T15:51:12.780Z",
+  "cutoffTime": "2026-04-30T16:22:58.944Z",
   "providers": {
     "codex": {
       "found": 0,
@@ -21,7 +21,7 @@
           "provider": "claude",
           "sourcePath": "/Users/pavan/.claude/projects/-Users-pavan-Downloads-dep-graph/a63f5a88-265f-484d-ab62-f835d4401129.jsonl",
           "copiedPath": "claude/-Users-pavan-Downloads-dep-graph/a63f5a88-265f-484d-ab62-f835d4401129.jsonl",
-          "timestampUsed": "2026-04-30T17:14:46.799Z",
+          "timestampUsed": "2026-04-30T17:37:34.491Z",
           "type": "session_jsonl",
           "metadata": {
             "cwd": "/Users/pavan/Downloads/dep-graph"
@@ -47,7 +47,7 @@
       "provider": "claude",
       "sourcePath": "/Users/pavan/.claude/projects/-Users-pavan-Downloads-dep-graph/a63f5a88-265f-484d-ab62-f835d4401129.jsonl",
       "copiedPath": "claude/-Users-pavan-Downloads-dep-graph/a63f5a88-265f-484d-ab62-f835d4401129.jsonl",
-      "timestampUsed": "2026-04-30T17:14:46.799Z",
+      "timestampUsed": "2026-04-30T17:37:34.491Z",
       "type": "session_jsonl",
       "metadata": {
         "cwd": "/Users/pavan/Downloads/dep-graph"
