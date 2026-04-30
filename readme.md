@@ -47,3 +47,102 @@ examples:
 - `sh upload.sh your_email@example.com --skip-session`
 
 NOTE:  Feel free to use LLM, you will be judged by the quality of output, eval...
+
+---
+
+## How the dependency graph works
+
+### Running the graph builder
+
+```bash
+# Without Composio key (uses local schema — works offline)
+node --experimental-strip-types src/build_graph.ts
+
+# With Composio key (enriches descriptions from live API + cross-validates params)
+COMPOSIO_API_KEY=your_key bun src/build_graph.ts
+
+# View the visualization (requires a local HTTP server)
+python3 -m http.server 8080
+# → open http://localhost:8080/visualize.html
+```
+
+### How dependencies are derived
+
+Each tool is modelled with two parameter lists:
+
+| Field | Meaning |
+|---|---|
+| `provides` | IDs / resources this tool returns (e.g. `thread_id`, `file_id`) |
+| `requires` | IDs this tool needs as input from another tool |
+| `user_inputs` | Parameters the agent must get from the user / conversation |
+
+A dependency edge `A → B` with `parameter = thread_id` means:
+> Tool A must run before tool B, because B needs `thread_id` and A is the tool that returns it.
+
+### Agent decision logic
+
+When an agent needs to execute tool **T**:
+
+```
+for each required_param of T:
+  if required_param is in provides[] of some other tool X:
+    → add X as a prerequisite; run X first (source = "tool")
+    → if multiple tools can provide it, prefer the most specific one
+  else:
+    → ask the user / pull from conversation context (source = "user")
+```
+
+Example — *"Reply to John's last thread"*:
+1. `thread_id` → source=**tool** → run `GMAIL_LIST_THREADS` first
+2. `body` → source=**user** → ask *"What should the reply say?"*
+3. Now run `GMAIL_REPLY_TO_THREAD(thread_id, body)`
+
+Example — *"Send an email to Alice Smith"*:
+1. `email` → source=**tool** (alternative) → run `CONTACTS_SEARCH(query="Alice Smith")`  
+   **OR** source=**user** if user provides the address directly
+2. `subject`, `body` → source=**user** → ask user
+3. Run `GMAIL_SEND_EMAIL(to, subject, body)`
+
+### Edge types in the visualization
+
+| Edge style | Meaning |
+|---|---|
+| Solid grey arrow | Tool-to-tool: parameter flows from one tool's output to another's input |
+| Dashed orange arrow | User-to-tool: parameter must be supplied by the user/agent (click "User edges" to toggle) |
+
+### Node shapes
+
+| Shape | Meaning |
+|---|---|
+| Diamond | Entry point — no tool dependencies (can run without prerequisites) |
+| Box | Middle node — both has dependencies and produces outputs |
+| Ellipse | Terminal — consumes inputs but produces no further IDs |
+| Star (gold) | Virtual USER / Agent node |
+
+**Orange border** on a node = that tool requires at least one user-supplied parameter.
+
+### Composio API enrichment
+
+If `COMPOSIO_API_KEY` is set, `build_graph.ts` fetches live schemas from both `googlesuper` and `github` toolkits and:
+- Updates tool descriptions from the live API
+- Cross-validates required parameter names (run with `VERBOSE=1` for details)
+- Logs tools present in the live API but not yet in the local graph
+
+### Project structure
+
+```
+src/
+  graph_data.ts       — 126 tool definitions with provides/requires
+  user_inputs_data.ts — per-tool user-supplied parameter specs
+  build_graph.ts      — generates dependency_graph.json (with optional Composio merge)
+  types.ts            — TypeScript interfaces
+  index.ts            — original Composio raw-tool fetch example
+dependency_graph.json — pre-built graph (126 nodes, 145 tool edges, 51 user-input edges)
+visualize.html        — interactive vis-network visualization
+```
+
+### Extra feature
+
+The **"User edges" toggle button** in the header shows/hides the user-input dependency edges as dashed orange arrows flowing from the virtual **User / Agent** node into every tool that needs user-supplied parameters. This lets you switch between:
+- **Off** (default): clean tool-to-tool graph, easy to trace execution paths
+- **On**: full picture showing exactly which tools block on user input before they can execute
