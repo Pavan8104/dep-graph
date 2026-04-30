@@ -8,220 +8,133 @@
   <link rel="stylesheet" href="https://unpkg.com/vis-network@9.1.9/dist/vis-network.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0d1117;
-      color: #c9d1d9;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
+      background: #0d1117; color: #c9d1d9;
+      display: flex; flex-direction: column; height: 100vh; overflow: hidden;
     }
-
-    /* ── Header ────────────────────────────────────────────────── */
     header {
-      background: #161b22;
-      border-bottom: 1px solid #30363d;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
+      background: #161b22; border-bottom: 1px solid #30363d;
+      padding: 9px 14px; display: flex; align-items: center; gap: 10px; flex-shrink: 0;
     }
-    header h1 { font-size: 15px; font-weight: 600; color: #e6edf3; }
-    header .badge {
-      background: #21262d;
-      border: 1px solid #30363d;
-      border-radius: 20px;
-      padding: 2px 10px;
-      font-size: 11px;
-      color: #8b949e;
+    header h1 { font-size: 14px; font-weight: 600; color: #e6edf3; }
+    .badge {
+      background: #21262d; border: 1px solid #30363d; border-radius: 20px;
+      padding: 2px 9px; font-size: 11px; color: #8b949e;
     }
-    .search-box {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .search-box { margin-left: auto; display: flex; align-items: center; gap: 6px; }
     .search-box input {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 6px;
-      color: #c9d1d9;
-      padding: 4px 10px;
-      font-size: 12px;
-      width: 200px;
-      outline: none;
+      background: #0d1117; border: 1px solid #30363d; border-radius: 6px;
+      color: #c9d1d9; padding: 4px 9px; font-size: 12px; width: 190px; outline: none;
     }
     .search-box input:focus { border-color: #58a6ff; }
     .search-box button {
-      background: #21262d;
-      border: 1px solid #30363d;
-      border-radius: 6px;
-      color: #c9d1d9;
-      padding: 4px 10px;
-      font-size: 12px;
-      cursor: pointer;
+      background: #21262d; border: 1px solid #30363d; border-radius: 6px;
+      color: #c9d1d9; padding: 4px 9px; font-size: 12px; cursor: pointer;
     }
     .search-box button:hover { background: #30363d; }
+    .main { display: flex; flex: 1; overflow: hidden; }
 
-    /* ── Layout ────────────────────────────────────────────────── */
-    .main {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    /* ── Left sidebar ───────────────────────────────────────────── */
+    /* Sidebar */
     .sidebar {
-      width: 220px;
-      background: #161b22;
-      border-right: 1px solid #30363d;
-      overflow-y: auto;
-      flex-shrink: 0;
-      padding: 10px;
+      width: 210px; background: #161b22; border-right: 1px solid #30363d;
+      overflow-y: auto; flex-shrink: 0; padding: 10px;
     }
     .sidebar h2 {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #8b949e;
-      margin-bottom: 8px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #21262d;
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.5px; color: #8b949e; margin-bottom: 7px;
+      padding-bottom: 5px; border-bottom: 1px solid #21262d;
     }
     .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 6px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 12px;
-      color: #c9d1d9;
-      transition: background 0.1s;
+      display: flex; align-items: center; gap: 7px;
+      padding: 3px 5px; border-radius: 4px; cursor: pointer;
+      font-size: 11px; color: #c9d1d9; transition: background 0.1s;
     }
     .legend-item:hover { background: #21262d; }
-    .legend-item.inactive { opacity: 0.35; }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .legend-count {
-      margin-left: auto;
-      font-size: 10px;
-      color: #6e7681;
-    }
-    .sidebar-section { margin-top: 16px; }
+    .legend-item.inactive { opacity: 0.3; }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .legend-count { margin-left: auto; font-size: 10px; color: #6e7681; }
 
-    /* ── Graph canvas ───────────────────────────────────────────── */
-    #network {
-      flex: 1;
-      position: relative;
-    }
+    /* Edge legend */
+    .edge-legend { margin-top: 12px; }
+    .edge-row { display: flex; align-items: center; gap: 8px; padding: 3px 5px; font-size: 11px; }
+    .edge-line { width: 28px; height: 2px; flex-shrink: 0; }
+    .edge-dashed { background: repeating-linear-gradient(90deg,#F79F1A 0 5px,transparent 5px 9px); }
+    .edge-solid  { background: #30363d; }
 
-    /* ── Right details panel ────────────────────────────────────── */
+    .sidebar-section { margin-top: 14px; }
+    .workflow-item { font-size: 10px; color: #6e7681; line-height: 1.6; margin-bottom: 8px; }
+    .workflow-title { color: #c9d1d9; font-weight: 600; font-size: 11px; margin-bottom: 2px; }
+
+    /* Graph */
+    #network { flex: 1; position: relative; background: #0d1117; }
+
+    /* Details */
     .details {
-      width: 280px;
-      background: #161b22;
-      border-left: 1px solid #30363d;
-      overflow-y: auto;
-      flex-shrink: 0;
-      padding: 12px;
-      font-size: 12px;
+      width: 270px; background: #161b22; border-left: 1px solid #30363d;
+      overflow-y: auto; flex-shrink: 0; padding: 12px; font-size: 12px;
     }
     .details h2 {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #8b949e;
-      margin-bottom: 10px;
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.5px; color: #8b949e; margin-bottom: 9px;
     }
-    .details-placeholder {
-      color: #6e7681;
-      font-size: 12px;
-      line-height: 1.6;
-    }
+    .details-placeholder { color: #6e7681; font-size: 12px; line-height: 1.7; }
     .tool-card { display: none; }
     .tool-card.active { display: block; }
-    .tool-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #e6edf3;
-      margin-bottom: 4px;
-      word-break: break-all;
+    .tool-name { font-size: 13px; font-weight: 600; color: #e6edf3; margin-bottom: 3px; }
+    .tool-slug { font-size: 10px; color: #6e7681; font-family: monospace; margin-bottom: 8px; word-break: break-all; }
+    .tool-desc { color: #c9d1d9; line-height: 1.5; margin-bottom: 10px; font-size: 11px; }
+
+    .section-hdr {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      color: #8b949e; margin: 8px 0 4px;
     }
-    .tool-slug {
-      font-size: 10px;
-      color: #6e7681;
-      font-family: monospace;
-      margin-bottom: 8px;
-      word-break: break-all;
-    }
-    .tool-desc {
-      color: #c9d1d9;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    .tag-section { margin-bottom: 8px; }
-    .tag-section h3 {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: #8b949e;
-      margin-bottom: 4px;
-    }
-    .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 6px; }
     .tag {
-      background: #21262d;
-      border: 1px solid #30363d;
-      border-radius: 20px;
-      padding: 1px 8px;
-      font-size: 10px;
-      font-family: monospace;
-      color: #79c0ff;
+      background: #21262d; border: 1px solid #30363d; border-radius: 20px;
+      padding: 1px 7px; font-size: 10px; font-family: monospace;
     }
+    .tag-provides { color: #3fb950; }
+    .tag-requires { color: #79c0ff; }
+    .tag-user-required { color: #F79F1A; background: #1c1a10; border-color: #5a3c00; }
+    .tag-user-optional { color: #8b949e; }
+
     .dep-list { list-style: none; }
     .dep-list li {
-      padding: 4px 0;
-      border-bottom: 1px solid #21262d;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      padding: 3px 0; border-bottom: 1px solid #21262d;
+      display: flex; align-items: center; gap: 5px;
     }
     .dep-list li:last-child { border-bottom: none; }
-    .dep-arrow { color: #6e7681; font-size: 10px; }
     .dep-name { color: #79c0ff; font-size: 11px; cursor: pointer; }
     .dep-name:hover { text-decoration: underline; }
     .dep-param { color: #f0883e; font-size: 10px; font-family: monospace; margin-left: auto; }
+    .dep-arrow { color: #6e7681; font-size: 10px; }
 
-    /* ── Bottom stats bar ───────────────────────────────────────── */
-    .statusbar {
-      background: #161b22;
-      border-top: 1px solid #30363d;
-      padding: 4px 12px;
-      font-size: 11px;
-      color: #6e7681;
-      display: flex;
-      gap: 16px;
-      flex-shrink: 0;
+    /* user input row */
+    .ui-row {
+      padding: 3px 0; border-bottom: 1px solid #21262d;
+      display: flex; align-items: flex-start; gap: 5px; font-size: 11px;
     }
-    .statusbar span b { color: #c9d1d9; }
+    .ui-row:last-child { border-bottom: none; }
+    .ui-param { color: #F79F1A; font-family: monospace; font-size: 10px; flex-shrink: 0; }
+    .ui-type  { color: #6e7681; font-size: 10px; }
+    .ui-desc  { color: #8b949e; font-size: 10px; }
+    .ui-req   { color: #f85149; font-size: 9px; margin-left: auto; flex-shrink: 0; }
+    .ui-opt   { color: #6e7681; font-size: 9px; margin-left: auto; flex-shrink: 0; }
 
-    /* ── Tooltip overrides ──────────────────────────────────────── */
+    /* Status bar */
+    .statusbar {
+      background: #161b22; border-top: 1px solid #30363d;
+      padding: 3px 12px; font-size: 10px; color: #6e7681;
+      display: flex; gap: 14px; flex-shrink: 0; align-items: center;
+    }
+    .statusbar b { color: #c9d1d9; }
+
+    /* Vis tooltip */
     .vis-tooltip {
-      background: #21262d !important;
-      border: 1px solid #30363d !important;
-      border-radius: 6px !important;
-      color: #c9d1d9 !important;
-      font-size: 12px !important;
-      padding: 8px !important;
-      max-width: 300px !important;
+      background: #21262d !important; border: 1px solid #30363d !important;
+      border-radius: 6px !important; color: #c9d1d9 !important;
+      font-size: 11px !important; padding: 7px !important; max-width: 280px !important;
     }
   </style>
 </head>
@@ -231,60 +144,86 @@
   <h1>Tool Dependency Graph</h1>
   <span class="badge">Google Super</span>
   <span class="badge">GitHub</span>
+  <span class="badge" id="enrichBadge" style="color:#F79F1A;display:none">Composio-enriched</span>
   <div class="search-box">
     <input id="searchInput" type="text" placeholder="Search tool…" />
-    <button id="resetBtn">Reset View</button>
+    <button id="resetBtn">Reset</button>
+    <button id="toggleUserBtn" title="Toggle user-input edges">User edges</button>
   </div>
 </header>
 
 <div class="main">
-  <!-- Left legend / filter sidebar -->
   <aside class="sidebar">
     <h2>Services</h2>
     <div id="legendContainer"></div>
 
+    <div class="edge-legend">
+      <h2 style="margin-top:12px;">Edge Types</h2>
+      <div class="edge-row"><div class="edge-line edge-solid"></div><span>Tool → Tool</span></div>
+      <div class="edge-row"><div class="edge-line edge-dashed"></div><span style="color:#F79F1A">User / Agent → Tool</span></div>
+    </div>
+
     <div class="sidebar-section">
-      <h2>Workflows</h2>
-      <div style="font-size:11px; color:#6e7681; line-height:1.7;">
-        <div style="margin-bottom:6px; color:#c9d1d9; font-weight:600;">Reply to thread</div>
-        List Threads → Reply to Thread
-        <div style="margin-top:8px; margin-bottom:6px; color:#c9d1d9; font-weight:600;">Email by name</div>
-        Search Contacts → Send Email
-        <div style="margin-top:8px; margin-bottom:6px; color:#c9d1d9; font-weight:600;">Create PR</div>
+      <h2>Key Workflows</h2>
+      <div class="workflow-item">
+        <div class="workflow-title">Gmail thread reply</div>
+        List Threads → Reply to Thread<br/><i>+ user provides: body</i>
+      </div>
+      <div class="workflow-item">
+        <div class="workflow-title">Email by contact name</div>
+        Search Contacts → Send Email<br/><i>+ user provides: subject, body</i>
+      </div>
+      <div class="workflow-item">
+        <div class="workflow-title">GitHub PR flow</div>
         List Repos → List Branches → Create PR → Merge PR
-        <div style="margin-top:8px; margin-bottom:6px; color:#c9d1d9; font-weight:600;">Git commit (low-level)</div>
-        List Repos → Create Blob → Create Tree → Create Commit → Create Branch
+      </div>
+      <div class="workflow-item">
+        <div class="workflow-title">Git commit (low-level)</div>
+        Create Blob → Create Tree → Create Commit → Create Branch
+      </div>
+      <div class="workflow-item">
+        <div class="workflow-title">Deploy pipeline</div>
+        List Branches → Create Deployment → Update Status
       </div>
     </div>
   </aside>
 
-  <!-- Main graph area -->
   <div id="network"></div>
 
-  <!-- Right details panel -->
   <aside class="details">
     <h2>Tool Details</h2>
     <div class="details-placeholder" id="detailsPlaceholder">
-      Click any node to see tool details, required parameters, and dependency connections.
+      Click any node to see details.<br/><br/>
+      <b style="color:#c9d1d9">Diamond</b> = entry point (no deps)<br/>
+      <b style="color:#c9d1d9">Box</b> = middle node<br/>
+      <b style="color:#c9d1d9">Ellipse</b> = terminal (no output)<br/><br/>
+      <span style="color:#F79F1A">★ Orange border</span> = requires user input<br/>
+      <span style="color:#30363d">── Solid edge</span> = tool→tool param<br/>
+      <span style="color:#F79F1A">╌ Dashed edge</span> = user→tool param
     </div>
     <div class="tool-card" id="toolCard">
       <div class="tool-name" id="toolName"></div>
       <div class="tool-slug" id="toolSlug"></div>
       <div class="tool-desc" id="toolDesc"></div>
-      <div class="tag-section" id="providesSection">
-        <h3>Provides</h3>
+
+      <div id="providesSec">
+        <div class="section-hdr">Provides</div>
         <div class="tags" id="providesTags"></div>
       </div>
-      <div class="tag-section" id="requiresSection">
-        <h3>Requires</h3>
+      <div id="requiresSec">
+        <div class="section-hdr">Requires from tools</div>
         <div class="tags" id="requiresTags"></div>
       </div>
-      <div class="tag-section" id="dependsOnSection">
-        <h3>Depends On (must run first)</h3>
+      <div id="userInputSec">
+        <div class="section-hdr" style="color:#F79F1A">Requires from user/agent</div>
+        <div id="userInputList"></div>
+      </div>
+      <div id="dependsOnSec">
+        <div class="section-hdr">Must run first</div>
         <ul class="dep-list" id="dependsOnList"></ul>
       </div>
-      <div class="tag-section" id="enablesSection">
-        <h3>Enables (can run next)</h3>
+      <div id="enablesSec">
+        <div class="section-hdr">Enables next</div>
         <ul class="dep-list" id="enablesList"></ul>
       </div>
     </div>
@@ -293,7 +232,8 @@
 
 <div class="statusbar">
   <span>Tools: <b id="statTools">…</b></span>
-  <span>Dependencies: <b id="statEdges">…</b></span>
+  <span>Tool edges: <b id="statEdges">…</b></span>
+  <span>User-input edges: <b id="statUI">…</b></span>
   <span>Visible: <b id="statVisible">…</b></span>
   <span id="statSelected" style="margin-left:auto;"></span>
 </div>
@@ -301,18 +241,16 @@
 <script>
 let network, allNodes, allEdges, graphData;
 let activeGroups = new Set();
+let showUserEdges = true;
 
 fetch("dependency_graph.json")
   .then(r => r.json())
-  .then(data => {
-    graphData = data;
-    init(data);
-  })
+  .then(data => { graphData = data; init(data); })
   .catch(err => {
     document.getElementById("network").innerHTML =
-      `<div style="padding:40px;color:#f85149">
+      `<div style="padding:30px;color:#f85149">
         Failed to load dependency_graph.json: ${err.message}<br/>
-        <small style="color:#6e7681">Run <code>node --experimental-strip-types src/build_graph.ts</code> to generate it, then serve this file.</small>
+        <small style="color:#6e7681">Run: <code>node --experimental-strip-types src/build_graph.ts</code></small>
        </div>`;
   });
 
@@ -321,159 +259,162 @@ function init(data) {
 
   document.getElementById("statTools").textContent = metadata.total_tools;
   document.getElementById("statEdges").textContent = metadata.total_dependencies;
+  document.getElementById("statUI").textContent = metadata.total_user_input_edges ?? 0;
   document.getElementById("statVisible").textContent = metadata.total_tools;
+  if (metadata.composio_enriched)
+    document.getElementById("enrichBadge").style.display = "inline-block";
 
-  // Build group → color map
   const groupColors = {};
-  for (const [key, cfg] of Object.entries(groups)) {
-    groupColors[key] = cfg.color;
-    activeGroups.add(key);
+  for (const [k, cfg] of Object.entries(groups)) {
+    groupColors[k] = cfg.color;
+    if (k !== "user_input") activeGroups.add(k);
   }
 
-  // Build vis-network dataset nodes
-  const visNodes = rawNodes.map(n => ({
-    id: n.id,
-    label: n.label,
-    title: n.title,
-    group: n.group,
-    color: {
-      background: groupColors[n.group] ?? "#555",
-      border: adjustColor(groupColors[n.group] ?? "#555", -30),
-      highlight: { background: "#fff", border: groupColors[n.group] ?? "#555" },
-      hover: { background: lightenColor(groupColors[n.group] ?? "#555", 40), border: groupColors[n.group] ?? "#555" },
-    },
-    font: { color: "#fff", size: 11 },
-    shape: n.requires.length === 0 ? "diamond" : (n.provides.length === 0 ? "ellipse" : "box"),
-    borderWidth: 1.5,
-    shadow: false,
-  }));
+  // Nodes
+  const visNodes = rawNodes.map(n => {
+    const isUser = n.id === "USER_INPUT";
+    const color = groupColors[n.group] ?? "#555";
+    return {
+      id: n.id,
+      label: n.label,
+      title: n.title,
+      group: n.group,
+      color: isUser
+        ? { background: "#2a1f00", border: "#F79F1A", highlight: { background: "#3d2c00", border: "#F79F1A" }, hover: { background: "#3d2c00", border: "#F79F1A" } }
+        : {
+          background: color,
+          border: n.has_user_inputs ? "#F79F1A" : adjustColor(color, -30),
+          highlight: { background: "#e6edf3", border: color },
+          hover: { background: lighten(color, 40), border: color },
+        },
+      borderWidth: n.has_user_inputs ? 2.5 : 1.5,
+      borderDashes: n.has_user_inputs ? false : false,
+      shape: isUser ? "star" : (n.requires.length === 0 ? "diamond" : (n.provides.length === 0 ? "ellipse" : "box")),
+      font: { color: "#fff", size: isUser ? 12 : 11, bold: isUser ? "14px arial" : undefined },
+      size: isUser ? 22 : undefined,
+    };
+  });
 
-  // Build vis-network dataset edges
-  const visEdges = rawEdges.map(e => ({
-    id: e.id,
-    from: e.from,
-    to: e.to,
-    label: e.parameter,
-    title: e.title,
-    color: { color: "#30363d", highlight: "#58a6ff", hover: "#79c0ff" },
-    font: { color: "#6e7681", size: 9, align: "middle", background: "#161b22" },
-    arrows: { to: { enabled: true, scaleFactor: 0.6 } },
-    smooth: { enabled: true, type: "dynamic" },
-    width: 1,
-    selectionWidth: 2,
-  }));
+  // Edges — separate tool vs user-input styling
+  const visEdges = rawEdges.map(e => {
+    const isUser = e.source === "user";
+    return {
+      id: e.id,
+      from: e.from,
+      to: e.to,
+      label: e.label,
+      title: e.title,
+      source: e.source,
+      color: isUser
+        ? { color: "#F79F1A", opacity: 0.8, highlight: "#ffd57e", hover: "#ffd57e" }
+        : { color: "#30363d", highlight: "#58a6ff", hover: "#79c0ff" },
+      font: {
+        color: isUser ? "#b07020" : "#6e7681",
+        size: 9, align: "middle", background: "#161b22",
+      },
+      dashes: isUser ? [5, 5] : false,
+      arrows: { to: { enabled: true, scaleFactor: 0.6 } },
+      smooth: { enabled: true, type: "dynamic" },
+      width: isUser ? 1 : 1,
+      hidden: isUser ? !showUserEdges : false,
+    };
+  });
 
   allNodes = new vis.DataSet(visNodes);
   allEdges = new vis.DataSet(visEdges);
 
   const container = document.getElementById("network");
-  const dataset = { nodes: allNodes, edges: allEdges };
-
-  const options = {
+  network = new vis.Network(container, { nodes: allNodes, edges: allEdges }, {
     physics: {
       enabled: true,
       solver: "forceAtlas2Based",
       forceAtlas2Based: {
-        gravitationalConstant: -50,
-        centralGravity: 0.005,
-        springLength: 120,
-        springConstant: 0.08,
-        damping: 0.6,
-        avoidOverlap: 0.8,
+        gravitationalConstant: -55, centralGravity: 0.004,
+        springLength: 130, springConstant: 0.07, damping: 0.6, avoidOverlap: 0.9,
       },
-      stabilization: { iterations: 250, updateInterval: 25 },
+      stabilization: { iterations: 300, updateInterval: 25 },
     },
-    interaction: {
-      hover: true,
-      tooltipDelay: 200,
-      navigationButtons: false,
-      keyboard: false,
-    },
+    interaction: { hover: true, tooltipDelay: 180, navigationButtons: false },
     layout: { improvedLayout: false },
-    edges: { smooth: { enabled: true, type: "dynamic" } },
-  };
-
-  network = new vis.Network(container, dataset, options);
-
-  network.on("click", params => {
-    if (params.nodes.length > 0) {
-      selectNode(params.nodes[0], rawNodes, rawEdges, groups);
-    } else if (params.edges.length > 0) {
-      clearSelection();
-    } else {
-      clearSelection();
-    }
   });
 
-  network.on("stabilizationIterationsDone", () => {
-    network.setOptions({ physics: { enabled: false } });
+  network.on("click", p => {
+    if (p.nodes.length > 0) selectNode(p.nodes[0], rawNodes, rawEdges);
+    else clearSel();
   });
+  network.on("stabilizationIterationsDone", () => network.setOptions({ physics: { enabled: false } }));
 
-  // Build legend
-  buildLegend(groups, rawNodes, visNodes);
+  buildLegend(groups, rawNodes);
 
-  // Search
   document.getElementById("searchInput").addEventListener("input", e => {
     const q = e.target.value.toLowerCase().trim();
-    if (!q) {
-      allNodes.forEach(n => allNodes.update({ id: n.id, opacity: 1, hidden: !activeGroups.has(n.group) }));
-      return;
-    }
     allNodes.forEach(n => {
-      const match = n.label.toLowerCase().includes(q) || n.id.toLowerCase().includes(q);
-      allNodes.update({ id: n.id, opacity: match ? 1 : 0.15 });
+      const match = !q || n.label.toLowerCase().includes(q) || n.id.toLowerCase().includes(q);
+      allNodes.update({ id: n.id, opacity: match ? 1 : 0.12 });
     });
-    const matched = rawNodes.filter(n => n.label.toLowerCase().includes(q) || n.id.toLowerCase().includes(q));
-    if (matched.length === 1) {
-      network.focus(matched[0].id, { scale: 1.2, animation: { duration: 500 } });
+    if (q) {
+      const m = rawNodes.filter(n => n.label.toLowerCase().includes(q) || n.id.toLowerCase().includes(q));
+      if (m.length === 1) network.focus(m[0].id, { scale: 1.3, animation: { duration: 400 } });
     }
   });
 
-  // Reset
   document.getElementById("resetBtn").addEventListener("click", () => {
     document.getElementById("searchInput").value = "";
-    allNodes.forEach(n => allNodes.update({ id: n.id, opacity: 1, hidden: !activeGroups.has(n.group) }));
-    allEdges.forEach(e => allEdges.update({ id: e.id, hidden: false }));
-    network.fit({ animation: { duration: 500 } });
-    clearSelection();
+    allNodes.forEach(n => allNodes.update({ id: n.id, opacity: 1, hidden: !activeGroups.has(n.group) && n.id !== "USER_INPUT" }));
+    allEdges.forEach(e => allEdges.update({ id: e.id, color: getDefaultEdgeColor(e), hidden: e.source === "user" ? !showUserEdges : false }));
+    network.fit({ animation: { duration: 400 } });
+    clearSel();
   });
+
+  document.getElementById("toggleUserBtn").addEventListener("click", () => {
+    showUserEdges = !showUserEdges;
+    document.getElementById("toggleUserBtn").style.color = showUserEdges ? "#F79F1A" : "#6e7681";
+    allEdges.forEach(e => {
+      if (e.source === "user") allEdges.update({ id: e.id, hidden: !showUserEdges });
+    });
+  });
+  // start with user edges hidden for clarity
+  showUserEdges = false;
+  document.getElementById("toggleUserBtn").style.color = "#6e7681";
+  allEdges.forEach(e => { if (e.source === "user") allEdges.update({ id: e.id, hidden: true }); });
 }
 
-function buildLegend(groups, rawNodes, visNodes) {
+function getDefaultEdgeColor(e) {
+  return e.source === "user"
+    ? { color: "#F79F1A", opacity: 0.8, highlight: "#ffd57e", hover: "#ffd57e" }
+    : { color: "#30363d", highlight: "#58a6ff", hover: "#79c0ff" };
+}
+
+function buildLegend(groups, rawNodes) {
   const container = document.getElementById("legendContainer");
   const countByGroup = {};
   rawNodes.forEach(n => { countByGroup[n.group] = (countByGroup[n.group] || 0) + 1; });
 
   for (const [key, cfg] of Object.entries(groups)) {
+    if (key === "user_input") continue;
     const item = document.createElement("div");
     item.className = "legend-item";
     item.dataset.group = key;
     item.innerHTML = `
       <div class="legend-dot" style="background:${cfg.color}"></div>
       <span>${cfg.label}</span>
-      <span class="legend-count">${countByGroup[key] || 0}</span>
-    `;
-    item.addEventListener("click", () => toggleGroup(key, item));
+      <span class="legend-count">${countByGroup[key] || 0}</span>`;
+    item.addEventListener("click", () => {
+      const active = activeGroups.has(key);
+      active ? activeGroups.delete(key) : activeGroups.add(key);
+      item.classList.toggle("inactive", active);
+      allNodes.forEach(n => {
+        if (n.id === "USER_INPUT") return;
+        allNodes.update({ id: n.id, hidden: !activeGroups.has(n.group) });
+      });
+      document.getElementById("statVisible").textContent =
+        allNodes.get().filter(n => !n.hidden).length;
+    });
     container.appendChild(item);
   }
 }
 
-function toggleGroup(group, item) {
-  if (activeGroups.has(group)) {
-    activeGroups.delete(group);
-    item.classList.add("inactive");
-  } else {
-    activeGroups.add(group);
-    item.classList.remove("inactive");
-  }
-  allNodes.forEach(n => {
-    allNodes.update({ id: n.id, hidden: !activeGroups.has(n.group) });
-  });
-  const visible = allNodes.get().filter(n => !n.hidden).length;
-  document.getElementById("statVisible").textContent = visible;
-}
-
-function selectNode(nodeId, rawNodes, rawEdges, groups) {
+function selectNode(nodeId, rawNodes, rawEdges) {
   const node = rawNodes.find(n => n.id === nodeId);
   if (!node) return;
 
@@ -483,78 +424,74 @@ function selectNode(nodeId, rawNodes, rawEdges, groups) {
 
   document.getElementById("toolName").textContent = node.label;
   document.getElementById("toolSlug").textContent = node.id;
-  document.getElementById("toolDesc").textContent = node.title.replace(/<[^>]+>/g, "").split("\n")[0];
+  document.getElementById("toolDesc").textContent =
+    (node.title || "").replace(/<[^>]+>/g, "").split("\n")[0];
 
   // Provides
-  const provSec = document.getElementById("providesSection");
+  const provSec = document.getElementById("providesSec");
   const provTags = document.getElementById("providesTags");
-  if (node.provides.length) {
+  if (node.provides?.length) {
     provSec.style.display = "block";
-    provTags.innerHTML = node.provides.map(p => `<span class="tag">${p}</span>`).join("");
-  } else {
-    provSec.style.display = "none";
-  }
+    provTags.innerHTML = node.provides.map(p => `<span class="tag tag-provides">${p}</span>`).join("");
+  } else provSec.style.display = "none";
 
-  // Requires
-  const reqSec = document.getElementById("requiresSection");
+  // Requires from tools
+  const reqSec = document.getElementById("requiresSec");
   const reqTags = document.getElementById("requiresTags");
-  if (node.requires.length) {
+  if (node.requires?.length) {
     reqSec.style.display = "block";
-    reqTags.innerHTML = node.requires.map(r => `<span class="tag" style="color:#ff7b72">${r}</span>`).join("");
-  } else {
-    reqSec.style.display = "none";
-  }
+    reqTags.innerHTML = node.requires.map(r => `<span class="tag tag-requires">${r}</span>`).join("");
+  } else reqSec.style.display = "none";
 
-  // Depends on (incoming edges)
-  const incoming = rawEdges.filter(e => e.to === nodeId);
-  const depSec = document.getElementById("dependsOnSection");
+  // User inputs
+  const uiSec = document.getElementById("userInputSec");
+  const uiList = document.getElementById("userInputList");
+  if (node.user_inputs?.length) {
+    uiSec.style.display = "block";
+    uiList.innerHTML = node.user_inputs.map(ui => `
+      <div class="ui-row">
+        <span class="ui-param">${ui.param}</span>
+        <span class="ui-type">${ui.type}</span>
+        <span class="ui-desc">${ui.description}${ui.example ? ` — e.g. <i>${ui.example}</i>` : ""}</span>
+        <span class="${ui.required ? 'ui-req' : 'ui-opt'}">${ui.required ? "required" : "optional"}</span>
+      </div>`).join("");
+  } else uiSec.style.display = "none";
+
+  // Depends on (incoming tool edges)
+  const incoming = rawEdges.filter(e => e.to === nodeId && e.source === "tool");
+  const depSec = document.getElementById("dependsOnSec");
   const depList = document.getElementById("dependsOnList");
   if (incoming.length) {
     depSec.style.display = "block";
     depList.innerHTML = incoming.map(e => {
       const src = rawNodes.find(n => n.id === e.from);
-      return `<li>
-        <span class="dep-name" onclick="focusNode('${e.from}')">${src?.label ?? e.from}</span>
-        <span class="dep-param">${e.parameter}</span>
-      </li>`;
+      return `<li><span class="dep-name" onclick="focusNode('${e.from}')">${src?.label ?? e.from}</span><span class="dep-param">${e.parameter}</span></li>`;
     }).join("");
-  } else {
-    depSec.style.display = "none";
-  }
+  } else depSec.style.display = "none";
 
-  // Enables (outgoing edges)
-  const outgoing = rawEdges.filter(e => e.from === nodeId);
-  const enSec = document.getElementById("enablesSection");
+  // Enables (outgoing tool edges)
+  const outgoing = rawEdges.filter(e => e.from === nodeId && e.source === "tool");
+  const enSec = document.getElementById("enablesSec");
   const enList = document.getElementById("enablesList");
   if (outgoing.length) {
     enSec.style.display = "block";
     enList.innerHTML = outgoing.map(e => {
       const tgt = rawNodes.find(n => n.id === e.to);
-      return `<li>
-        <span class="dep-arrow">→</span>
-        <span class="dep-name" onclick="focusNode('${e.to}')">${tgt?.label ?? e.to}</span>
-        <span class="dep-param">${e.parameter}</span>
-      </li>`;
+      return `<li><span class="dep-arrow">→</span><span class="dep-name" onclick="focusNode('${e.to}')">${tgt?.label ?? e.to}</span><span class="dep-param">${e.parameter}</span></li>`;
     }).join("");
-  } else {
-    enSec.style.display = "none";
-  }
+  } else enSec.style.display = "none";
 
-  // Highlight in graph
+  // Highlight connected nodes
   const connectedIds = new Set([nodeId]);
   incoming.forEach(e => connectedIds.add(e.from));
   outgoing.forEach(e => connectedIds.add(e.to));
-  allNodes.forEach(n => {
-    allNodes.update({ id: n.id, opacity: connectedIds.has(n.id) ? 1 : 0.2 });
-  });
-  const connectedEdgeIds = new Set([
-    ...incoming.map(e => e.id),
-    ...outgoing.map(e => e.id),
-  ]);
+  allNodes.forEach(n => allNodes.update({ id: n.id, opacity: connectedIds.has(n.id) ? 1 : 0.15 }));
+  const connEdgeIds = new Set([...incoming.map(e => e.id), ...outgoing.map(e => e.id)]);
   allEdges.forEach(e => {
-    allEdges.update({ id: e.id, color: connectedEdgeIds.has(e.id)
+    if (e.source === "user") return;
+    allEdges.update({ id: e.id, color: connEdgeIds.has(e.id)
       ? { color: "#58a6ff", opacity: 1 }
-      : { color: "#30363d", opacity: 0.15 }
+      : { color: "#30363d", opacity: 0.1 }
     });
   });
 
@@ -562,29 +499,27 @@ function selectNode(nodeId, rawNodes, rawEdges, groups) {
 }
 
 function focusNode(nodeId) {
-  network.focus(nodeId, { scale: 1.3, animation: { duration: 400 } });
+  network.focus(nodeId, { scale: 1.3, animation: { duration: 350 } });
   network.selectNodes([nodeId]);
-  const rawNodes = graphData.nodes;
-  const rawEdges = graphData.edges;
-  selectNode(nodeId, rawNodes, rawEdges, graphData.groups);
+  selectNode(nodeId, graphData.nodes, graphData.edges);
 }
 
-function clearSelection() {
+function clearSel() {
   document.getElementById("detailsPlaceholder").style.display = "block";
   document.getElementById("toolCard").classList.remove("active");
   document.getElementById("statSelected").textContent = "";
   allNodes.forEach(n => allNodes.update({ id: n.id, opacity: 1 }));
-  allEdges.forEach(e => allEdges.update({ id: e.id, color: { color: "#30363d", opacity: 1 } }));
+  allEdges.forEach(e => allEdges.update({ id: e.id, color: getDefaultEdgeColor(e) }));
 }
 
-// Color helpers
-function adjustColor(hex, amount) {
-  const r = Math.max(0, Math.min(255, parseInt(hex.slice(1,3),16) + amount));
-  const g = Math.max(0, Math.min(255, parseInt(hex.slice(3,5),16) + amount));
-  const b = Math.max(0, Math.min(255, parseInt(hex.slice(5,7),16) + amount));
+function adjustColor(hex, amt) {
+  if (!hex.startsWith("#") || hex.length < 7) return hex;
+  const r = Math.max(0, Math.min(255, parseInt(hex.slice(1,3),16) + amt));
+  const g = Math.max(0, Math.min(255, parseInt(hex.slice(3,5),16) + amt));
+  const b = Math.max(0, Math.min(255, parseInt(hex.slice(5,7),16) + amt));
   return `rgb(${r},${g},${b})`;
 }
-function lightenColor(hex, amount) { return adjustColor(hex, amount); }
+function lighten(hex, amt) { return adjustColor(hex, amt); }
 </script>
 </body>
 </html>
