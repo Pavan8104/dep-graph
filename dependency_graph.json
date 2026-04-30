@@ -5,11 +5,11 @@
       "googlesuper",
       "github"
     ],
-    "generated_at": "2026-04-30T16:56:30.076Z",
+    "generated_at": "2026-04-30T17:29:48.240Z",
     "total_tools": 126,
     "total_dependencies": 145,
     "total_user_input_edges": 51,
-    "composio_enriched": false
+    "composio_enriched": true
   },
   "groups": {
     "gmail": {
@@ -320,7 +320,7 @@
     {
       "id": "GOOGLESUPER_ADD_LABEL_TO_EMAIL",
       "label": "Modify Email Labels",
-      "title": "<b>Modify Email Labels</b><br/>Add or remove labels on a Gmail message. Requires message_id + label_id.<br/><b>Requires (tool):</b> message_id, label_id",
+      "title": "<b>Modify Email Labels</b><br/>Adds and/or removes specified Gmail labels for a message; ensure `message_id` and all `label_ids` are valid (use 'listLabels' for custom label IDs).<br/><b>Requires (tool):</b> message_id, label_id",
       "group": "gmail",
       "provides": [],
       "requires": [
@@ -333,7 +333,7 @@
     {
       "id": "GOOGLESUPER_BATCH_DELETE_MESSAGES",
       "label": "Batch Delete Messages",
-      "title": "<b>Batch Delete Messages</b><br/>Permanently delete multiple Gmail messages. Requires message_ids.<br/><b>Requires (tool):</b> message_id",
+      "title": "<b>Batch Delete Messages</b><br/>Tool to permanently delete multiple Gmail messages in bulk, bypassing Trash with no recovery possible. Use when you need to efficiently remove large numbers of emails (e.g., retention enforcement, mailbox hygiene). Use GMAIL_MOVE_TO_TRASH instead when reversibility may be needed. Always obtain explicit user confirmation and verify a sample of message IDs before executing. High-volume calls may trigger 429 rateLimitExceeded or 403 userRateLimitExceeded errors; apply exponential backoff.<br/><b>Requires (tool):</b> message_id",
       "group": "gmail",
       "provides": [],
       "requires": [
@@ -345,7 +345,7 @@
     {
       "id": "GOOGLESUPER_BATCH_MODIFY_MESSAGES",
       "label": "Batch Modify Messages",
-      "title": "<b>Batch Modify Messages</b><br/>Apply label changes to up to 1000 messages. Requires message_ids + label_ids.<br/><b>Requires (tool):</b> message_id, label_id",
+      "title": "<b>Batch Modify Messages</b><br/>Modify labels on multiple Gmail messages in one efficient API call. Supports up to 1,000 messages per request for bulk operations like archiving, marking as read/unread, or applying custom labels. High-volume calls may return 429 rateLimitExceeded or 403 userRateLimitExceeded; apply exponential backoff.<br/><b>Requires (tool):</b> message_id, label_id",
       "group": "gmail",
       "provides": [],
       "requires": [
@@ -430,7 +430,7 @@
     {
       "id": "GOOGLESUPER_CALENDAR_LIST_GET",
       "label": "Get Calendar",
-      "title": "<b>Get Calendar</b><br/>Retrieve metadata for a specific calendar. Requires calendar_id.<br/><b>Requires (tool):</b> calendar_id",
+      "title": "<b>Get Calendar</b><br/>Retrieves metadata for a SINGLE specific calendar from the user's calendar list by its calendar ID. This action requires a calendarId parameter and returns details about that one calendar only. NOTE: This does NOT list all calendars. To list all calendars in the user's calendar list, use GOOGLECALENDAR_CALENDAR_LIST_LIST instead.<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [],
       "requires": [
@@ -442,7 +442,7 @@
     {
       "id": "GOOGLESUPER_CALENDARS_UPDATE",
       "label": "Update Calendar",
-      "title": "<b>Update Calendar</b><br/>Update calendar metadata (title, timezone, etc.). Requires calendar_id.<br/><b>Requires (tool):</b> calendar_id",
+      "title": "<b>Update Calendar</b><br/>Full PUT-style update that overwrites all calendar metadata fields; unspecified optional fields are cleared. Use GOOGLECALENDAR_PATCH_CALENDAR to update only a subset of fields. Mutates the underlying calendar resource (title, description, timeZone, etc.); use GOOGLECALENDAR_CALENDAR_LIST_UPDATE to change per-user display properties like color.<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [],
       "requires": [
@@ -454,7 +454,7 @@
     {
       "id": "GOOGLESUPER_CALENDARS_DELETE",
       "label": "Delete Calendar",
-      "title": "<b>Delete Calendar</b><br/>Permanently delete a secondary calendar. Requires calendar_id.<br/><b>Requires (tool):</b> calendar_id",
+      "title": "<b>Delete Calendar</b><br/>Deletes a secondary calendar that you own or have delete permissions on. Deletion is permanent and irreversible — verify the correct calendar_id before calling. You cannot delete your primary calendar or calendars you only have read/write access to. Use calendarList.list to find calendars with owner accessRole. For primary calendars, use calendars.clear instead. Parallel calls may trigger userRateLimitExceeded; sequence bulk deletions.<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [],
       "requires": [
@@ -466,7 +466,7 @@
     {
       "id": "GOOGLESUPER_EVENTS_LIST",
       "label": "List Events",
-      "title": "<b>List Events</b><br/>List events in a calendar. Requires calendar_id. Returns event_ids.<br/><b>Provides:</b> event_id<br/><b>Requires (tool):</b> calendar_id",
+      "title": "<b>List Events</b><br/>Returns events on the specified calendar. TIMEZONE WARNING: When using timeMin/timeMax with UTC timestamps (ending in 'Z'), the time window is interpreted in UTC regardless of the calendar's timezone. For example, querying '2026-01-19T00:00:00Z' to '2026-01-20T00:00:00Z' on a calendar in America/Los_Angeles (UTC-8) covers 2026-01-18 4pm to 2026-01-19 4pm local time, potentially missing events on the intended local date. To query for a specific local date, use timestamps with the appropriate timezone offset in timeMin/timeMax (e.g., '2026-01-19T00:00:00-08:00' for PST).<br/><b>Provides:</b> event_id<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [
         "event_id"
@@ -480,7 +480,7 @@
     {
       "id": "GOOGLESUPER_EVENTS_GET",
       "label": "Get Event",
-      "title": "<b>Get Event</b><br/>Retrieve full details of a calendar event. Requires calendar_id + event_id.<br/><b>Requires (tool):</b> calendar_id, event_id",
+      "title": "<b>Get Event</b><br/>Retrieves a SINGLE event by its unique event_id (REQUIRED). This action does NOT list or search events - it fetches ONE specific event when you already know its ID. If you want to list events within a time range, search for events, or filter by criteria like time_min/time_max, use GOOGLECALENDAR_EVENTS_LIST instead.<br/><b>Requires (tool):</b> calendar_id, event_id",
       "group": "calendar",
       "provides": [],
       "requires": [
@@ -584,7 +584,7 @@
     {
       "id": "GOOGLESUPER_CLEAR_CALENDAR",
       "label": "Clear Calendar",
-      "title": "<b>Clear Calendar</b><br/>Delete all events from a primary calendar. Requires calendar_id.<br/><b>Requires (tool):</b> calendar_id",
+      "title": "<b>Clear Calendar</b><br/>Clears a primary calendar by deleting all events from it. The calendar itself is preserved; only its events are removed. Primary calendars cannot be deleted entirely.<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [],
       "requires": [
@@ -596,7 +596,7 @@
     {
       "id": "GOOGLESUPER_ACL_LIST",
       "label": "List ACL Rules",
-      "title": "<b>List ACL Rules</b><br/>List access control rules for a calendar. Requires calendar_id. Returns rule_ids.<br/><b>Provides:</b> rule_id<br/><b>Requires (tool):</b> calendar_id",
+      "title": "<b>List ACL Rules</b><br/>Retrieves the list of access control rules (ACLs) for a specified calendar, providing the necessary 'rule_id' values required for updating specific ACL rules.<br/><b>Provides:</b> rule_id<br/><b>Requires (tool):</b> calendar_id",
       "group": "calendar",
       "provides": [
         "rule_id"
@@ -610,7 +610,7 @@
     {
       "id": "GOOGLESUPER_ACL_INSERT",
       "label": "Create ACL Rule",
-      "title": "<b>Create ACL Rule</b><br/>Grant sharing permission to a user/group/domain. Requires calendar_id.<br/><b>Provides:</b> rule_id<br/><b>Requires (tool):</b> calendar_id<br/><b>Requires (user):</b> role, scope_type, scope_value",
+      "title": "<b>Create ACL Rule</b><br/>Creates an access control rule for a calendar. Use when you need to grant sharing permissions to a user, group, or domain.<br/><b>Provides:</b> rule_id<br/><b>Requires (tool):</b> calendar_id<br/><b>Requires (user):</b> role, scope_type, scope_value",
       "group": "calendar",
       "provides": [
         "rule_id"
@@ -643,7 +643,7 @@
     {
       "id": "GOOGLESUPER_ACL_DELETE",
       "label": "Delete ACL Rule",
-      "title": "<b>Delete ACL Rule</b><br/>Remove a sharing permission rule. Requires calendar_id + rule_id.<br/><b>Requires (tool):</b> calendar_id, rule_id",
+      "title": "<b>Delete ACL Rule</b><br/>Deletes an access control rule from a Google Calendar. Use when you need to remove sharing permissions for a user, group, or domain.<br/><b>Requires (tool):</b> calendar_id, rule_id",
       "group": "calendar",
       "provides": [],
       "requires": [
@@ -656,7 +656,7 @@
     {
       "id": "GOOGLESUPER_ACL_UPDATE",
       "label": "Update ACL Rule",
-      "title": "<b>Update ACL Rule</b><br/>Fully update a calendar access rule. Requires calendar_id + rule_id.<br/><b>Requires (tool):</b> calendar_id, rule_id",
+      "title": "<b>Update ACL Rule</b><br/>Updates an access control rule for the specified calendar.<br/><b>Requires (tool):</b> calendar_id, rule_id",
       "group": "calendar",
       "provides": [],
       "requires": [
@@ -761,7 +761,7 @@
     {
       "id": "GOOGLESUPER_COPY_FILE_ADVANCED",
       "label": "Copy File",
-      "title": "<b>Copy File</b><br/>Duplicate a Drive file with advanced options. Requires file_id. Returns new file_id.<br/><b>Provides:</b> file_id<br/><b>Requires (tool):</b> file_id",
+      "title": "<b>Copy File</b><br/>Creates a copy of a file and applies any requested updates with patch semantics. Use when you need to duplicate a file with advanced options like label inclusion, visibility settings, or custom metadata.<br/><b>Provides:</b> file_id<br/><b>Requires (tool):</b> file_id",
       "group": "drive",
       "provides": [
         "file_id"
@@ -775,7 +775,7 @@
     {
       "id": "GOOGLESUPER_CREATE_COMMENT",
       "label": "Comment on File",
-      "title": "<b>Comment on File</b><br/>Add a comment to a Drive file. Requires file_id.<br/><b>Requires (tool):</b> file_id<br/><b>Requires (user):</b> content",
+      "title": "<b>Comment on File</b><br/>Tool to create a comment on a file in Google Drive. Returns a nested `data` object; extract `data.id` for the resulting comment identifier. Omit `anchor` and `quoted_file_content_*` for general file-level comments.<br/><b>Requires (tool):</b> file_id<br/><b>Requires (user):</b> content",
       "group": "drive",
       "provides": [],
       "requires": [
@@ -794,7 +794,7 @@
     {
       "id": "GOOGLESUPER_ADD_FILE_SHARING_PREFERENCE",
       "label": "Share File",
-      "title": "<b>Share File</b><br/>Grant sharing permissions to a Drive file. Requires file_id.<br/><b>Requires (tool):</b> file_id<br/><b>Requires (user):</b> role, type",
+      "title": "<b>Share File</b><br/>DEPRECATED: Use GOOGLEDRIVE_CREATE_PERMISSION instead; use GOOGLEDRIVE_UPDATE_PERMISSION to modify existing permissions (avoids duplicate entries). Modifies sharing permissions for an existing Google Drive file, granting a specified role to a user, group, domain, or 'anyone'. Bulk calls may trigger 403 rateLimitExceeded (~100 req/100s/user); use jittered exponential backoff.<br/><b>Requires (tool):</b> file_id<br/><b>Requires (user):</b> role, type",
       "group": "drive",
       "provides": [],
       "requires": [
@@ -837,7 +837,7 @@
     {
       "id": "GOOGLESUPER_ADD_PARENT",
       "label": "Move to Folder",
-      "title": "<b>Move to Folder</b><br/>Move a file into a folder (add parent). Requires file_id + folder_id.<br/><b>Requires (tool):</b> file_id, folder_id",
+      "title": "<b>Move to Folder</b><br/>Tool to add a parent folder for a file using Google Drive API v2. Use when you need to add a file to an additional folder.<br/><b>Requires (tool):</b> file_id, folder_id",
       "group": "drive",
       "provides": [],
       "requires": [
@@ -882,7 +882,7 @@
     {
       "id": "GOOGLESUPER_BATCH_GET",
       "label": "Read Cell Ranges",
-      "title": "<b>Read Cell Ranges</b><br/>Read values from one or more cell ranges. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id",
+      "title": "<b>Read Cell Ranges</b><br/>Retrieves data from specified cell ranges in a Google Spreadsheet.<br/><b>Requires (tool):</b> spreadsheet_id",
       "group": "sheets",
       "provides": [],
       "requires": [
@@ -894,7 +894,7 @@
     {
       "id": "GOOGLESUPER_ADD_SHEET",
       "label": "Add Sheet Tab",
-      "title": "<b>Add Sheet Tab</b><br/>Add a new sheet tab to a spreadsheet. Requires spreadsheet_id. Returns sheet_id.<br/><b>Provides:</b> sheet_id<br/><b>Requires (tool):</b> spreadsheet_id",
+      "title": "<b>Add Sheet Tab</b><br/>Adds a new sheet to a spreadsheet. Supports three sheet types: GRID, OBJECT, and DATA_SOURCE. SHEET TYPES: - GRID (default): Standard spreadsheet with rows/columns. Use properties to set dimensions, tab color, etc. - OBJECT: Sheet containing a chart. Requires objectSheetConfig with chartSpec (basicChart or pieChart). - DATA_SOURCE: Sheet connected to BigQuery. Requires dataSourceConfig with bigQuery spec and bigquery.readonly OAuth scope. OTHER NOTES: - Sheet names must be unique; use forceUnique=true to auto-append suffix (_2, _3) if name exists - For tab colors, use EITHER rgbColor OR themeColor, not both - Avoid 'index' when creating sheets in parallel (causes errors) - OBJECT sheets are created via addChart with position.newSheet=true - DATA_SOURCE sheets require bigquery.readonly OAuth scope Use cases: Add standard grid sheet, create chart on dedicated sheet, connect to BigQuery data source.<br/><b>Provides:</b> sheet_id<br/><b>Requires (tool):</b> spreadsheet_id",
       "group": "sheets",
       "provides": [
         "sheet_id"
@@ -916,7 +916,7 @@
     {
       "id": "GOOGLESUPER_APPEND_DIMENSION",
       "label": "Append Rows/Columns",
-      "title": "<b>Append Rows/Columns</b><br/>Add empty rows or columns to a sheet. Requires spreadsheet_id + sheet_id.<br/><b>Requires (tool):</b> spreadsheet_id, sheet_id",
+      "title": "<b>Append Rows/Columns</b><br/>Tool to append new rows or columns to a sheet, increasing its size. Use when you need to add empty rows or columns to an existing sheet.<br/><b>Requires (tool):</b> spreadsheet_id, sheet_id",
       "group": "sheets",
       "provides": [],
       "requires": [
@@ -929,7 +929,7 @@
     {
       "id": "GOOGLESUPER_CREATE_CHART",
       "label": "Create Chart",
-      "title": "<b>Create Chart</b><br/>Create a chart from sheet data. Requires spreadsheet_id + sheet_id.<br/><b>Requires (tool):</b> spreadsheet_id, sheet_id",
+      "title": "<b>Create Chart</b><br/>Create a chart in a Google Sheets spreadsheet using the specified data range and chart type. Conditional requirements: - Provide either a simple chart via chart_type + data_range (basicChart), OR supply a full chart_spec supporting all chart types. Exactly one approach should be used. - When using chart_spec, set exactly one of the union fields (basicChart | pieChart | bubbleChart | candlestickChart | histogramChart | waterfallChart | treemapChart | orgChart | scorecardChart).<br/><b>Requires (tool):</b> spreadsheet_id, sheet_id",
       "group": "sheets",
       "provides": [],
       "requires": [
@@ -942,7 +942,7 @@
     {
       "id": "GOOGLESUPER_CLEAR_VALUES",
       "label": "Clear Cells",
-      "title": "<b>Clear Cells</b><br/>Clear cell content from an A1-notation range. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> range",
+      "title": "<b>Clear Cells</b><br/>Clears cell content (preserving formatting and notes) from a specified A1 notation range in a Google Spreadsheet; the range must correspond to an existing sheet and cells.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> range",
       "group": "sheets",
       "provides": [],
       "requires": [
@@ -962,7 +962,7 @@
     {
       "id": "GOOGLESUPER_BATCH_UPDATE",
       "label": "Write Cells",
-      "title": "<b>Write Cells</b><br/>Write values to one or more cell ranges. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> values, range",
+      "title": "<b>Write Cells</b><br/>DEPRECATED: Use GOOGLESHEETS_VALUES_UPDATE instead. Write values to ONE range in a Google Sheet, or append as new rows if no start cell is given. IMPORTANT - This tool does NOT accept the Google Sheets API's native batch format: - WRONG: {\"data\": [{\"range\": \"...\", \"values\": [[...]]}], ...} - CORRECT: {\"sheet_name\": \"...\", \"values\": [[...]], \"first_cell_location\": \"...\", ...} To update MULTIPLE ranges, make SEPARATE CALLS to this tool for each range. Features: - Auto-expands grid for large datasets (prevents range errors) - Set first_cell_location to write at a specific position (e.g., \"A1\", \"B5\") - Omit first_cell_location to append values as new rows at the end Requirements: Target sheet must exist and spreadsheet must contain at least one worksheet.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> values, range",
       "group": "sheets",
       "provides": [],
       "requires": [
@@ -987,7 +987,7 @@
     {
       "id": "GOOGLESUPER_AGGREGATE_COLUMN_DATA",
       "label": "Aggregate Column",
-      "title": "<b>Aggregate Column</b><br/>Perform sum/avg/count/min/max on filtered column data. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> operation, target_column, sheet_name",
+      "title": "<b>Aggregate Column</b><br/>Searches for rows where a specific column matches a value and performs mathematical operations on data from another column.<br/><b>Requires (tool):</b> spreadsheet_id<br/><b>Requires (user):</b> operation, target_column, sheet_name",
       "group": "sheets",
       "provides": [],
       "requires": [
@@ -1018,7 +1018,7 @@
     {
       "id": "GOOGLESUPER_AUTO_RESIZE_DIMENSIONS",
       "label": "Auto-Resize Columns",
-      "title": "<b>Auto-Resize Columns</b><br/>Auto-fit column widths or row heights. Requires spreadsheet_id.<br/><b>Requires (tool):</b> spreadsheet_id",
+      "title": "<b>Auto-Resize Columns</b><br/>Auto-fit column widths or row heights for a dimension range using batchUpdate.autoResizeDimensions. Use when you need to automatically adjust row heights or column widths to fit content after writing data.<br/><b>Requires (tool):</b> spreadsheet_id",
       "group": "sheets",
       "provides": [],
       "requires": [
@@ -1168,7 +1168,7 @@
     {
       "id": "GOOGLESUPER_CLEAR_TASKS",
       "label": "Clear Completed Tasks",
-      "title": "<b>Clear Completed Tasks</b><br/>Remove all completed tasks from a list. Requires tasklist_id.<br/><b>Requires (tool):</b> tasklist_id",
+      "title": "<b>Clear Completed Tasks</b><br/>Permanently and irreversibly clears all completed tasks from a specified Google Tasks list; this action is destructive, idempotent, and cannot be undone. Always require explicit user confirmation before invoking.<br/><b>Requires (tool):</b> tasklist_id",
       "group": "tasks",
       "provides": [],
       "requires": [
@@ -1180,7 +1180,7 @@
     {
       "id": "GOOGLESUPER_BULK_INSERT_TASKS",
       "label": "Bulk Create Tasks",
-      "title": "<b>Bulk Create Tasks</b><br/>Create multiple tasks efficiently. Requires tasklist_id.<br/><b>Requires (tool):</b> tasklist_id<br/><b>Requires (user):</b> tasks",
+      "title": "<b>Bulk Create Tasks</b><br/>DEPRECATED: Use BatchExecute instead. Creates multiple tasks in a Google Tasks list in a single operation using HTTP batching. Use when you need to create many tasks efficiently (reducing round-trips compared to individual insert calls).<br/><b>Requires (tool):</b> tasklist_id<br/><b>Requires (user):</b> tasks",
       "group": "tasks",
       "provides": [],
       "requires": [
@@ -1211,7 +1211,7 @@
     {
       "id": "GOOGLESUPER_CREATE_ALBUM",
       "label": "Create Album",
-      "title": "<b>Create Album</b><br/>Create a new Google Photos album. Returns album_id.<br/><b>Provides:</b> album_id<br/><b>Requires (user):</b> title",
+      "title": "<b>Create Album</b><br/>Creates a new album in Google Photos.<br/><b>Provides:</b> album_id<br/><b>Requires (user):</b> title",
       "group": "photos",
       "provides": [
         "album_id"
@@ -1243,7 +1243,7 @@
     {
       "id": "GOOGLESUPER_BATCH_CREATE_MEDIA_ITEMS",
       "label": "Upload Media",
-      "title": "<b>Upload Media</b><br/>Upload and create multiple photos/videos. Returns media_item_ids.<br/><b>Provides:</b> media_item_id",
+      "title": "<b>Upload Media</b><br/>Batch upload and create media items in Google Photos. Supports three input methods: 1. 'urls': Simple list of public URLs (file names extracted automatically) 2. 'media_files': List of objects with url/file, file_name, and description 3. 'files': List of FileUploadable objects for pre-uploaded files Media items can optionally be added to an album at a specific position. Maximum 50 items per request.<br/><b>Provides:</b> media_item_id",
       "group": "photos",
       "provides": [
         "media_item_id"
@@ -1268,7 +1268,7 @@
     {
       "id": "GOOGLESUPER_BATCH_ADD_MEDIA_ITEMS",
       "label": "Add Media to Album",
-      "title": "<b>Add Media to Album</b><br/>Add up to 50 media items to an album. Requires album_id + media_item_ids.<br/><b>Requires (tool):</b> album_id, media_item_id",
+      "title": "<b>Add Media to Album</b><br/>Adds one or more media items to an album in Google Photos.<br/><b>Requires (tool):</b> album_id, media_item_id",
       "group": "photos",
       "provides": [],
       "requires": [
@@ -1281,7 +1281,7 @@
     {
       "id": "GOOGLESUPER_BATCH_GET_MEDIA_ITEMS",
       "label": "Get Media Details",
-      "title": "<b>Get Media Details</b><br/>Retrieve details for specified media items. Requires media_item_ids.<br/><b>Requires (tool):</b> media_item_id",
+      "title": "<b>Get Media Details</b><br/>Returns the list of media items for the specified media item identifiers.<br/><b>Requires (tool):</b> media_item_id",
       "group": "photos",
       "provides": [],
       "requires": [
@@ -1293,7 +1293,7 @@
     {
       "id": "GOOGLESUPER_ADD_ENRICHMENT",
       "label": "Add Album Enrichment",
-      "title": "<b>Add Album Enrichment</b><br/>Add text/location/map enrichment to an album. Requires album_id.<br/><b>Requires (tool):</b> album_id",
+      "title": "<b>Add Album Enrichment</b><br/>Adds an enrichment at a specified position in a defined album.<br/><b>Requires (tool):</b> album_id",
       "group": "photos",
       "provides": [],
       "requires": [
@@ -1337,7 +1337,7 @@
     {
       "id": "GOOGLESUPER_BATCH_RUN_REPORTS",
       "label": "Run Analytics Reports",
-      "title": "<b>Run Analytics Reports</b><br/>Fetch up to 5 GA4 reports in a single request. Requires property ID.<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> dateRanges, metrics",
+      "title": "<b>Run Analytics Reports</b><br/>Tool to return multiple analytics data reports in a batch. Use when you need to fetch multiple reports for one GA4 property in a single request.<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> dateRanges, metrics",
       "group": "analytics",
       "provides": [],
       "requires": [
@@ -1368,7 +1368,7 @@
     {
       "id": "GOOGLESUPER_BATCH_RUN_PIVOT_REPORTS",
       "label": "Run Pivot Reports",
-      "title": "<b>Run Pivot Reports</b><br/>Return multiple pivot table reports. Requires property ID.<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> dateRanges, pivots, metrics",
+      "title": "<b>Run Pivot Reports</b><br/>Tool to return multiple pivot reports in a batch for a GA4 property. Use when you need to fetch multiple pivot table reports with multi-dimensional analysis in a single request.<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> dateRanges, pivots, metrics",
       "group": "analytics",
       "provides": [],
       "requires": [
@@ -1399,7 +1399,7 @@
     {
       "id": "GOOGLESUPER_CREATE_CUSTOM_DIMENSION",
       "label": "Create Custom Dimension",
-      "title": "<b>Create Custom Dimension</b><br/>Add a custom dimension to a GA4 property. Requires property ID. Returns dimension_name.<br/><b>Provides:</b> dimension_name<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> displayName, scope",
+      "title": "<b>Create Custom Dimension</b><br/>Tool to create a CustomDimension for a Google Analytics property. Use when you need to add a new custom dimension to track specific user properties, event parameters, or eCommerce item parameters.<br/><b>Provides:</b> dimension_name<br/><b>Requires (tool):</b> ga4_property<br/><b>Requires (user):</b> displayName, scope",
       "group": "analytics",
       "provides": [
         "dimension_name"
@@ -1432,7 +1432,7 @@
     {
       "id": "GOOGLESUPER_ARCHIVE_CUSTOM_DIMENSION",
       "label": "Archive Custom Dimension",
-      "title": "<b>Archive Custom Dimension</b><br/>Remove a custom dimension from active use. Requires dimension_name (with property path).<br/><b>Requires (tool):</b> dimension_name",
+      "title": "<b>Archive Custom Dimension</b><br/>Tool to archive a CustomDimension on a property. Use when you need to remove a custom dimension from active use without permanently deleting it. Archived dimensions cannot be used in new reports.<br/><b>Requires (tool):</b> dimension_name",
       "group": "analytics",
       "provides": [],
       "requires": [
@@ -1544,7 +1544,7 @@
     {
       "id": "GITHUB_LIST_BRANCHES",
       "label": "List Branches",
-      "title": "<b>List Branches</b><br/>List branches for a repository. Requires owner + repo. Returns branch_names.<br/><b>Provides:</b> branch_name<br/><b>Requires (tool):</b> owner, repo",
+      "title": "<b>List Branches</b><br/>Lists branches for an existing GitHub repository, with an option to filter by protection status.<br/><b>Provides:</b> branch_name<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_branches",
       "provides": [
         "branch_name"
@@ -1575,7 +1575,7 @@
     {
       "id": "GITHUB_LIST_COMMITS",
       "label": "List Commits",
-      "title": "<b>List Commits</b><br/>List commits for a repository. Requires owner + repo. Returns commit SHAs.<br/><b>Provides:</b> commit_sha<br/><b>Requires (tool):</b> owner, repo",
+      "title": "<b>List Commits</b><br/>Lists commits for a GitHub repository. Requires 'owner' (username/org) and 'repo' (repository name) parameters. Optionally filter by SHA/branch, path, author, committer, or date range.<br/><b>Provides:</b> commit_sha<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_commits",
       "provides": [
         "commit_sha"
@@ -1604,7 +1604,7 @@
     {
       "id": "GITHUB_COMPARE_TWO_COMMITS",
       "label": "Compare Commits",
-      "title": "<b>Compare Commits</b><br/>Compare two commits (diff). Requires owner + repo + two commit SHAs (BASE...HEAD format).<br/><b>Requires (tool):</b> owner, repo, commit_sha",
+      "title": "<b>Compare Commits</b><br/>Compares two commit points (commits, branches, tags, or SHAs) within a repository or across forks, using `BASE...HEAD` or `OWNER:REF...OWNER:REF` format for the `basehead` parameter.<br/><b>Requires (tool):</b> owner, repo, commit_sha",
       "group": "github_commits",
       "provides": [],
       "requires": [
@@ -1618,7 +1618,7 @@
     {
       "id": "GITHUB_CREATE_A_BLOB",
       "label": "Create Blob",
-      "title": "<b>Create Blob</b><br/>Create a Git blob object from file content. Requires owner + repo. Returns blob_sha.<br/><b>Provides:</b> blob_sha<br/><b>Requires (tool):</b> owner, repo<br/><b>Requires (user):</b> content",
+      "title": "<b>Create Blob</b><br/>Creates a Git blob in a repository, requiring content and encoding ('utf-8' or 'base64'). Requires write access to the repository.<br/><b>Provides:</b> blob_sha<br/><b>Requires (tool):</b> owner, repo<br/><b>Requires (user):</b> content",
       "group": "github_commits",
       "provides": [
         "blob_sha"
@@ -1646,7 +1646,7 @@
     {
       "id": "GITHUB_CREATE_A_TREE",
       "label": "Create Tree",
-      "title": "<b>Create Tree</b><br/>Create a Git tree from blobs. Requires owner + repo + blob_sha. Returns tree_sha.<br/><b>Provides:</b> tree_sha<br/><b>Requires (tool):</b> owner, repo, blob_sha<br/><b>Requires (user):</b> tree",
+      "title": "<b>Create Tree</b><br/>Creates a new Git tree object in a repository, defining file/directory structure by specifying tree entries, optionally building on a `base_tree` SHA; all provided SHAs must be valid.<br/><b>Provides:</b> tree_sha<br/><b>Requires (tool):</b> owner, repo, blob_sha<br/><b>Requires (user):</b> tree",
       "group": "github_commits",
       "provides": [
         "tree_sha"
@@ -1675,7 +1675,7 @@
     {
       "id": "GITHUB_CREATE_A_COMMIT",
       "label": "Create Commit",
-      "title": "<b>Create Commit</b><br/>Create a Git commit from a tree + parent commit. Requires owner + repo + tree_sha + parent commit_sha. Returns new commit_sha.<br/><b>Provides:</b> commit_sha<br/><b>Requires (tool):</b> owner, repo, tree_sha, commit_sha<br/><b>Requires (user):</b> message",
+      "title": "<b>Create Commit</b><br/>Creates a new commit in a GitHub repository; the `tree` SHA and any `parents` SHAs must already exist in the repository.<br/><b>Provides:</b> commit_sha<br/><b>Requires (tool):</b> owner, repo, tree_sha, commit_sha<br/><b>Requires (user):</b> message",
       "group": "github_commits",
       "provides": [
         "commit_sha"
@@ -1712,7 +1712,7 @@
     {
       "id": "GITHUB_COMMIT_MULTIPLE_FILES",
       "label": "Commit Multiple Files",
-      "title": "<b>Commit Multiple Files</b><br/>Atomically create/update/delete files in one commit. Requires owner + repo + branch_name.<br/><b>Requires (tool):</b> owner, repo, branch_name<br/><b>Requires (user):</b> message",
+      "title": "<b>Commit Multiple Files</b><br/>Tool to atomically create, update, or delete multiple files in a GitHub repository as a single commit. Uses Git Data APIs to avoid SHA mismatch conflicts that occur with the Contents API when multiple files are modified in parallel. Use when you need to make multi-file changes reliably. BRANCH CREATION: When committing to a new branch (e.g., 'fix/my-fix' or 'feature/new-feature'), you MUST provide 'base_branch' (typically 'main' or 'master') to create the branch from. If the branch already exists, base_branch is not needed. This action handles race conditions automatically: if the branch is updated by another commit between fetching the HEAD and updating the reference (resulting in a 422 'not a fast forward' error), the action will retry by refetching the HEAD and rebasing changes. Use max_retries to control this behavior.<br/><b>Requires (tool):</b> owner, repo, branch_name<br/><b>Requires (user):</b> message",
       "group": "github_commits",
       "provides": [],
       "requires": [
@@ -1745,7 +1745,7 @@
     {
       "id": "GITHUB_CREATE_A_COMMIT_COMMENT",
       "label": "Comment on Commit",
-      "title": "<b>Comment on Commit</b><br/>Add a comment to a specific commit. Requires owner + repo + commit_sha.<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> body",
+      "title": "<b>Comment on Commit</b><br/>Creates a comment on a specific commit, or on a specific line if `path` and `position` are provided.<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> body",
       "group": "github_commits",
       "provides": [],
       "requires": [
@@ -1766,7 +1766,7 @@
     {
       "id": "GITHUB_CREATE_A_COMMIT_STATUS",
       "label": "Set Commit Status",
-      "title": "<b>Set Commit Status</b><br/>Set CI/CD status (pending/success/failure/error) on a commit. Requires owner + repo + commit_sha.<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> state",
+      "title": "<b>Set Commit Status</b><br/>Sets a commit's status (e.g., error, failure, pending, success from CI/CD) for a given SHA; max 1000 statuses per SHA/context.<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> state",
       "group": "github_commits",
       "provides": [],
       "requires": [
@@ -1896,7 +1896,7 @@
     {
       "id": "GITHUB_ADD_ASSIGNEES_TO_AN_ISSUE",
       "label": "Assign Users to Issue",
-      "title": "<b>Assign Users to Issue</b><br/>Assign up to 10 users to an issue. Requires owner + repo + issue_number.<br/><b>Requires (tool):</b> owner, repo, issue_number",
+      "title": "<b>Assign Users to Issue</b><br/>Adds assignees to a GitHub issue. This action only adds users - it does not remove existing assignees. Changes are silently ignored if the authenticated user lacks push access to the repository.<br/><b>Requires (tool):</b> owner, repo, issue_number",
       "group": "github_issues",
       "provides": [],
       "requires": [
@@ -1910,7 +1910,7 @@
     {
       "id": "GITHUB_ADD_LABELS_TO_AN_ISSUE",
       "label": "Add Labels to Issue",
-      "title": "<b>Add Labels to Issue</b><br/>Apply labels to an issue. Requires owner + repo + issue_number + label_names.<br/><b>Requires (tool):</b> owner, repo, issue_number, label_name",
+      "title": "<b>Add Labels to Issue</b><br/>Adds labels (provided in the request body) to a repository issue; labels that do not already exist are created.<br/><b>Requires (tool):</b> owner, repo, issue_number, label_name",
       "group": "github_issues",
       "provides": [],
       "requires": [
@@ -1975,7 +1975,7 @@
     {
       "id": "GITHUB_LIST_PULL_REQUESTS",
       "label": "List Pull Requests",
-      "title": "<b>List Pull Requests</b><br/>List open/closed PRs for a repository. Requires owner + repo. Returns pull_numbers.<br/><b>Provides:</b> pull_number<br/><b>Requires (tool):</b> owner, repo",
+      "title": "<b>List Pull Requests</b><br/>Lists pull requests for a GitHub repository. REQUIRES 'owner' AND 'repo' parameters - both are MANDATORY and must be provided in every call. Does NOT support filtering by assignee or date range - use GITHUB_FIND_PULL_REQUESTS instead for searching PRs by assignee, author, or across multiple repositories.<br/><b>Provides:</b> pull_number<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_prs",
       "provides": [
         "pull_number"
@@ -2053,7 +2053,7 @@
     {
       "id": "GITHUB_CHECK_IF_PULL_REQUEST_HAS_BEEN_MERGED",
       "label": "Check PR Merged",
-      "title": "<b>Check PR Merged</b><br/>Check if a PR has been merged (HTTP 204 = merged). Requires owner + repo + pull_number.<br/><b>Requires (tool):</b> owner, repo, pull_number",
+      "title": "<b>Check PR Merged</b><br/>Checks if a specified GitHub pull request has been merged, indicated by a 204 HTTP status (merged) or 404 (not merged/found).<br/><b>Requires (tool):</b> owner, repo, pull_number",
       "group": "github_prs",
       "provides": [],
       "requires": [
@@ -2125,7 +2125,7 @@
     {
       "id": "GITHUB_CANCEL_WORKFLOW_RUN",
       "label": "Cancel Workflow Run",
-      "title": "<b>Cancel Workflow Run</b><br/>Cancel a queued or in-progress workflow run. Requires owner + repo + run_id.<br/><b>Requires (tool):</b> owner, repo, run_id",
+      "title": "<b>Cancel Workflow Run</b><br/>Cancels a workflow run in a GitHub repository if it is in a cancellable state (e.g., 'in_progress' or 'queued'). Returns 202 Accepted on success.<br/><b>Requires (tool):</b> owner, repo, run_id",
       "group": "github_actions",
       "provides": [],
       "requires": [
@@ -2139,7 +2139,7 @@
     {
       "id": "GITHUB_APPROVE_WORKFLOW_RUN_FOR_FORK_PULL_REQUEST",
       "label": "Approve Fork Workflow",
-      "title": "<b>Approve Fork Workflow</b><br/>Approve a workflow run from a fork PR. Requires owner + repo + run_id.<br/><b>Requires (tool):</b> owner, repo, run_id",
+      "title": "<b>Approve Fork Workflow</b><br/>Approves a workflow run from a forked repository's pull request; call this when such a run requires manual approval due to workflow configuration.<br/><b>Requires (tool):</b> owner, repo, run_id",
       "group": "github_actions",
       "provides": [],
       "requires": [
@@ -2153,7 +2153,7 @@
     {
       "id": "GITHUB_LIST_DEPLOYMENTS",
       "label": "List Deployments",
-      "title": "<b>List Deployments</b><br/>List deployments for a repository. Requires owner + repo. Returns deployment_ids.<br/><b>Provides:</b> deployment_id<br/><b>Requires (tool):</b> owner, repo",
+      "title": "<b>List Deployments</b><br/>Lists deployments for a specified repository; repository must exist.<br/><b>Provides:</b> deployment_id<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_deploy",
       "provides": [
         "deployment_id"
@@ -2243,7 +2243,7 @@
     {
       "id": "GITHUB_LIST_RELEASES",
       "label": "List Releases",
-      "title": "<b>List Releases</b><br/>List releases for a repository. Requires owner + repo. Returns release_ids.<br/><b>Provides:</b> release_id<br/><b>Requires (tool):</b> owner, repo",
+      "title": "<b>List Releases</b><br/>Retrieves a list of all releases (published, draft, and prerelease) for a specified repository.<br/><b>Provides:</b> release_id<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_releases",
       "provides": [
         "release_id"
@@ -2331,7 +2331,7 @@
     {
       "id": "GITHUB_LIST_TEAMS",
       "label": "List Teams",
-      "title": "<b>List Teams</b><br/>List teams in an organization. Requires org. Returns team_slugs.<br/><b>Provides:</b> team_slug<br/><b>Requires (tool):</b> org",
+      "title": "<b>List Teams</b><br/>Lists teams for a specified GitHub organization.<br/><b>Provides:</b> team_slug<br/><b>Requires (tool):</b> org",
       "group": "github_org",
       "provides": [
         "team_slug"
@@ -2392,7 +2392,7 @@
     {
       "id": "GITHUB_ADD_OR_UPDATE_TEAM_MEMBERSHIP_FOR_USER",
       "label": "Update Team Membership",
-      "title": "<b>Update Team Membership</b><br/>Add/update a user's membership in a team. Requires org + team_slug + username.<br/><b>Requires (tool):</b> org, team_slug, username",
+      "title": "<b>Update Team Membership</b><br/>Adds a GitHub user to a team or updates their role (member or maintainer), inviting them to the organization if not already a member; idempotent, returning current details if no change is made.<br/><b>Requires (tool):</b> org, team_slug, username",
       "group": "github_org",
       "provides": [],
       "requires": [
@@ -2428,7 +2428,7 @@
     {
       "id": "GITHUB_ADD_A_REPOSITORY_COLLABORATOR",
       "label": "Add Collaborator",
-      "title": "<b>Add Collaborator</b><br/>Grant user access to a repository. Requires owner + repo + username.<br/><b>Requires (tool):</b> owner, repo, username",
+      "title": "<b>Add Collaborator</b><br/>Adds a GitHub user as a repository collaborator, or updates their permission if already a collaborator; `permission` applies to organization-owned repositories (personal ones default to 'push' and ignore this field), and an invitation may be created or permissions updated directly.<br/><b>Requires (tool):</b> owner, repo, username",
       "group": "github_collaborators",
       "provides": [],
       "requires": [
@@ -2449,7 +2449,7 @@
     {
       "id": "GITHUB_LIST_REPOSITORY_INVITATIONS",
       "label": "List Repo Invitations",
-      "title": "<b>List Repo Invitations</b><br/>List pending repository invitations. Requires owner + repo. Returns invitation_ids.<br/><b>Provides:</b> invitation_id<br/><b>Requires (tool):</b> owner, repo",
+      "title": "<b>List Repo Invitations</b><br/>Retrieves all pending (unaccepted or undeclined) collaboration invitations for a specified GitHub repository.<br/><b>Provides:</b> invitation_id<br/><b>Requires (tool):</b> owner, repo",
       "group": "github_collaborators",
       "provides": [
         "invitation_id"
@@ -2464,7 +2464,7 @@
     {
       "id": "GITHUB_ACCEPT_REPOSITORY_INVITATION",
       "label": "Accept Invitation",
-      "title": "<b>Accept Invitation</b><br/>Accept a repository collaboration invitation. Requires invitation_id.<br/><b>Requires (tool):</b> invitation_id",
+      "title": "<b>Accept Invitation</b><br/>Accepts a PENDING repository invitation that has been issued to the authenticated user.<br/><b>Requires (tool):</b> invitation_id",
       "group": "github_collaborators",
       "provides": [],
       "requires": [
@@ -2476,7 +2476,7 @@
     {
       "id": "GITHUB_CREATE_A_CHECK_RUN",
       "label": "Create Check Run",
-      "title": "<b>Create Check Run</b><br/>Report CI check status with annotations. Requires owner + repo + commit_sha (head_sha).<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> name",
+      "title": "<b>Create Check Run</b><br/>Creates a new check run for a specific commit in a repository, used by external services to report status, detailed feedback, annotations, and images directly within the GitHub UI. NOTE: This endpoint requires GitHub App authentication - OAuth tokens and personal access tokens cannot create check runs.<br/><b>Requires (tool):</b> owner, repo, commit_sha<br/><b>Requires (user):</b> name",
       "group": "github_checks",
       "provides": [],
       "requires": [

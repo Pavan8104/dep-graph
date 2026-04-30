@@ -1,0 +1,58 @@
+{
+  "mode": "collected",
+  "generatedAt": "2026-04-30T17:21:12.894Z",
+  "projectRoot": "/Users/pavan/Downloads/dep-graph",
+  "outputDir": "/Users/pavan/Downloads/dep-graph/agent-sessions",
+  "windowMinutes": 90,
+  "cutoffTime": "2026-04-30T15:51:12.780Z",
+  "providers": {
+    "codex": {
+      "found": 0,
+      "copied": 0,
+      "skippedReason": "Missing path: /Users/pavan/.codex/sessions",
+      "artifacts": []
+    },
+    "claude": {
+      "found": 1,
+      "copied": 1,
+      "skippedReason": null,
+      "artifacts": [
+        {
+          "provider": "claude",
+          "sourcePath": "/Users/pavan/.claude/projects/-Users-pavan-Downloads-dep-graph/a63f5a88-265f-484d-ab62-f835d4401129.jsonl",
+          "copiedPath": "claude/-Users-pavan-Downloads-dep-graph/a63f5a88-265f-484d-ab62-f835d4401129.jsonl",
+          "timestampUsed": "2026-04-30T17:14:46.799Z",
+          "type": "session_jsonl",
+          "metadata": {
+            "cwd": "/Users/pavan/Downloads/dep-graph"
+          }
+        }
+      ]
+    },
+    "opencode": {
+      "found": 0,
+      "copied": 0,
+      "skippedReason": "Missing path: /Users/pavan/Library/Application Support/opencode/opencode.db",
+      "artifacts": []
+    },
+    "cursor": {
+      "found": 0,
+      "copied": 0,
+      "skippedReason": "No Cursor workspaceStorage directory found",
+      "artifacts": []
+    }
+  },
+  "artifacts": [
+    {
+      "provider": "claude",
+      "sourcePath": "/Users/pavan/.claude/projects/-Users-pavan-Downloads-dep-graph/a63f5a88-265f-484d-ab62-f835d4401129.jsonl",
+      "copiedPath": "claude/-Users-pavan-Downloads-dep-graph/a63f5a88-265f-484d-ab62-f835d4401129.jsonl",
+      "timestampUsed": "2026-04-30T17:14:46.799Z",
+      "type": "session_jsonl",
+      "metadata": {
+        "cwd": "/Users/pavan/Downloads/dep-graph"
+      }
+    }
+  ],
+  "totalArtifacts": 1
+}
